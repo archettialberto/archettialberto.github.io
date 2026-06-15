@@ -2,9 +2,9 @@
   "metrics": {
     "h_index": 7,
     "i10_index": 5,
-    "total_citations": 160,
+    "total_citations": 161,
     "scholar_id": "--kj4bcAAAAJ",
-    "fetched_at": "2026-06-12T12:07:34+00:00"
+    "fetched_at": "2026-06-15T09:55:55+00:00"
   },
   "citations_by_title": {
     "Federated Survival Forests": 33,
@@ -16,8 +16,8 @@
     "Discriminative adversarial privacy: Balancing accuracy and membership privacy in neural networks": 7,
     "Latent neural cellular automata for resource-efficient image restoration": 6,
     "Bridging the gap: improve neural survival models with interpolation techniques": 4,
+    "Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques": 4,
     "Harnessing the computing continuum across personalized healthcare, maintenance and inspection, and farming 4.0": 3,
-    "Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques": 3,
     "Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels": 2,
     "QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption": 0,
     "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks": 0,

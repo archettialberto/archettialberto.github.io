@@ -598,9 +598,27 @@
       "doi": null,
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@article{archetti2025emergent,\n  author = {Archetti, Alberto and Giusti, G. and Gorla, K. R. and Caputo, S. and Magarini, M. and Matteucci, M. and Mucchi, L. and Pierobon, M.},\n  journal = {IEEE Transactions on Molecular, Biological, and Multi-Scale Communications},\n  selected = {true},\n  title = {Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels},\n  year = {2025}\n}",
+      "bibtex": "@article{archetti2025emergent,\n  author = {Archetti, Alberto and Giusti, G. and Gorla, K. R. and Caputo, S. and Magarini, M. and Matteucci, M. and Mucchi, L. and Pierobon, M.},\n  journal = {IEEE Transactions on Molecular, Biological, and Multi-Scale Communications},\n  title = {Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels},\n  year = {2025}\n}",
       "citations": 2,
-      "selected": true
+      "selected": false
+    },
+    {
+      "key": "archetti2025federated",
+      "kind": "conference",
+      "title": "Federated Survival Analysis: Ensemble and Neural Methods for Distributed Time-to-Event Data",
+      "authors": [
+        "Alberto Archetti"
+      ],
+      "year": 2025,
+      "venue": "",
+      "volume": null,
+      "pages": null,
+      "doi": null,
+      "arxiv": null,
+      "keywords": [],
+      "bibtex": "@inproceedings{archetti2025federated,\n  author = {Alberto Archetti},\n  booktitle = {},\n  title = {Federated Survival Analysis: Ensemble and Neural Methods for Distributed Time-to-Event Data},\n  year = {2025}\n}",
+      "citations": 0,
+      "selected": false
     },
     {
       "key": "archetti2024bridging",
@@ -618,9 +636,9 @@
       "doi": null,
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@article{archetti2024bridging,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  journal = {Progress in Artificial Intelligence},\n  pages = {1--16},\n  title = {Bridging the gap: improve neural survival models with interpolation techniques},\n  year = {2024}\n}",
+      "bibtex": "@article{archetti2024bridging,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  journal = {Progress in Artificial Intelligence},\n  pages = {1--16},\n  selected = {true},\n  title = {Bridging the gap: improve neural survival models with interpolation techniques},\n  year = {2024}\n}",
       "citations": 4,
-      "selected": false
+      "selected": true
     },
     {
       "key": "menta2024latent",
@@ -724,7 +742,7 @@
         "workshop"
       ],
       "bibtex": "@inproceedings{archetti2023deepsurvival,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  booktitle = {CEUR Workshop Proceedings},\n  keywords = {workshop},\n  pages = {99--121},\n  title = {Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques},\n  volume = {3578},\n  year = {2023}\n}",
-      "citations": 3,
+      "citations": 4,
       "selected": false
     },
     {
@@ -819,8 +837,8 @@
   "metrics": {
     "h_index": 7,
     "i10_index": 5,
-    "total_citations": 160,
+    "total_citations": 161,
     "scholar_id": "--kj4bcAAAAJ",
-    "fetched_at": "2026-06-12T12:07:34+00:00"
+    "fetched_at": "2026-06-15T09:55:55+00:00"
   }
 }
