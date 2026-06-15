@@ -1,0 +1,22 @@
+---
+// A uniform list entry: navy title, a year badge, then a light-grey meta line
+// with dot-separated extra info. Used by Supervision, Talks, Awards, Teaching
+// so every box looks the same. `meta` parts are joined with " · " (falsy dropped).
+interface Props {
+  title: string;
+  year?: number | string | null;
+  meta?: (string | number | null | undefined)[];
+}
+const { title, year, meta = [] } = Astro.props;
+const metaLine = meta.filter(Boolean).join(' · ');
+---
+<div>
+  <h3 class="font-sans font-medium text-navy leading-snug">{title}</h3>
+  {(year || metaLine) && (
+    <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
+      {year && <span class="rounded bg-lightnavy/50 px-1.5 py-0.5 font-medium text-navy">{year}</span>}
+      {metaLine && <span class="text-warmgray">{metaLine}</span>}
+    </div>
+  )}
+  <slot />
+</div>

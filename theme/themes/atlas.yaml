@@ -1,0 +1,42 @@
+# =============================================================================
+# THEME: atlas — Politecnico di Milano "Heritage Blue" institutional look.
+# Inspired by the ATLAS / AIRLab handbook and the Polimi brand guidelines.
+# Clean, white, sans-serif; deep heritage blue with a brighter blue accent.
+#
+# The semantic color NAMES are shared across all themes (the templates use
+# `navy`, `gold`, etc. literally) — here they are remapped to the Polimi palette:
+#   navy  -> Heritage Blue (Pantone 539 C)   gold -> interactive blue accent
+# =============================================================================
+
+name: atlas
+
+colors:
+  navy:        "102C53"   # Polimi Heritage Blue — headings, hero, sidebar
+  gold:        "4D87D4"   # accent (links, rules, sidebar labels) — bright Polimi blue
+  charcoal:    "1F2937"   # body text (slate-800)
+  warmgray:    "6B7280"   # dates, captions (slate-500)
+  lightnavy:   "E2E8F0"   # hairlines, borders (slate-200)
+  paper:       "FFFFFF"   # clean white background
+  sidebartext: "FFFFFF"   # text on the blue sidebar
+
+# All-sans, institutional. Manrope for both roles (display uses heavier weights).
+fonts:
+  display:                 # headings / name (heavy Manrope for institutional feel)
+    family: Manrope
+    web_family: Manrope
+    web_package: manrope
+    weights: [600, 700, 800]
+    fallback: system-ui, sans-serif
+    letterspace: "0.0"              # no tracking — Manrope headings stay tight
+    latex: { upright: Bold, bold: ExtraBold, title: Bold, title_bold: ExtraBold }
+  text:                    # body
+    family: Manrope
+    web_family: Manrope
+    web_package: manrope
+    weights: [300, 400, 500, 600]
+    fallback: system-ui, sans-serif
+    latex: { upright: Light, bold: Regular, italic: Light, medium: Medium, medium_bold: SemiBold }
+
+web:
+  max_width: 960px
+  radius: 8px              # rounder, modern cards (matches ATLAS)

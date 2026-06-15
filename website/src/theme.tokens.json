@@ -1,0 +1,22 @@
+{
+  "name": "old-money",
+  "colors": {
+    "navy": "#1A3A52",
+    "gold": "#B8860B",
+    "charcoal": "#2D2D2D",
+    "warmgray": "#8C8273",
+    "lightnavy": "#DCE1E6",
+    "paper": "#FBFAF7",
+    "sidebartext": "#FFFFFF"
+  },
+  "fonts": {
+    "display": "Cormorant Garamond",
+    "displayFallback": "Georgia, serif",
+    "text": "Manrope",
+    "textFallback": "system-ui, sans-serif"
+  },
+  "web": {
+    "maxWidth": "920px",
+    "radius": "2px"
+  }
+}

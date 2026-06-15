@@ -1,0 +1,38 @@
+# =============================================================================
+# THEME: ink — sober, high-contrast classic. Near-black ink + a restrained
+# burgundy accent on warm ivory. Reuses the Cormorant Garamond / Manrope pairing
+# (no extra fonts), so it is a drop-in alternative to old-money with a different
+# mood: more editorial and severe, less "luxury gold".
+# =============================================================================
+
+name: ink
+
+colors:
+  navy:        "1C1C1C"   # near-black ink — sidebar, headings
+  gold:        "B5544A"   # warm terracotta accent — rules, links, labels (legible on ink)
+  charcoal:    "222222"   # body text
+  warmgray:    "8A8278"   # dates, captions
+  lightnavy:   "E4E0D8"   # hairlines, borders
+  paper:       "F6F3EC"   # warm ivory background
+  sidebartext: "F2EFE8"   # text on the ink sidebar
+
+fonts:
+  display:                 # headings — Cormorant Garamond
+    family: CormorantGaramond
+    web_family: Cormorant Garamond
+    web_package: cormorant-garamond
+    weights: [400, 600, 700]
+    fallback: Georgia, serif
+    letterspace: "1.5"
+    latex: { upright: Regular, bold: SemiBold, title: SemiBold, title_bold: Bold }
+  text:                    # body — Manrope
+    family: Manrope
+    web_family: Manrope
+    web_package: manrope
+    weights: [300, 400, 500, 600]
+    fallback: system-ui, sans-serif
+    latex: { upright: Light, bold: Regular, italic: Light, medium: Medium, medium_bold: SemiBold }
+
+web:
+  max_width: 880px
+  radius: 0px              # sharp, editorial corners

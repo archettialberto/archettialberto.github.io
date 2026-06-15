@@ -1,0 +1,21 @@
+# Skills, grouped by category. Shown on the website and the one-pager sidebar.
+# DRAFT — adjust the lists to match what you actually want to advertise.
+# Each: category (required), skills (list of strings).
+
+- category: Programming
+  skills: [Python, C/C++, Java, SQL, LaTeX, Bash]
+
+- category: Machine Learning
+  skills:
+    - PyTorch
+    - TensorFlow
+    - scikit-learn
+    - Hugging Face
+    - LangChain
+    - n8n
+
+- category: Tools
+  skills: [Git, Docker, Linux, SLURM/HPC]
+
+- category: Languages
+  skills: [Italian (native), English (fluent)]

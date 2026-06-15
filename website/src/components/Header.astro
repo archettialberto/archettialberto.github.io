@@ -1,0 +1,68 @@
+---
+import { SITE, NAV } from '../config';
+import { cv, fullName } from '../data/cv';
+import SocialIcon from './SocialIcon.astro';
+const base = SITE.base;
+const logo = `${base}logo-gold.svg`;
+const socials = cv.profile.contacts.filter((c) => c.website && c.url);
+---
+
+<header class="sticky top-0 z-50 border-b border-lightnavy bg-paper/90 backdrop-blur-sm">
+  <div class="mx-auto max-w-content px-6">
+    <div class="flex h-16 items-center justify-between">
+
+      <!-- Brand -->
+      <a href={base} class="flex items-center gap-3 group">
+        <img src={logo} alt="" class="h-8 w-8" />
+        <span class="font-display text-xl font-semibold text-navy tracking-wide">
+          {fullName.replace(/, Ph\.D\.$/, '')}
+        </span>
+      </a>
+
+      <!-- Desktop nav -->
+      <nav class="hidden md:flex items-center gap-1">
+        {NAV.map((item) => (
+          <a href={item.href}
+             class="px-3 py-2 text-sm font-medium text-charcoal/80 rounded hover:text-navy hover:bg-lightnavy/40 transition-colors no-underline">
+            {item.label}
+          </a>
+        ))}
+        <span class="mx-2 h-5 w-px bg-lightnavy"></span>
+        {socials.map((c) => (
+          <a href={c.url!} target={c.icon === 'email' ? undefined : '_blank'} rel="noopener"
+             aria-label={c.label} class="p-2 text-warmgray hover:text-gold transition-colors">
+            <SocialIcon name={c.icon} />
+          </a>
+        ))}
+      </nav>
+
+      <!-- Mobile toggle -->
+      <button id="nav-toggle" class="md:hidden p-2 text-charcoal" aria-label="Menu" aria-expanded="false">
+        <svg id="nav-open" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        <svg id="nav-close" class="h-5 w-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="nav-menu" class="md:hidden hidden border-t border-lightnavy bg-paper px-6 py-3">
+    {NAV.map((item) => (
+      <a href={item.href} class="block py-2 text-sm font-medium text-charcoal/80 hover:text-navy no-underline">{item.label}</a>
+    ))}
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('nav-toggle');
+  const menu = document.getElementById('nav-menu');
+  const open = document.getElementById('nav-open');
+  const close = document.getElementById('nav-close');
+  btn?.addEventListener('click', () => {
+    const hidden = menu?.classList.toggle('hidden');
+    open?.classList.toggle('hidden', !hidden);
+    close?.classList.toggle('hidden', hidden);
+    btn.setAttribute('aria-expanded', String(!hidden));
+  });
+  menu?.querySelectorAll('a').forEach((a) =>
+    a.addEventListener('click', () => menu.classList.add('hidden')));
+</script>

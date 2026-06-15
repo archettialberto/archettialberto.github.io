@@ -1,0 +1,346 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from '../components/Header.astro';
+import SocialIcon from '../components/SocialIcon.astro';
+import Rule from '../components/Rule.astro';
+import Entry from '../components/Entry.astro';
+import { SITE } from '../config';
+import { cv, fullName, period, pubUrl } from '../data/cv';
+
+const { profile, research_interests, employment, education,
+        teaching, talks, supervision, awards, projects, publications, metrics } = cv;
+const base = SITE.base;
+
+// "At a glance" counters — derived from the same data/ + Scholar cache that
+// drives every other section, so they update on rebuild without manual edits.
+const teachingHours = teaching.reduce((sum, t) => sum + (t.hours ?? 0), 0);
+const glanceStats = [
+  { label: 'Publications', value: publications.length },
+  metrics?.total_citations != null ? { label: 'Citations', value: metrics.total_citations } : null,
+  { label: 'Teaching Hours', value: teachingHours },
+].filter((s): s is { label: string; value: number } => s != null && s.value > 0);
+
+const scholarContact = profile.contacts.find((c) => c.icon === 'scholar');
+
+const bioParas = (profile.bio ?? profile.summary).trim().split(/\n\s*\n/);
+const nameWords = fullName.split(' ');
+
+// The website shows only the bib entries marked `selected = {true}` (the full
+// record lives in the downloadable CV). Falls back to everything if nothing
+// is marked, so the section never renders empty.
+const selectedPubs = publications.filter((p) => p.selected);
+const webPubs = selectedPubs.length > 0 ? selectedPubs : publications;
+---
+<Base>
+  <Header />
+
+  <!-- ════ HERO ════ -->
+  <section id="hero" class="hero-bg relative overflow-hidden text-white">
+    <!-- Oversized monogram watermark: brand texture instead of a busy background.
+         It reuses the theme-colored logo, so it recolors on theme switch. -->
+    <img src={`${base}logo-gold.svg`} alt="" aria-hidden="true"
+         class="pointer-events-none absolute -bottom-24 -right-10 h-[28rem] w-auto opacity-[0.09] select-none sm:-right-4 sm:h-[34rem]" />
+    <!-- Inset hairline frame: the engraved-card border that sells the
+         old-money look. Purely decorative, theme-accent colored. -->
+    <div class="pointer-events-none absolute inset-3 border border-gold/25 sm:inset-5" aria-hidden="true"></div>
+    <div class="relative z-10 mx-auto max-w-content px-6 py-28 sm:py-36">
+      {profile.affiliation && (
+        <p class="mb-6 flex items-center gap-3 text-[0.68rem] uppercase tracking-[0.24em] text-white/60">
+          <span class="inline-block h-px w-10 bg-gold/80" aria-hidden="true"></span>
+          {profile.affiliation}
+        </p>
+      )}
+      <h1 class="hero-name font-display font-bold leading-none text-white mb-3"
+          style="font-size: clamp(1.9rem, 7.5vw, 4.5rem);">
+        {nameWords.map((w, i) => <span>{w}{i < nameWords.length - 1 ? ' ' : ''}</span>)}
+      </h1>
+      <p class="font-display text-2xl text-white/70 mb-2">{profile.title}</p>
+      {profile.tagline && (
+        <p class="text-sm uppercase tracking-[0.18em] text-gold mb-8">{profile.tagline}</p>
+      )}
+      <div class="flex flex-wrap gap-3 mt-8">
+        <a href={`${base}cv/full.pdf`} target="_blank" rel="noopener" class="inline-flex items-center gap-2 rounded border border-gold bg-gold px-5 py-2.5 text-sm font-semibold text-navy no-underline transition-colors hover:bg-gold/90">
+          View CV
+        </a>
+        {profile.contacts.find((c) => c.icon === 'email') && (
+          <a href={profile.contacts.find((c) => c.icon === 'email')!.url!}
+             class="inline-flex items-center gap-2 rounded border border-white/25 px-5 py-2.5 text-sm font-semibold text-white no-underline hover:bg-white/10 transition-colors">
+            Get in touch
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+  <div class="hero-divider" aria-hidden="true"></div>
+
+  <main class="mx-auto max-w-content px-6">
+
+    <!-- ════ ABOUT ════ -->
+    <section id="about" class="py-16 scroll-mt-16">
+      <h2 class="section-title">Biography</h2>
+      <Rule class="mb-8 mt-2" />
+      <div class="max-w-3xl space-y-4">
+        {bioParas.map((p) => <p class="text-charcoal/90" set:html={p} />)}
+      </div>
+      {research_interests.length > 0 && (
+        <div class="mt-12">
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-navy mb-5">Research Interests</h3>
+          <div class="grid gap-x-10 gap-y-6 sm:grid-cols-2">
+            {research_interests.map((r) => (
+              <div class="border-l-2 border-gold/70 pl-4">
+                <h4 class="font-display text-lg text-navy leading-snug">{r.title}</h4>
+                {r.description && <p class="mt-1 text-sm text-charcoal/70">{r.description}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </section>
+
+    <!-- ════ AT A GLANCE: slim centered stat strip, no boxes ════ -->
+    {glanceStats.length > 0 && (
+      <section id="glance" class="py-12">
+        <div class="flex justify-center divide-x divide-lightnavy text-center">
+          {glanceStats.map((s) => (
+            <div class="px-8 sm:px-14">
+              <p class="stat-number font-display text-4xl sm:text-5xl text-navy" data-target={s.value}>0</p>
+              <p class="mt-2 text-[0.65rem] sm:text-xs uppercase tracking-[0.18em] text-warmgray">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ════ PUBLICATIONS ════ -->
+    {publications.length > 0 && (
+      <section id="publications" class="py-16 scroll-mt-16">
+        <div class="flex flex-wrap items-baseline justify-between gap-2">
+          <h2 class="section-title">{selectedPubs.length > 0 ? 'Selected Publications' : 'Publications'}</h2>
+          {scholarContact?.url && (
+            <p class="text-sm text-warmgray">
+              <a href={scholarContact.url} target="_blank" rel="noopener"
+                 class="text-gold hover:underline">Google Scholar</a>
+            </p>
+          )}
+        </div>
+        <Rule class="mb-8 mt-2" />
+        <ol class="space-y-6">
+          {webPubs.map((p) => (
+            <li>
+              <p class="text-charcoal/90 leading-snug">
+                {p.authors.map((a, i) => (
+                  <span class={a.includes('Archetti') ? 'font-medium text-navy' : ''}>
+                    {a}{i < p.authors.length - 1 ? ', ' : ''}
+                  </span>
+                ))}
+                <span> ({p.year}). </span>
+                {pubUrl(p)
+                  ? <a href={pubUrl(p)!} class="italic text-navy hover:text-gold">{p.title}</a>
+                  : <span class="italic text-navy">{p.title}</span>}.
+                {p.venue && <span class="text-warmgray"> {p.venue}.</span>}
+              </p>
+            </li>
+          ))}
+        </ol>
+      </section>
+    )}
+
+    <!-- ════ EXPERIENCE & EDUCATION ════ -->
+    <section id="experience" class="py-16 scroll-mt-16">
+      <div class="grid gap-12 md:grid-cols-2">
+        <div>
+          <h2 class="section-title">Experience</h2>
+          <Rule class="mb-8 mt-2" />
+          <div class="space-y-5">
+            {employment.map((e) => (
+              <Entry title={e.role} year={period(e.start, e.end)} meta={[e.org, e.location]}>
+                {e.details.map((d) => (
+                  <p class="mt-1 text-sm text-charcoal/70"><em class="text-warmgray">{d.label}</em> — {d.text}</p>
+                ))}
+              </Entry>
+            ))}
+          </div>
+        </div>
+        <div>
+          <h2 class="section-title">Education</h2>
+          <Rule class="mb-8 mt-2" />
+          <div class="space-y-5">
+            {education.map((e) => (
+              <Entry title={e.degree} year={period(e.start, e.end)} meta={[e.org, e.grade]}>
+                {e.thesis && <p class="mt-1 text-sm text-charcoal/70"><em class="text-warmgray">Thesis</em> — {e.thesis}</p>}
+              </Entry>
+            ))}
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════ PROJECTS ════ -->
+    {projects.length > 0 && (
+      <section id="projects" class="py-16 scroll-mt-16">
+        <h2 class="section-title">Projects</h2>
+        <Rule class="mb-8 mt-2" />
+        <div class="space-y-5">
+          {projects.map((p) => (
+            <div>
+              <h3 class="font-sans font-medium text-navy leading-snug">
+                {p.url
+                  ? <a href={p.url} target="_blank" rel="noopener" class="hover:text-gold">{p.name}</a>
+                  : p.name}
+              </h3>
+              <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
+                <span class="rounded bg-lightnavy/50 px-1.5 py-0.5 font-medium text-navy">{period(p.start, p.end)}</span>
+                <span class="text-warmgray">{[p.issuer, p.scope ? `${p.scope} project` : null, p.location].filter(Boolean).join(' · ')}</span>
+              </div>
+              {p.full_name && <p class="mt-1 text-sm text-charcoal/70">{p.full_name}</p>}
+              <p class="mt-1 text-sm text-charcoal/70"><em class="text-warmgray">Role</em> — {p.role}</p>
+              {p.description && <p class="mt-1 text-sm text-charcoal/60">{p.description}</p>}
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ════ TEACHING ════ -->
+    {teaching.length > 0 && (
+      <section id="teaching" class="py-16 scroll-mt-16">
+        <h2 class="section-title">Teaching Activities</h2>
+        <Rule class="mb-8 mt-2" />
+        <div class="grid gap-x-8 gap-y-5 sm:grid-cols-2">
+          {teaching.map((t) => (
+            <Entry
+              title={t.course}
+              year={t.year}
+              meta={[t.role, t.degree, t.hours ? `${t.hours}h` : null, t.note]}
+            />
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- ════ SUPERVISION / TALKS ════ -->
+    {(supervision.length || talks.length) > 0 && (
+      <section class="py-16 scroll-mt-16 grid gap-12 md:grid-cols-2">
+        {supervision.length > 0 && (
+          <div>
+            <h2 class="section-title">Supervision</h2>
+            <Rule class="mb-6 mt-2" />
+            <div class="space-y-5">
+              {supervision.map((s) => (
+                <Entry title={s.student} year={s.year} meta={[s.degree, s.role]}>
+                  {s.title && <p class="mt-1 text-sm text-charcoal/70 italic">{s.title}</p>}
+                </Entry>
+              ))}
+            </div>
+          </div>
+        )}
+        {talks.length > 0 && (
+          <div>
+            <h2 class="section-title">Talks</h2>
+            <Rule class="mb-6 mt-2" />
+            <div class="space-y-5">
+              {talks.map((t) => (
+                <Entry title={t.title} year={t.year} meta={[t.kind, t.location]}>
+                  <p class="mt-1 text-xs text-warmgray italic">{t.event}</p>
+                </Entry>
+              ))}
+            </div>
+          </div>
+        )}
+      </section>
+    )}
+
+    <!-- ════ AWARDS ════ -->
+    {awards.length > 0 && (
+      <section class="py-16 scroll-mt-16">
+        <h2 class="section-title">Awards and Achievements</h2>
+        <Rule class="mb-8 mt-2" />
+        <div class="space-y-5">
+          {awards.map((a) => (
+            <Entry title={a.title} year={a.year} meta={[a.org, a.note]} />
+          ))}
+        </div>
+      </section>
+    )}
+
+  </main>
+
+  <!-- ════ FOOTER ════ -->
+  <footer class="bg-navy text-white/70 mt-8">
+    <div class="mx-auto max-w-content px-6 py-12">
+      <div class="flex flex-col sm:flex-row justify-between gap-6">
+        <div>
+          <p class="font-display text-xl text-white mb-1">{fullName}</p>
+          <p class="text-sm">{profile.affiliation}</p>
+        </div>
+        <div class="flex gap-3">
+          {profile.contacts.filter((c) => c.website && c.url).map((c) => (
+            <a href={c.url!} target={c.icon === 'email' ? undefined : '_blank'} rel="noopener"
+               aria-label={c.label}
+               class="flex h-9 w-9 items-center justify-center rounded border border-white/20 text-white/70 hover:border-gold hover:text-gold transition-colors">
+              <SocialIcon name={c.icon} />
+            </a>
+          ))}
+        </div>
+      </div>
+      <p class="mt-8 pt-6 border-t border-white/15 text-xs text-white/40">
+        © {new Date().getFullYear()} {profile.name}. Built with Astro.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Section reveal on scroll.
+    const revealEls = document.querySelectorAll('main section');
+    revealEls.forEach((el) => el.classList.add('reveal'));
+    const revealObs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('in'); revealObs.unobserve(e.target); }
+      }
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+    revealEls.forEach((el) => revealObs.observe(el));
+
+    // Scroll-spy: highlight the nav link of the section in view.
+    const navLinks = Array.from(document.querySelectorAll('header nav a[href^="#"]'));
+    const byId = new Map(navLinks.map((a) => [a.getAttribute('href')!.slice(1), a]));
+    const spyObs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        const link = byId.get(e.target.id);
+        if (!link) continue;
+        if (e.isIntersecting) {
+          navLinks.forEach((a) => a.classList.remove('text-navy', 'bg-lightnavy/40'));
+          link.classList.add('text-navy', 'bg-lightnavy/40');
+        }
+      }
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    byId.forEach((_, id) => {
+      const sec = document.getElementById(id);
+      if (sec) spyObs.observe(sec);
+    });
+
+    // "At a glance" counters: count up from 0 when scrolled into view.
+    const statObs = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        statObs.unobserve(e.target);
+        const el = e.target as HTMLElement;
+        const target = Number(el.dataset.target ?? '0');
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          el.textContent = String(target);
+          continue;
+        }
+        const duration = 1400;
+        const t0 = performance.now();
+        const tick = (t: number) => {
+          const p = Math.min((t - t0) / duration, 1);
+          const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+          el.textContent = String(Math.round(target * eased));
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      }
+    }, { threshold: 0.4 });
+    document.querySelectorAll<HTMLElement>('.stat-number').forEach((el) => statObs.observe(el));
+  </script>
+</Base>

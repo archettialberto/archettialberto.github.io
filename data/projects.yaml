@@ -1,0 +1,28 @@
+# Funded research projects (EU, national, regional, …), most recent first.
+# Each entry:
+#   name        (required) project name / acronym
+#   full_name   (optional) expanded title behind the acronym
+#   issuer      (required) funding body / programme that backs the project
+#               e.g. "European Commission · Horizon 2020" or the national
+#               ministry/agency + call. (For EU projects the institution that
+#               runs the project is the "coordinator"; the body that funds it is
+#               what goes here.)
+#   location    (optional) where I carried out the work
+#   role        (required) MY role on the project
+#   start, end  (required) years; use "present" for ongoing
+#   scope       (optional) "European" | "National" | "Regional" — shown as a tag
+#   url         (optional) project / grant page
+#   description (optional) one line on the project's aim
+#   onepage     (optional, default false) include on the condensed one-pager?
+
+- name: AI-SPRINT
+  full_name: Artificial Intelligence in Secure PRIvacy-preserving computing coNTinuum
+  issuer: European Commission · Horizon 2020 (GA 101016577)
+  location: Politecnico di Milano, Milan, Italy
+  role: Federated Learning advisor
+  start: 2021
+  end: 2023
+  url: https://www.ai-sprint-project.eu/
+  # description: >
+  #   A framework for developing and operating AI applications across the
+  #   computing continuum (cloud–edge–IoT), with privacy and security guarantees.

@@ -1,0 +1,31 @@
+[project]
+name = "archettialberto"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Alberto Archetti",email = "alberto1.archetti@mail.polimi.it"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas (>=3.0.3,<4.0.0)",
+    "pydantic (>=2.13.4,<3.0.0)",
+    "pyyaml (>=6.0.3,<7.0.0)",
+    "jinja2 (>=3.1.6,<4.0.0)",
+    "bibtexparser (>=1.4.4,<2.0.0)",
+    "typer (>=0.26.5,<0.27.0)",
+    "scholarly (>=1.7.11,<2.0.0)",
+    "fonttools (>=4.63.0,<5.0.0)",
+    "cairosvg (>=2.9.0,<3.0.0)"
+]
+
+
+[project.scripts]
+cv = "src.cli:app"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+packages = [{include = "src"}]

@@ -1,0 +1,6 @@
+---
+// Simple gold section rule.
+interface Props { class?: string }
+const { class: cls = '' } = Astro.props;
+---
+<div class={`h-px bg-gold ${cls}`} aria-hidden="true"></div>

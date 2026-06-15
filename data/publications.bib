@@ -1,0 +1,156 @@
+% Publications — single editable source of truth.
+% LaTeX reads this natively via biblatex; the Python loader parses it for the website.
+%
+% Conventions used by the build:
+%   - Author "Alberto Archetti" is bolded automatically in the CV.
+%   - @article          -> Journals
+%   - @inproceedings    -> Conferences (workshops if keywords contains "workshop")
+%   - @misc / arXiv      -> Preprints
+%   - keywords = {workshop}  marks a workshop/companion paper
+%   - keywords = {ignore}    keeps an entry in this file but hides it from the CV
+%                            and website (use for Scholar-fetched items you don't
+%                            want to show; matching prevents it being re-added).
+%   - selected = {true}      features the entry in the website's "Selected"
+%                            publications view (the default); everything else
+%                            shows only after toggling to "All".
+% `cv scholar` appends new Scholar publications here but never edits existing ones.
+
+@inproceedings{erbil2026deepvariational,
+  author    = {Erbil, P. and Archetti, Alberto and Lomurno, E. and Matteucci, M.},
+  title     = {Deep Variational Contrastive Learning for Joint Risk Stratification and Time-to-Event Estimation},
+  booktitle = {2026 International Joint Conference on Neural Networks (IJCNN)},
+  year      = {2026},
+}
+
+@inproceedings{mastroleo2026survkan,
+  author    = {Mastroleo, M. and Archetti, Alberto and Mastroleo, F. and Matteucci, M.},
+  title     = {SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks},
+  booktitle = {2026 International Joint Conference on Neural Networks (IJCNN)},
+  year      = {2026},
+  selected = {true},
+}
+
+@inproceedings{archetti2025fpboost,
+  author    = {Archetti, Alberto and Lomurno, E. and Piccinotti, D. and Matteucci, M.},
+  title     = {FPBoost: Fully Parametric Gradient Boosting for Survival Analysis},
+  booktitle = {European Conference on Artificial Intelligence (ECAI)},
+  year      = {2025},
+  selected = {true},
+}
+
+@article{archetti2024bridging,
+  author  = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},
+  title   = {Bridging the gap: improve neural survival models with interpolation techniques},
+  journal = {Progress in Artificial Intelligence},
+  pages   = {1--16},
+  year    = {2024},
+}
+
+@inproceedings{menta2024latent,
+  title={Latent neural cellular automata for resource-efficient image restoration},
+  author={Menta, A. and Archetti, Alberto and Matteucci, M.},
+  booktitle={Artificial Life Conference Proceedings 36},
+  volume={2024},
+  number={1},
+  year={2024},
+  organization={MIT Press One Rogers Street, Cambridge}
+}
+
+@article{archetti2023scaling,
+  author  = {Archetti, Alberto and Ieva, F. and Matteucci, M.},
+  title   = {Scaling survival analysis in healthcare with federated survival forests: A comparative study on heart failure and breast cancer genomics},
+  journal = {Future Generation Computer Systems},
+  volume  = {149},
+  pages   = {343--358},
+  year    = {2023},
+  doi     = {10.1016/j.future.2023.07.036},
+  selected = {true},
+}
+
+@inproceedings{archetti2023heterogeneous,
+  author    = {Archetti, Alberto and Lomurno, E. and Lattari, F. and Martin, A. and Matteucci, M.},
+  title     = {Heterogeneous Datasets for Federated Survival Analysis Simulation},
+  booktitle = {Companion of the 2023 ACM/SPEC International Conference on Performance Engineering},
+  pages     = {173--180},
+  year      = {2023},
+  doi       = {10.1145/3578245.3584935},
+  keywords  = {workshop},
+}
+
+@inproceedings{archetti2023federated,
+  author    = {Archetti, Alberto and Matteucci, M.},
+  title     = {Federated Survival Forests},
+  booktitle = {2023 International Joint Conference on Neural Networks (IJCNN)},
+  pages     = {1--9},
+  year      = {2023},
+  doi       = {10.1109/IJCNN54540.2023.10190999},
+  selected = {true},
+}
+
+@inproceedings{archetti2023deepsurvival,
+  author    = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},
+  title     = {Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques},
+  booktitle = {CEUR Workshop Proceedings},
+  volume    = {3578},
+  pages     = {99--121},
+  year      = {2023},
+  keywords  = {workshop},
+}
+
+@inproceedings{lomurno2023discriminative,
+  author    = {Lomurno, E. and Archetti, Alberto and Ausonio, F. and Matteucci, M.},
+  title     = {Discriminative adversarial privacy: balancing accuracy and membership privacy in neural networks},
+  booktitle = {The 34th British Machine Vision Conference Proceedings (BMVC)},
+  year      = {2023},
+}
+
+@inproceedings{lomurno2023sgde,
+  author    = {Lomurno, E. and Archetti, Alberto and Cazzella, L. and Samele, S. and Di Perna, L. and Matteucci, M.},
+  title     = {SGDE: Secure Generative Data Exchange for Cross-Silo Federated Learning},
+  booktitle = {Proceedings of the 2022 5th International Conference on Artificial Intelligence and Pattern Recognition},
+  pages     = {205--214},
+  year      = {2023},
+  doi       = {10.1145/3573942.3573974},
+}
+
+@inproceedings{archetti2022neural,
+  author    = {Archetti, Alberto and Cannici, M. and Matteucci, M.},
+  title     = {Neural Weighted A*: Learning Graph Costs and Heuristics with Differentiable Anytime A*},
+  booktitle = {Machine Learning, Optimization, and Data Science (LOD 2021)},
+  pages     = {596--610},
+  year      = {2022},
+  doi       = {10.1007/978-3-030-95467-3_43},
+}
+
+@misc{baghdadi2024harnessing,
+  author    = {Baghdadi, F. and Cirillo, D. and Lezzi, D. and Lordan, F. and Vazquez, F. and Lomurno, E. and Archetti, Alberto and Ardagna, D. and Matteucci, M.},
+  title     = {Harnessing the computing continuum across personalized healthcare, maintenance and inspection, and farming 4.0},
+  eprint    = {2403.14650},
+  archiveprefix = {arXiv},
+  year      = {2024},
+  keywords  = {ignore},
+}
+
+@article{archetti2025emergent,
+  author    = {Archetti, Alberto and Giusti, G. and Gorla, K. R. and Caputo, S. and Magarini, M. and Matteucci, M. and Mucchi, L. and Pierobon, M.},
+  title     = {Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels},
+  journal   = {IEEE Transactions on Molecular, Biological, and Multi-Scale Communications},
+  year      = {2025},
+  selected  = {true},
+}
+
+@misc{sabella2026quail,
+  author    = {Sabella, M. and Archetti, Alberto and Pinoli, P. and Matteucci, M. and Cappiello, C.},
+  title     = {QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption},
+  eprint    = {2602.03686},
+  archiveprefix = {arXiv},
+  year      = {2026},
+}
+
+@inproceedings{stranieri2023drug,
+  author    = {Stranieri, F. and Archetti, Alberto and Robbiano, E. and Kouki, C. and Stella, F.},
+  title     = {Drug Inventory Control: Human Decisions versus Deep Reinforcement Learning},
+  booktitle = {CEUR Workshop Proceedings},
+  year      = {2023},
+  keywords  = {workshop},
+}

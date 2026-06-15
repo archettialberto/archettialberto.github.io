@@ -1,0 +1,19 @@
+# Research interests — shown on the website and (compactly) on the CV.
+# DRAFT inferred from your publications; edit titles/descriptions to taste.
+# Each: title (required), description (optional one-liner).
+
+- title: Tabular Foundation Models
+  description: >
+    Building general-purpose deep learning models for in-context learning on tabular data.
+
+- title: Survival Analysis
+  description: >
+    Predicting time-to-event outcomes for clinical data and financial applications.
+
+- title: Federated Learning
+  description: >
+    Training models across distributed, siloed datasets while preserving privacy.
+
+- title: Machine Learning for Healthcare
+  description: >
+    Applying AI to multimodal healthcare data, with a focus on privacy, interpretability, and reliability.

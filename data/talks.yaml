@@ -1,0 +1,53 @@
+# Talks & invited presentations, most recent first.
+# TEMPLATE — fill in your actual talks. The entries below are PLACEHOLDERS
+# derived from your papers (conference presentations); correct or replace them.
+# Each:
+#   title    (required) talk title (often the paper title)
+#   event    (required) venue / conference / seminar
+#   year     (required)
+#   location (optional)
+#   kind     (optional) "Conference talk" | "Invited talk" | "Seminar" | "Poster"
+#   url      (optional) slides / recording
+#   onepage  (optional, default false)
+
+- title: "FPBoost: Fully Parametric Gradient Boosting for Survival Analysis"
+  event: European Conference on Artificial Intelligence (ECAI)
+  year: 2025
+  location: Bologna, Italy
+  kind: Conference talk
+
+- title: "Discriminative adversarial privacy: balancing accuracy and membership privacy in neural networks"
+  event: British Machine Vision Conference (BMVC)
+  year: 2024
+  location: Aberdeen, Scotland
+  kind: Conference talk
+
+- title: "Federated Survival Forests"
+  event: International Joint Conference on Neural Networks (IJCNN)
+  year: 2023
+  location: Broadbeach, Australia
+  kind: Conference talk
+
+- title: "Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques"
+  event: AIxIA Workshop on Artificial Intelligence For Healthcare
+  year: 2023
+  location: Rome, Italy
+  kind: Conference talk
+
+- title: "Federated Survival Analysis"
+  event: AIxIA Workshop on Machine Learning and Data Mining
+  year: 2022
+  location: Udine, Italy
+  kind: Conference talk
+
+- title: "Federated and Privacy-Preserving Learning"
+  event: PhD Lecture, Politecnico di Milano
+  year: 2022
+  location: Milan, Italy
+  kind: Seminar
+
+- title: "Neural Weighted A*: Learning Graph Costs and Heuristics with Differentiable Anytime A*"
+  event: Conference on Machine Learning, Optimization, and Data Science (LOD)
+  year: 2021
+  location: Grasmere, England
+  kind: Conference talk

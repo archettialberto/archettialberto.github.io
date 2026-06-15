@@ -1,0 +1,44 @@
+# =============================================================================
+# THEME — single source of truth for the visual identity.
+# Both the LaTeX CVs and the Astro website read THIS file:
+#   - Python injects `colors` + `fonts` into the LaTeX preamble.
+#   - `cv build-theme` generates website/src/styles/theme.css from it.
+# Change a value here and rebuild to retune the whole brand at once.
+# =============================================================================
+
+name: old-money
+
+# --- Colors (hex, no leading #). Names are referenced by both renderers. ---
+colors:
+  navy:      "1A3A52"   # primary: sidebar, headings
+  gold:      "B8860B"   # accent: rules, links, logo
+  charcoal:  "2D2D2D"   # body text
+  warmgray:  "8C8273"   # dates, captions, subtle text
+  lightnavy: "DCE1E6"   # hairlines, borders
+  paper:     "FBFAF7"   # page / site background
+  sidebartext: "FFFFFF" # text on the navy sidebar
+
+# --- Fonts. `family` is the CSS/LaTeX family name; `files` lists the static
+#     weights shipped in cv/fonts/ (LaTeX) and pulled via Fontsource (web). ---
+fonts:
+  display:                 # headings, name — Cormorant Garamond
+    family: CormorantGaramond       # LaTeX font family (matches cv/fonts/ filenames)
+    web_family: Cormorant Garamond  # CSS family (as Fontsource registers it)
+    web_package: cormorant-garamond
+    weights: [400, 600, 700]
+    fallback: Georgia, serif        # generic CSS fallback for this role
+    letterspace: "2.0"              # tracked-out small caps in section headers
+    # LaTeX face suffixes (files in cv/fonts/ are <family>-<suffix>.ttf).
+    latex: { upright: Regular, bold: SemiBold, title: SemiBold, title_bold: Bold }
+  text:                    # body — Manrope
+    family: Manrope
+    web_family: Manrope
+    web_package: manrope
+    weights: [300, 400, 500, 600]
+    fallback: system-ui, sans-serif
+    latex: { upright: Light, bold: Regular, italic: Light, medium: Medium, medium_bold: SemiBold }
+
+# --- Web-only tuning (ignored by LaTeX). ---
+web:
+  max_width: 920px        # content column width
+  radius: 2px             # border radius for cards/buttons

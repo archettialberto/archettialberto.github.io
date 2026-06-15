@@ -1,0 +1,22 @@
+---
+import '../styles/global.css';
+import { SITE } from '../config';
+interface Props { title?: string; description?: string }
+const { title = SITE.title, description = SITE.description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" href={`${SITE.base}logo-gold.svg`} type="image/svg+xml" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

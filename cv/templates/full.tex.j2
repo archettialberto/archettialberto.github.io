@@ -1,0 +1,178 @@
+%% FULL ACADEMIC CV — single column, multi-page, all sections.
+%% Same preamble/aesthetic as the one-pager; driven by data/*.yaml + .bib.
+%% Section order and entry style mirror the website (title line + small
+%% warm-gray meta line, dot-separated), so the two read as one document.
+\documentclass[10pt,a4paper]{article}
+\usepackage[top=1.6cm,bottom=1.8cm,left=2cm,right=2cm]{geometry}
+\input{_preamble.tex}
+
+%% Page numbers in the footer for a multi-page document.
+\usepackage{fancyhdr}
+\usepackage{needspace}
+\usepackage{fontawesome5}
+\pagestyle{fancy}\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\small\color{warmgray}\thepage}
+
+%% Looser tolerances avoid overfull lines in long titles/venues; \raggedright
+%% inside entries already prevents rivers, so this only relaxes hyphenation.
+\tolerance=2000
+\hyphenpenalty=500
+\emergencystretch=2em
+
+%% Full-CV section heading: navy display title + gold rule across the page.
+%% Optional trailing [note] is set small and right-aligned on the same
+%% baseline (used for the citation metrics next to "Publications").
+%% \needspace keeps a heading from being orphaned at a page bottom.
+\NewDocumentCommand{\fullsection}{m o}{%
+  \par\hangindent=0pt\parindent=0pt% reset any residual hanging indent
+  \vspace{12pt}\needspace{3\baselineskip}%
+  \noindent{\headerfont\LARGE\color{navy} #1}%
+  \IfValueT{#2}{\hfill{\small\color{warmgray}#2}}\par
+  \vspace{3pt}\noindent{\color{gold}\rule{\linewidth}{1pt}}\par\vspace{7pt}}
+
+%% A dated row: year column on the left, content block on the right, vertically
+%% top-aligned. Two minipages whose widths (plus the gap) sum to exactly
+%% \linewidth — packed with \hfill instead of an explicit \hspace so they never
+%% overflow (that explicit \hspace caused the recurring 15pt overfull boxes).
+\newlength{\cvyearcol}\setlength{\cvyearcol}{2.2cm}
+\newlength{\cvgap}\setlength{\cvgap}{0.5cm}
+\NewDocumentCommand{\cventry}{m m}{%
+  \needspace{2\baselineskip}%
+  \par\noindent
+  \begin{minipage}[t]{\cvyearcol}\raggedright
+    {\small\color{warmgray}#1}\end{minipage}\hfill
+  \begin{minipage}[t]{\dimexpr\linewidth-\cvyearcol-\cvgap\relax}\raggedright
+    #2\end{minipage}\par\vspace{7pt}}
+
+#= FontAwesome icon per contact `icon` hint (matches the website's icon set). =#
+\BLOCK{set icons = {'email': '\\faEnvelope', 'github': '\\faGithub', 'linkedin': '\\faLinkedinIn', 'scholar': '\\faGraduationCap', 'instagram': '\\faInstagram'} }
+\BLOCK{macro contactcell(c)}\BLOCK{if c.icon and c.icon in icons}{\small\color{gold}\VAR{icons[c.icon]}}\hspace{0.55em}\BLOCK{endif}{\small\color{charcoal}\BLOCK{if c.url}\href{\VAR{c.url}}{\VAR{c.value | tex}}\BLOCK{else}\VAR{c.value | tex}\BLOCK{endif}}\BLOCK{endmacro}
+
+\begin{document}
+
+%% ===================== HEADER =====================
+\noindent
+\begin{minipage}[c]{0.7\linewidth}
+  {\titlefont\fontsize{30}{36}\selectfont\color{navy}\VAR{profile.full_name | tex}}\\[6pt]
+  {\fontsize{10.5}{13}\selectfont\color{warmgray}\addfontfeatures{LetterSpace=8.0}\MakeUppercase{\VAR{profile.title | tex}}}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.25\linewidth}\raggedleft
+  \includegraphics[height=2.2cm]{\VAR{logo}}
+\end{minipage}
+
+%% Contact line under the name, icon + linked value. The Scholar profile is
+%% intentionally left out here — it lives next to the Publications heading,
+%% where the citation metrics it backs are shown.
+\BLOCK{set cv_cs = profile.contacts | selectattr('cv') | rejectattr('icon', 'equalto', 'scholar') | list}
+\BLOCK{set scholar_cs = profile.contacts | selectattr('icon', 'equalto', 'scholar') | list}
+\vspace{12pt}\par\noindent
+\BLOCK{for c in cv_cs}\VAR{contactcell(c)}\BLOCK{if not loop.last}\hspace{2.4em}\BLOCK{endif}\BLOCK{endfor}
+
+%% ===================== BIOGRAPHY =====================
+\fullsection{Biography}
+\BLOCK{for para in profile.bio_or_summary.strip().split('\n\n')}\noindent{\color{charcoal}\VAR{para | htmltex}}\BLOCK{if not loop.last}\par\medskip\BLOCK{endif}
+\BLOCK{endfor}
+
+%% ===================== RESEARCH INTERESTS =====================
+\BLOCK{if research_interests}
+\fullsection{Research Interests}
+\begin{itemize}[leftmargin=1.4em, nosep, itemsep=3pt]
+\BLOCK{for r in research_interests}\item {\mediumfont\color{charcoal}\VAR{r.title | tex}}\BLOCK{if r.description} — {\small\color{warmgray}\VAR{r.description | tex}}\BLOCK{endif}
+\BLOCK{endfor}\end{itemize}
+\BLOCK{endif}
+
+%% ===================== PUBLICATIONS =====================
+\BLOCK{if publications}
+\BLOCK{if metrics and (metrics.total_citations or metrics.h_index)}
+\fullsection{Publications}[\BLOCK{if metrics.total_citations}\VAR{metrics.total_citations} citations\BLOCK{endif}\BLOCK{if metrics.total_citations and metrics.h_index} \,·\, \BLOCK{endif}\BLOCK{if metrics.h_index}h-index \VAR{metrics.h_index}\BLOCK{endif}\BLOCK{if scholar_cs and scholar_cs[0].url} \,·\, \href{\VAR{scholar_cs[0].url}}{\color{gold}Google Scholar}\BLOCK{endif}]
+\BLOCK{else}
+\fullsection{Publications}
+\BLOCK{endif}
+\BLOCK{for group, label in [('journal','Journal Articles'), ('conference','Conference Papers'), ('workshop','Workshop Papers'), ('preprint','Preprints')]}
+\BLOCK{set items = publications | selectattr('kind','equalto',group) | list}
+\BLOCK{if items}
+{\mediumfont\large\color{navy}\VAR{label}}\par\vspace{4pt}
+\begin{enumerate}[leftmargin=1.6em, itemsep=4pt, label=\textcolor{gold}{[\arabic*]}]
+\BLOCK{for p in items}\item {\color{charcoal}%
+  \BLOCK{for a in p.authors}\BLOCK{if 'Archetti' in a}\textbf{\VAR{a | tex}}\BLOCK{else}\VAR{a | tex}\BLOCK{endif}\BLOCK{if not loop.last}, \BLOCK{endif}\BLOCK{endfor}
+  (\VAR{p.year}). \textit{\VAR{p.title | tex}}.\BLOCK{if p.venue} \VAR{p.venue | tex}\BLOCK{if p.volume}, \VAR{p.volume | tex}\BLOCK{endif}\BLOCK{if p.pages}, pp.~\VAR{p.pages | replace('--', '–') | tex}\BLOCK{endif}.\BLOCK{endif}\BLOCK{if p.url} \href{\VAR{p.url}}{\small\color{gold}\VAR{p.doi or p.arxiv | tex}}\BLOCK{endif}}
+\BLOCK{endfor}\end{enumerate}\vspace{4pt}
+\BLOCK{endif}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== EXPERIENCE =====================
+\BLOCK{if employment}
+\fullsection{Experience}
+\BLOCK{for e in employment}\cventry{\VAR{e.period}}{%
+  {\mediumfont\color{charcoal}\VAR{e.role | tex}}\\{\small\color{warmgray}\VAR{e.org | tex}\BLOCK{if e.location} · \VAR{e.location | tex}\BLOCK{endif}}
+  \BLOCK{for d in e.details}\\{\footnotesize\color{warmgray}\addfontfeatures{LetterSpace=6.0}\MakeUppercase{\VAR{d.label | tex}}} — {\small \VAR{d.text | tex}}\BLOCK{endfor}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== PROJECTS =====================
+\BLOCK{if projects}
+\fullsection{Projects}
+\BLOCK{for p in projects}\cventry{\VAR{p.period}}{%
+  {\mediumfont\color{charcoal}\VAR{p.name | tex}\BLOCK{if p.full_name} — {\small \VAR{p.full_name | tex}}\BLOCK{endif}}\\{\small\color{warmgray}\VAR{p.issuer | tex}\BLOCK{if p.scope} · \VAR{p.scope | tex} project\BLOCK{endif}\BLOCK{if p.location} · \VAR{p.location | tex}\BLOCK{endif}}
+  \\{\footnotesize\color{warmgray}\addfontfeatures{LetterSpace=6.0}\MakeUppercase{Role}} — {\small \VAR{p.role | tex}}\BLOCK{if p.description}\\{\small\color{warmgray}\VAR{p.description | tex}}\BLOCK{endif}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== EDUCATION =====================
+\BLOCK{if education}
+\fullsection{Education}
+\BLOCK{for e in education}\cventry{\VAR{e.period}}{%
+  {\mediumfont\color{charcoal}\VAR{e.degree | tex}}\\{\small\color{warmgray}\VAR{e.org | tex}\BLOCK{if e.location} · \VAR{e.location | tex}\BLOCK{endif}\BLOCK{if e.grade} · \VAR{e.grade | tex}\BLOCK{endif}}
+  \BLOCK{if e.thesis}\\{\footnotesize\color{warmgray}\addfontfeatures{LetterSpace=6.0}\MakeUppercase{Thesis}} — {\small\textit{\VAR{e.thesis | tex}}}\BLOCK{endif}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== SKILLS =====================
+\BLOCK{if skills}
+\fullsection{Skills}
+\begin{itemize}[leftmargin=1.4em, nosep, itemsep=3pt]
+\BLOCK{for g in skills}\item {\mediumfont\color{charcoal}\VAR{g.category | tex}} — {\small\color{warmgray}\VAR{g.skills | join(', ') | tex}}
+\BLOCK{endfor}\end{itemize}
+\BLOCK{endif}
+
+%% ===================== TEACHING =====================
+\BLOCK{if teaching}
+\fullsection{Teaching Activities}
+\BLOCK{for t in teaching}\cventry{\VAR{t.year}}{%
+  {\mediumfont\color{charcoal}\VAR{t.course | tex}}\BLOCK{if t.hours} ({\VAR{t.hours}}h)\BLOCK{endif}\\{\small\color{warmgray}\VAR{t.role | tex} · \VAR{t.org | tex}\BLOCK{if t.degree} · \VAR{t.degree | tex}\BLOCK{endif}\BLOCK{if t.note} · \VAR{t.note | tex}\BLOCK{endif}}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== SUPERVISION =====================
+\BLOCK{if supervision}
+\fullsection{Supervision}
+\BLOCK{for s in supervision}\cventry{\BLOCK{if s.year}\VAR{s.year}\BLOCK{endif}}{%
+  {\mediumfont\color{charcoal}\VAR{s.student | tex}}\\{\small\color{warmgray}\VAR{s.degree | tex}\BLOCK{if s.role} · \VAR{s.role | tex}\BLOCK{endif}}\\{\small\color{warmgray}\textit{\VAR{s.title | tex}}}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== TALKS =====================
+\BLOCK{if talks}
+\fullsection{Talks}
+\BLOCK{for t in talks}\cventry{\VAR{t.year}}{%
+  {\mediumfont\color{charcoal}\VAR{t.title | tex}}\\{\small\color{warmgray}\VAR{t.event | tex}\BLOCK{if t.location} · \VAR{t.location | tex}\BLOCK{endif}\BLOCK{if t.kind} · \VAR{t.kind | tex}\BLOCK{endif}}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== AWARDS =====================
+\BLOCK{if awards}
+\fullsection{Awards and Achievements}
+\BLOCK{for a in awards}\cventry{\BLOCK{if a.year}\VAR{a.year}\BLOCK{endif}}{%
+  {\mediumfont\color{charcoal}\VAR{a.title | tex}}\BLOCK{if a.org or a.note}\\{\small\color{warmgray}\BLOCK{if a.org}\VAR{a.org | tex}\BLOCK{endif}\BLOCK{if a.org and a.note} · \BLOCK{endif}\BLOCK{if a.note}\VAR{a.note | tex}\BLOCK{endif}}\BLOCK{endif}}
+\BLOCK{endfor}
+\BLOCK{endif}
+
+%% ===================== GDPR =====================
+\BLOCK{if profile.gdpr_authorization}
+\fullsection{Data Authorization}
+\noindent{\footnotesize\color{warmgray}\VAR{profile.gdpr_authorization | tex}}
+\BLOCK{endif}
+
+\end{document}

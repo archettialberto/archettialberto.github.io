@@ -1,0 +1,76 @@
+/* theme.css is GENERATED from theme/theme.yaml (fonts + CSS variables). */
+@import './theme.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: var(--text);
+  }
+  body {
+    @apply bg-paper text-charcoal antialiased;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--display);
+    @apply text-navy;
+    font-weight: 600;
+    line-height: 1.15;
+  }
+  a {
+    @apply text-gold;
+    text-decoration: none;
+  }
+  a:hover { text-decoration: underline; }
+}
+
+@layer components {
+  /* Section heading (the ornamental gold rule is a separate <Rule> element). */
+  .section-title {
+    font-family: var(--display);
+    @apply text-3xl text-navy tracking-wide;
+  }
+
+  /* Hero name: keep each name word intact (never split a word across lines). */
+  .hero-name > span { white-space: nowrap; }
+
+  /* Pure-CSS hero: flat theme navy with only the gentlest depth — a soft
+     light source top-left and a slightly darker base so the gold divider
+     "seats" the banner. The brand texture comes from the large monogram
+     watermark (an <img> in the hero markup), which recolors with the theme. */
+  .hero-bg {
+    background-color: var(--navy);
+    background-image:
+      linear-gradient(160deg, rgba(255, 255, 255, 0.06) 0%, transparent 45%),
+      linear-gradient(to bottom, transparent 55%, rgba(0, 0, 0, 0.16) 100%);
+  }
+
+  /* Decorative band beneath the hero: a thin gold rule + faint repeating
+     diamond motif, so the transition from banner to content isn't flat.
+     color-mix keeps both tints on the active theme's palette. */
+  .hero-divider {
+    height: 56px;
+    background:
+      linear-gradient(to bottom, color-mix(in srgb, var(--navy) 4%, transparent), transparent 70%),
+      radial-gradient(circle at center, color-mix(in srgb, var(--gold) 10%, transparent) 1px, transparent 1.4px);
+    background-size: 100% 100%, 22px 22px;
+    border-top: 2px solid var(--gold);
+  }
+}
+
+/* Section reveal-on-scroll (progressive enhancement; visible if JS/anim off). */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: none;
+  }
+}
