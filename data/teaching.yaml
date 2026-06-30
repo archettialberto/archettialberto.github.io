@@ -11,9 +11,16 @@
 - role: Teaching Assistant
   org: Politecnico di Milano
   year: 2026
+  course: AI Bootcamp
+  degree: TechCamp@PoliMI
+  hours: 15
+
+- role: Teaching Assistant
+  org: Politecnico di Milano
+  year: 2026
   course: Advanced Deep Learning
   degree: MSc
-  hours: 20
+  hours: 10
 
 - role: Teaching Assistant
   org: Politecnico di Milano

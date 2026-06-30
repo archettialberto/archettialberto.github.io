@@ -204,9 +204,19 @@
       "role": "Teaching Assistant",
       "org": "Politecnico di Milano",
       "year": 2026,
+      "course": "AI Bootcamp",
+      "degree": "TechCamp@PoliMI",
+      "hours": 15,
+      "note": null,
+      "onepage": false
+    },
+    {
+      "role": "Teaching Assistant",
+      "org": "Politecnico di Milano",
+      "year": 2026,
       "course": "Advanced Deep Learning",
       "degree": "MSc",
-      "hours": 20,
+      "hours": 10,
       "note": null,
       "onepage": false
     },
@@ -322,6 +332,24 @@
     }
   ],
   "talks": [
+    {
+      "title": "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks",
+      "event": "European Conference on Artificial Intelligence (ECAI)",
+      "year": 2026,
+      "location": "Maastricht, Netherlands",
+      "kind": "Conference talk",
+      "url": null,
+      "onepage": false
+    },
+    {
+      "title": "Deep Variational Contrastive Learning for Joint Risk Stratification and Time-to-Event Estimation",
+      "event": "European Conference on Artificial Intelligence (ECAI)",
+      "year": 2026,
+      "location": "Maastricht, Netherlands",
+      "kind": "Conference talk",
+      "url": null,
+      "onepage": false
+    },
     {
       "title": "FPBoost: Fully Parametric Gradient Boosting for Survival Analysis",
       "event": "European Conference on Artificial Intelligence (ECAI)",
@@ -599,7 +627,7 @@
       "arxiv": null,
       "keywords": [],
       "bibtex": "@article{archetti2025emergent,\n  author = {Archetti, Alberto and Giusti, G. and Gorla, K. R. and Caputo, S. and Magarini, M. and Matteucci, M. and Mucchi, L. and Pierobon, M.},\n  journal = {IEEE Transactions on Molecular, Biological, and Multi-Scale Communications},\n  title = {Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels},\n  year = {2025}\n}",
-      "citations": 2,
+      "citations": 1,
       "selected": false
     },
     {
@@ -677,7 +705,7 @@
       "arxiv": null,
       "keywords": [],
       "bibtex": "@article{archetti2023scaling,\n  author = {Archetti, Alberto and Ieva, F. and Matteucci, M.},\n  doi = {10.1016/j.future.2023.07.036},\n  journal = {Future Generation Computer Systems},\n  pages = {343--358},\n  selected = {true},\n  title = {Scaling survival analysis in healthcare with federated survival forests: A comparative study on heart failure and breast cancer genomics},\n  volume = {149},\n  year = {2023}\n}",
-      "citations": 27,
+      "citations": 29,
       "selected": true
     },
     {
@@ -830,15 +858,15 @@
       "arxiv": null,
       "keywords": [],
       "bibtex": "@inproceedings{archetti2022neural,\n  author = {Archetti, Alberto and Cannici, M. and Matteucci, M.},\n  booktitle = {Machine Learning, Optimization, and Data Science (LOD 2021)},\n  doi = {10.1007/978-3-030-95467-3_43},\n  pages = {596--610},\n  title = {Neural Weighted A*: Learning Graph Costs and Heuristics with Differentiable Anytime A*},\n  year = {2022}\n}",
-      "citations": 16,
+      "citations": 18,
       "selected": false
     }
   ],
   "metrics": {
     "h_index": 7,
     "i10_index": 5,
-    "total_citations": 161,
+    "total_citations": 164,
     "scholar_id": "--kj4bcAAAAJ",
-    "fetched_at": "2026-06-15T09:55:55+00:00"
+    "fetched_at": "2026-06-30T09:11:53+00:00"
   }
 }

@@ -10,6 +10,18 @@
 #   url      (optional) slides / recording
 #   onepage  (optional, default false)
 
+- title: "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks"
+  event: European Conference on Artificial Intelligence (ECAI)
+  year: 2026
+  location: Maastricht, Netherlands
+  kind: Conference talk
+
+- title: "Deep Variational Contrastive Learning for Joint Risk Stratification and Time-to-Event Estimation"
+  event: European Conference on Artificial Intelligence (ECAI)
+  year: 2026
+  location: Maastricht, Netherlands
+  kind: Conference talk
+
 - title: "FPBoost: Fully Parametric Gradient Boosting for Survival Analysis"
   event: European Conference on Artificial Intelligence (ECAI)
   year: 2025
