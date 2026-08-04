@@ -1,17 +1,3 @@
-# Student supervision (thesis advising / co-advising), most recent first.
-# Each:
-#   student  (required)
-#   degree   (required) "MSc thesis" | "BSc thesis" | "Project"
-#   title    (required) thesis/project title
-#   year     (optional)
-#   role     (optional) e.g. "Co-advisor"
-
-# - student: <Student Name>
-#   degree: MSc thesis
-#   title: <Thesis title>
-#   year: 2025
-#   role: Co-advisor
-
 - student: "Pinar Erbil"
   degree: MSc thesis
   title: Deep Variational Contrastive Learning for Risk Stratification and Time-to-Event Estimation

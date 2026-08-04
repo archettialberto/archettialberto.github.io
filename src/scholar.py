@@ -1,13 +1,4 @@
-"""Opt-in Google Scholar enrichment.
-
-Scholar has no official API; ``scholarly`` scrapes it and can be rate-limited or
-blocked, so this never runs as part of the normal build. ``cv scholar --scholar-id
-<id>``:
-  1. writes citation counts + h-index to ``data/scholar_cache.json``, and
-  2. APPENDS any publication on your Scholar profile that is not already in
-     ``data/publications.bib`` (matched by normalised title). Existing entries are
-     never modified, so your manual edits to the .bib always win.
-"""
+"""Google Scholar sync via ``scholarly`` (unofficial scraper — may be rate-limited)."""
 
 from __future__ import annotations
 
@@ -16,7 +7,6 @@ from datetime import datetime, timezone
 
 
 def _norm(title: str) -> str:
-    """Normalise a title for matching (lowercase, alphanumerics only)."""
     return re.sub(r"\W+", "", title or "").lower()
 
 
@@ -27,7 +17,6 @@ def _bibkey(authors: str, year: str, title: str) -> str:
 
 
 def _entry_type(venue: str) -> tuple[str, str]:
-    """Guess (bibtex type, container-field) from the venue string."""
     v = (venue or "").lower()
     if any(w in v for w in ("journal", "transactions", "letters")):
         return "article", "journal"
@@ -37,7 +26,7 @@ def _entry_type(venue: str) -> tuple[str, str]:
 
 
 def fetch_scholar(scholar_id: str) -> dict:
-    """Return {metrics, citations_by_title, publications:[bib dicts]}."""
+    """Return {metrics, citations_by_title, publications: [bib dicts]}."""
     from scholarly import scholarly
 
     author = scholarly.search_author_id(scholar_id)
@@ -46,8 +35,7 @@ def fetch_scholar(scholar_id: str) -> dict:
     citations_by_title: dict[str, int] = {}
     pubs: list[dict] = []
     for pub in author.get("publications", []):
-        # The summary bib only has title/year; fill the entry to get author+venue.
-        filled = scholarly.fill(pub)
+        filled = scholarly.fill(pub)  # summary bib lacks author+venue
         bib = filled.get("bib", {})
         title = bib.get("title")
         if not title:
@@ -59,6 +47,7 @@ def fetch_scholar(scholar_id: str) -> dict:
         authors = bib.get("author", "")
         venue = bib.get("venue") or bib.get("journal") or bib.get("conference") or ""
         etype, field = _entry_type(venue)
+        arxiv = re.search(r"arxiv[:\s/]*(\d{4}\.\d{4,5})", venue, re.I)
         pubs.append({
             "key": _bibkey(authors, year, title),
             "type": etype,
@@ -67,6 +56,7 @@ def fetch_scholar(scholar_id: str) -> dict:
             "authors": authors,
             "year": year,
             "venue": venue,
+            "arxiv": arxiv.group(1) if arxiv else None,
         })
 
     return {
@@ -78,7 +68,6 @@ def fetch_scholar(scholar_id: str) -> dict:
             "fetched_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         },
         "citations_by_title": citations_by_title,
-        "citations_by_key": {},
         "publications": pubs,
     }
 
@@ -94,14 +83,16 @@ def append_new_publications(pubs: list[dict], bib_path) -> list[str]:
         if _norm(p["title"]) in existing_titles:
             continue
         existing_titles.add(_norm(p["title"]))
-        # Authors come from Scholar as "First Last and First Last"; bold-name
-        # handling in the CV keys off the literal "Archetti, Alberto" form, so we
-        # leave them as-is for you to tidy manually if needed.
+        if p.get("arxiv"):
+            venue_lines = (f"  eprint    = {{{p['arxiv']}}},\n"
+                           f"  archiveprefix = {{arXiv}},\n")
+        else:
+            venue_lines = f"  {p['field']:9} = {{{p['venue']}}},\n"
         blocks.append(
             f"\n@{p['type']}{{{p['key']},\n"
             f"  author    = {{{p['authors']}}},\n"
             f"  title     = {{{p['title']}}},\n"
-            f"  {p['field']:9} = {{{p['venue']}}},\n"
+            f"{venue_lines}"
             f"  year      = {{{p['year']}}},\n"
             f"}}\n"
         )

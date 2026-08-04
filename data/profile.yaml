@@ -1,31 +1,22 @@
-# Personal identity and contact details.
-# This is the only place name/title/contacts live; both CVs and the website read it.
-
 name: Alberto Archetti
-# Suffix appended after the name where the design calls for it (e.g. "Alberto Archetti, Ph.D.").
 suffix: Ph.D.
 title: Postdoctoral Researcher in Artificial Intelligence
 
-# Short tagline shown under the name on the website hero (one line).
+# One-line tagline shown under the name on the website hero.
 tagline: Tabular foundation models · Federated learning · Survival analysis
 
-# Short professional summary. Keep it tight (~3 sentences) and jargon-light.
 summary: >
   I am a postdoctoral researcher in artificial intelligence at AIRLab, Politecnico
   di Milano. My work spans tabular foundation models, federated learning, and
   survival analysis, with a focus on extracting reliable, privacy-preserving
   insights from sensitive and distributed healthcare data.
 
-# First-person bio shown on the website (falls back to `summary` if empty).
-# One paragraph per line so the browser wraps it naturally; inline <strong> tags
-# highlight research interests (rendered as HTML on the site).
+# Website bio (falls back to `summary` if empty); one paragraph per line, <strong> allowed.
 bio: |
   I am fascinated by emerging phenomena — how simple rules give rise to complex behavior, whether in vitro or in silico — and I find the field of artificial intelligence the ideal playground to study them.
 
   As a postdoctoral researcher at AIRLab, Politecnico di Milano, I work on <strong>tabular foundation models</strong>, <strong>federated learning</strong>, and <strong>survival analysis</strong>, building models that learn from sensitive, multimodal data — turning scattered information into reliable, trustworthy predictions. I also love teaching and mentoring, and I take part in educational initiatives to promote AI literacy at all levels.
 
-# Contact entries. `label` is what the sidebar shows; `value` is plain text;
-# `url` (optional) makes it a link; `icon` is a hint for the website rendering.
 # `cv` / `website` (default true) toggle visibility per target.
 contacts:
   - label: Email
@@ -48,13 +39,13 @@ contacts:
     value: instagram.com/aarchetto
     url: https://www.instagram.com/aarchetto/
     icon: instagram
-    cv: false        # website only — hidden from the PDF CV
+    cv: false
 
-# Affiliation shown near the name on the website / full CV header.
 affiliation: AIRLab, Politecnico di Milano, Italy
 
-# Optional GDPR / publication-authorization clause required by Italian public CVs.
-# Set to null to omit from the PDF.
+scholar_id: "--kj4bcAAAAJ"
+
+# GDPR clause required by Italian public CVs; null omits it from the PDF.
 gdpr_authorization: >
   Autorizzo al trattamento dati ai sensi del GDPR 2016/679 del 27 aprile 2016
   (Regolamento Europeo relativo alla protezione delle persone fisiche per quanto

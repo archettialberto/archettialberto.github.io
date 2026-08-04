@@ -1,5 +1,4 @@
-/* theme.css is GENERATED from theme/theme.yaml (fonts + CSS variables). */
-@import './theme.css';
+@import './theme.css'; /* generated from theme/theme.yaml */
 
 @tailwind base;
 @tailwind components;
@@ -29,19 +28,14 @@
 }
 
 @layer components {
-  /* Section heading (the ornamental gold rule is a separate <Rule> element). */
   .section-title {
     font-family: var(--display);
     @apply text-3xl text-navy tracking-wide;
   }
 
-  /* Hero name: keep each name word intact (never split a word across lines). */
+  /* Never split a name word across lines. */
   .hero-name > span { white-space: nowrap; }
 
-  /* Pure-CSS hero: flat theme navy with only the gentlest depth — a soft
-     light source top-left and a slightly darker base so the gold divider
-     "seats" the banner. The brand texture comes from the large monogram
-     watermark (an <img> in the hero markup), which recolors with the theme. */
   .hero-bg {
     background-color: var(--navy);
     background-image:
@@ -49,9 +43,7 @@
       linear-gradient(to bottom, transparent 55%, rgba(0, 0, 0, 0.16) 100%);
   }
 
-  /* Decorative band beneath the hero: a thin gold rule + faint repeating
-     diamond motif, so the transition from banner to content isn't flat.
-     color-mix keeps both tints on the active theme's palette. */
+  /* Gold rule + faint diamond motif beneath the hero. */
   .hero-divider {
     height: 56px;
     background:
@@ -62,7 +54,7 @@
   }
 }
 
-/* Section reveal-on-scroll (progressive enhancement; visible if JS/anim off). */
+/* Section reveal-on-scroll. */
 @media (prefers-reduced-motion: no-preference) {
   .reveal {
     opacity: 0;

@@ -13,43 +13,38 @@ I work on **tabular foundation models**, **federated learning**, and **survival 
 
 ## Guide
 
-This repo builds my CV (LaTeX → PDF) and website (Astro) from the YAML/BibTeX files in `data/`.
+This repo builds my CV (LaTeX → PDF) and website (Astro) from a single source of truth: the `data/` directory.
 
-### 1. Install the environment
+### Where to edit
 
-```bash
-conda env create -f environment.yaml   # creates the 'cv' env (Python 3.12 + Poetry)
-conda activate cv
-poetry install                         # installs the `cv` CLI
-cd website && npm install && cd ..     # website dependencies
-```
+| What | File |
+|---|---|
+| Name, title, bio, links, Scholar ID | `data/profile.yaml` |
+| Publications | `data/publications.bib` — `selected = {true}` features an entry on the website; keyword `ignore` hides it |
+| Employment, education, teaching, talks, projects, … | the other `data/*.yaml` files |
+| Colors & fonts (CV **and** website) | `theme/theme.yaml` |
 
-For PDF output you also need **TeX Live** (with `xelatex`, `biber`, and the `svg` package).
+### Setup (once)
 
-### 2. Modify the CV
-
-- Edit the files in `data/` (`employment.yaml`, `publications.bib`, `talks.yaml`, …).
-- Validate with `cv data`.
-- Optional: `cv scholar --scholar-id --kj4bcAAAAJ` pulls citation metrics and appends new publications (review them by hand).
-- Optional: `cv theme list` / `cv theme use NAME` switches the visual theme.
-
-### 3. Build
+Needs conda, Node, and TeX Live (`xelatex`):
 
 ```bash
-cv build-cv    # CV → cv/build/, PDF published to website/public/cv/archetti-cv.pdf
-cv build-site  # exports site.json + theme.css for the website
+conda env create -f environment.yaml && conda activate cv
+make install
 ```
 
-Preview the website with `cd website && npm run dev` → `http://localhost:4321/`.
-
-**Shortcut:** `./scripts/dev.sh` does all of the above (Scholar fetch, CV, site export, dev server). Use `--no-scholar` / `--no-compile` to skip steps.
-
-### 4. Publish
+### Everyday use
 
 ```bash
-git add -A
-git commit -m "Update CV"
-git push
+make scholar   # refresh citation metrics + pull new publications into the .bib (review by hand)
+make build     # CV PDF → website/public/cv/, site.json + theme.css → website/
+make dev       # build, then preview the website offline at http://localhost:4321/
 ```
 
-Pushing to `main` triggers GitHub Actions, which builds the Astro site and deploys it to GitHub Pages. **CI only runs `npm run build`** — it does not regenerate data or PDFs, so always commit the generated files (`website/src/data/site.json`, `website/public/cv/archetti-cv.pdf`, theme CSS) along with your changes.
+### Publish
+
+```bash
+git add -A && git commit -m "Update CV" && git push
+```
+
+Pushing to `main` deploys to GitHub Pages. **CI only runs `npm run build`** — it does not regenerate data or PDFs, so commit the generated files (`website/src/data/site.json`, `website/src/styles/theme.css`, `website/public/cv/archetti-cv.pdf`) along with your changes; `make build` keeps them current.

@@ -1,11 +1,3 @@
-# Employment history, most recent first.
-# Each entry:
-#   role        (required) job title
-#   org         (required) employer / institution
-#   location    (optional)
-#   start, end  (required) years; use "present" for ongoing
-#   details     (optional) list of {label, text} sub-lines (e.g. research topic, collaborations)
-
 - role: Research Fellow
   org: AIRLab, Politecnico di Milano
   location: Milan, Italy

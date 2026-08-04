@@ -1,10 +1,4 @@
-"""Pydantic models describing the career data.
-
-These are the contract between the editable ``data/`` files and every renderer
-(LaTeX CVs, Astro website). Loading validates the YAML/BibTeX so a typo surfaces
-as a clear error instead of a broken PDF. Add a field here + in the matching
-YAML and every renderer can use it.
-"""
+"""Pydantic models: the contract between the ``data/`` files and every renderer."""
 
 from __future__ import annotations
 
@@ -13,17 +7,13 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
-# --------------------------------------------------------------------------- #
-# Profile
-# --------------------------------------------------------------------------- #
 class Contact(BaseModel):
     label: str
     value: str
     url: str | None = None
     icon: str | None = None
-    # Visibility: include on the PDF CV / on the website. Default to both.
-    cv: bool = True
-    website: bool = True
+    cv: bool = True        # show on the PDF CV
+    website: bool = True   # show on the website
 
 
 class Profile(BaseModel):
@@ -34,23 +24,19 @@ class Profile(BaseModel):
     summary: str
     bio: str | None = None
     affiliation: str | None = None
+    scholar_id: str | None = None
     contacts: list[Contact] = Field(default_factory=list)
     gdpr_authorization: str | None = None
 
     @property
     def full_name(self) -> str:
-        """Name with suffix appended, e.g. ``Alberto Archetti, Ph.D.``."""
         return f"{self.name}, {self.suffix}" if self.suffix else self.name
 
     @property
     def bio_or_summary(self) -> str:
-        """Long bio when present, else the short summary."""
         return self.bio or self.summary
 
 
-# --------------------------------------------------------------------------- #
-# Dated sections
-# --------------------------------------------------------------------------- #
 class Detail(BaseModel):
     label: str
     text: str
@@ -102,22 +88,14 @@ class Award(BaseModel):
 
 
 class Project(BaseModel):
-    """A funded research project (EU, national, regional, …).
-
-    ``issuer`` is the funding body / programme that backs the project — for EU
-    projects this is the European Commission together with the framework
-    programme (e.g. "European Commission · Horizon 2020"); for national ones it
-    is the ministry / agency and call. ``role`` is *my* role on the project.
-    """
-
     name: str
     full_name: str | None = None  # expanded title behind an acronym
-    issuer: str  # funding body / programme
+    issuer: str                   # funding body / programme
     location: str | None = None
     role: str
     start: int
     end: int | Literal["present"]
-    scope: str | None = None  # e.g. "European", "National", "Regional"
+    scope: str | None = None      # e.g. "European", "National"
     url: str | None = None
     description: str | None = None
 
@@ -127,9 +105,6 @@ class Project(BaseModel):
         return f"{self.start}–{end}" if str(self.start) != end else str(self.start)
 
 
-# --------------------------------------------------------------------------- #
-# Profile-supporting sections
-# --------------------------------------------------------------------------- #
 class ResearchInterest(BaseModel):
     title: str
     description: str | None = None
@@ -145,21 +120,18 @@ class Talk(BaseModel):
     event: str
     year: int
     location: str | None = None
-    kind: str | None = None  # e.g. "Invited talk", "Conference", "Seminar"
+    kind: str | None = None  # e.g. "Invited talk", "Seminar"
     url: str | None = None
 
 
 class Supervision(BaseModel):
     student: str
-    degree: str  # e.g. "MSc thesis", "BSc thesis"
+    degree: str  # e.g. "MSc thesis"
     title: str
     year: int | None = None
     role: str | None = None  # e.g. "Co-advisor"
 
 
-# --------------------------------------------------------------------------- #
-# Publications (parsed from publications.bib)
-# --------------------------------------------------------------------------- #
 PubKind = Literal["journal", "conference", "workshop", "preprint"]
 
 
@@ -175,13 +147,9 @@ class Publication(BaseModel):
     doi: str | None = None
     arxiv: str | None = None
     keywords: list[str] = Field(default_factory=list)
-    # Raw BibTeX entry, for a "copy BibTeX" button on the website.
-    bibtex: str | None = None
-    # Optional Scholar enrichment, filled from data/scholar_cache.json if present.
-    citations: int | None = None
-    # Featured on the website's "Selected" publications view (bib field
-    # `selected = {true}`); the full list stays one toggle away.
-    selected: bool = False
+    bibtex: str | None = None      # raw BibTeX entry
+    citations: int | None = None   # from scholar_cache.json
+    selected: bool = False         # featured on the website (bib field `selected = {true}`)
 
     @property
     def url(self) -> str | None:
@@ -192,12 +160,7 @@ class Publication(BaseModel):
         return None
 
 
-# --------------------------------------------------------------------------- #
-# Aggregate
-# --------------------------------------------------------------------------- #
 class ScholarMetrics(BaseModel):
-    """Optional bibliometrics fetched from Google Scholar."""
-
     h_index: int | None = None
     i10_index: int | None = None
     total_citations: int | None = None
@@ -218,4 +181,3 @@ class CVData(BaseModel):
     projects: list[Project] = Field(default_factory=list)
     publications: list[Publication] = Field(default_factory=list)
     metrics: ScholarMetrics | None = None
-

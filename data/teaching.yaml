@@ -1,12 +1,3 @@
-# Teaching activities, most recent first.
-# Each entry:
-#   role      (required) e.g. "Teaching Assistant", "Ph.D. Lecture"
-#   org       (required)
-#   year      (required)
-#   course    (required) course name
-#   hours     (optional) contact hours, integer
-#   note      (optional) extra context (e.g. program name)
-
 - role: Teaching Assistant
   org: Politecnico di Milano
   year: 2026

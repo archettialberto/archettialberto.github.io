@@ -1,7 +1,3 @@
-# Research interests — shown on the website and (compactly) on the CV.
-# DRAFT inferred from your publications; edit titles/descriptions to taste.
-# Each: title (required), description (optional one-liner).
-
 - title: Tabular Foundation Models
   description: >
     Building general-purpose deep learning models for in-context learning on tabular data.

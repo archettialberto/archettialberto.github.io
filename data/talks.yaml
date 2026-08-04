@@ -1,12 +1,3 @@
-# Talks & invited presentations, most recent first.
-# Each:
-#   title    (required) talk title (often the paper title)
-#   event    (required) venue / conference / seminar
-#   year     (required)
-#   location (optional)
-#   kind     (optional) "Conference talk" | "Invited talk" | "Seminar" | "Poster"
-#   url      (optional) slides / recording
-
 - title: "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks"
   event: European Conference on Artificial Intelligence (ECAI)
   year: 2026
