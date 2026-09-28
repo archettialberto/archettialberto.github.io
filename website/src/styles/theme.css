@@ -1,31 +1,64 @@
 /* GENERATED from theme/theme.yaml by `cv build-site` — do not edit. */
-@import '@fontsource/cormorant-garamond/400.css';
-@import '@fontsource/cormorant-garamond/600.css';
-@import '@fontsource/cormorant-garamond/700.css';
+@import '@fontsource/manrope/600.css';
+@import '@fontsource/manrope/700.css';
+@import '@fontsource/manrope/800.css';
 @import '@fontsource/manrope/300.css';
 @import '@fontsource/manrope/400.css';
 @import '@fontsource/manrope/500.css';
 @import '@fontsource/manrope/600.css';
 
 :root {
-  --navy: #1A3A52;
-  --navy-rgb: 26 58 82;
-  --gold: #B8860B;
-  --gold-rgb: 184 134 11;
-  --charcoal: #2D2D2D;
-  --charcoal-rgb: 45 45 45;
-  --warmgray: #8C8273;
-  --warmgray-rgb: 140 130 115;
-  --lightnavy: #DCE1E6;
-  --lightnavy-rgb: 220 225 230;
-  --paper: #FBFAF7;
-  --paper-rgb: 251 250 247;
-  --sidebartext: #FFFFFF;
-  --sidebartext-rgb: 255 255 255;
+  color-scheme: light;
+  --ink: #1D1D1F;
+  --ink-rgb: 29 29 31;
+  --mist: #6E6E76;
+  --mist-rgb: 110 110 118;
+  --blue: #2D8CDB;
+  --blue-rgb: 45 140 219;
+  --pink: #F48FB8;
+  --pink-rgb: 244 143 184;
+  --haze: #E4EDF5;
+  --haze-rgb: 228 237 245;
+  --page: #FFFFFF;
+  --page-rgb: 255 255 255;
 
-  --display: 'Cormorant Garamond', Georgia, serif;
+  --display: 'Manrope', system-ui, sans-serif;
   --text: 'Manrope', system-ui, sans-serif;
 
   --max-width: 920px;
-  --radius: 2px;
+  --radius: 18px;
+}
+
+/* Dark: explicit choice (data-theme, set by the header toggle) or, without JS, the OS setting. */
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --ink: #E8ECF2;
+  --ink-rgb: 232 236 242;
+  --mist: #98A2B3;
+  --mist-rgb: 152 162 179;
+  --blue: #5AB0F2;
+  --blue-rgb: 90 176 242;
+  --pink: #F59BC3;
+  --pink-rgb: 245 155 195;
+  --haze: #222A36;
+  --haze-rgb: 34 42 54;
+  --page: #0B0F17;
+  --page-rgb: 11 15 23;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --ink: #E8ECF2;
+    --ink-rgb: 232 236 242;
+    --mist: #98A2B3;
+    --mist-rgb: 152 162 179;
+    --blue: #5AB0F2;
+    --blue-rgb: 90 176 242;
+    --pink: #F59BC3;
+    --pink-rgb: 245 155 195;
+    --haze: #222A36;
+    --haze-rgb: 34 42 54;
+    --page: #0B0F17;
+    --page-rgb: 11 15 23;
+  }
 }

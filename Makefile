@@ -1,6 +1,6 @@
 # Single entry point for every task; personal info lives in data/profile.yaml.
 
-.PHONY: help install scholar build dev
+.PHONY: help install scholar latex build dev
 
 help:
 	@grep -E '^[a-z]+:.*##' $(MAKEFILE_LIST) | awk -F':.*## ' '{printf "  make %-10s %s\n", $$1, $$2}'
@@ -12,8 +12,10 @@ install:  ## install Python + website dependencies (activate the 'cv' conda env 
 scholar:  ## refresh Google Scholar metrics + pull new publications into the .bib
 	cv scholar
 
-build:  ## build the CV PDF and export site.json + theme.css for the website
+latex:  ## build only the CV PDF (website/public/cv/)
 	cv build-cv
+
+build: latex  ## build the CV PDF and export site.json + theme.css for the website
 	cv build-site
 
 dev: build  ## build, then preview the website offline at http://localhost:4321/

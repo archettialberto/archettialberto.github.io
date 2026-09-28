@@ -1,13 +1,9 @@
-%% Shared preamble: colors, fonts, and entry commands. Compile with XeLaTeX.
+%% Shared preamble: colors and fonts from theme/theme.yaml. Compile with XeLaTeX.
 
-\usepackage[utf8]{inputenc}
 \usepackage{enumitem}
 \usepackage{xcolor}
 \usepackage{hyperref}
-\usepackage{tikz}
 \usepackage{fontspec}
-\usepackage{calc}
-\usepackage{graphicx}
 \usepackage{xparse}
 
 %% Colors (from theme/theme.yaml)
@@ -41,48 +37,4 @@
     BoldFont=*-\VAR{face_text_medium_bold}
 ]
 
-\pagestyle{empty}
-\hypersetup{colorlinks=true, linkcolor=navy, urlcolor=gold}
-
-%% Section titles: display-font heading over a gold rule
-\newlength{\sectionunderlinegap}\setlength{\sectionunderlinegap}{4pt}
-\newlength{\sectionbottomspacing}\setlength{\sectionbottomspacing}{10pt}
-\newcommand{\sectionrule}{{\color{gold}\rule{\linewidth}{1pt}}}
-
-\newcommand{\leftsection}[1]{%
-  {\headerfont\Large\color{gold} #1\par}%
-  \vspace{\sectionunderlinegap}\sectionrule\vspace{\sectionbottomspacing}}
-
-\newcommand{\rightsection}[1]{%
-  {\headerfont\Large\color{navy} #1\par}%
-  \vspace{\sectionunderlinegap}\sectionrule\vspace{\sectionbottomspacing}}
-
-%% Entry commands
-% Sidebar contact line; links forced white to stay readable on navy.
-\NewDocumentCommand{\contactentry}{m m}{%
-  {\mediumfont\color{gold} #1}\\%
-  {\small\color{sidebartext}\hypersetup{urlcolor=sidebartext}#2}\vspace{10pt}}
-
-% Sidebar skill line: label + gold dot-rating (0-5).
-\NewDocumentCommand{\skillentry}{m m}{%
-  {\small\color{sidebartext} #1}\\[1pt]%
-  {\footnotesize\color{gold}%
-    \ifnum#2>0\textbullet\fi\ifnum#2>1\,\textbullet\fi\ifnum#2>2\,\textbullet\fi%
-    \ifnum#2>3\,\textbullet\fi\ifnum#2>4\,\textbullet\fi}\vspace{8pt}}
-
-% Sidebar plain tag line.
-\NewDocumentCommand{\tagentry}{m}{%
-  {\small\color{sidebartext} #1}\\[5pt]}
-
-% Right-column entry: title [date] [subtitle] {body}.
-\NewDocumentCommand{\rightentry}{m o o m}{%
-  \par\noindent
-  {\mediumfont\normalsize\color{charcoal}#1}%
-  \IfValueT{#2}{\hfill{\color{warmgray}\small\textit{#2}}}\par
-  \IfValueT{#3}{\nopagebreak\vspace{2pt}{\small\color{warmgray}\textit{#3}}\par}%
-  \if\relax\detokenize{#4}\relax\else\nopagebreak\vspace{6pt}\par{\color{charcoal}#4}\par\fi
-  \vspace{11pt}}
-
-\newenvironment{rightitemize}{%
-  \begin{itemize}[leftmargin=*, nosep, after=\vspace{6pt}, itemsep=4pt]}{%
-  \end{itemize}}
+\hypersetup{colorlinks=true, linkcolor=ink, urlcolor=blue}

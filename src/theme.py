@@ -35,38 +35,52 @@ def font_families(theme: dict | None = None) -> dict[str, str]:
     return {role: spec["family"] for role, spec in theme["fonts"].items()}
 
 
+def _color_vars(colors: dict, indent: str = "  ") -> str:
+    # `--name` for plain CSS; `--name-rgb` so Tailwind opacity modifiers work.
+    return "\n".join(
+        f"{indent}--{name}: #{hexval};\n{indent}--{name}-rgb: {' '.join(str(c) for c in _hex_to_rgb(hexval))};"
+        for name, hexval in colors.items()
+    )
+
+
 def write_web_css(theme: dict | None = None) -> Path:
     theme = theme or load_theme()
     colors = theme["colors"]
     fonts = theme["fonts"]
-    web = theme.get("web", {})
+    web = theme["web"]
 
     imports = []
     for spec in fonts.values():
         for w in spec["weights"]:
             imports.append(f"@import '@fontsource/{spec['web_package']}/{w}.css';")
 
-    # `--name` for plain CSS; `--name-rgb` so Tailwind opacity modifiers work.
-    color_vars = "\n".join(
-        f"  --{name}: #{hexval};\n  --{name}-rgb: {' '.join(str(c) for c in _hex_to_rgb(hexval))};"
-        for name, hexval in colors.items()
-    )
     display = fonts["display"].get("web_family", fonts["display"]["family"])
     text = fonts["text"].get("web_family", fonts["text"]["family"])
-    display_fallback = fonts["display"].get("fallback", "Georgia, serif")
-    text_fallback = fonts["text"].get("fallback", "system-ui, sans-serif")
 
     css = f"""/* GENERATED from theme/theme.yaml by `cv build-site` — do not edit. */
 {chr(10).join(imports)}
 
 :root {{
-{color_vars}
+  color-scheme: light;
+{_color_vars(colors)}
 
-  --display: '{display}', {display_fallback};
-  --text: '{text}', {text_fallback};
+  --display: '{display}', {fonts["display"]["fallback"]};
+  --text: '{text}', {fonts["text"]["fallback"]};
 
-  --max-width: {web.get('max_width', '920px')};
-  --radius: {web.get('radius', '2px')};
+  --max-width: {web["max_width"]};
+  --radius: {web["radius"]};
+}}
+
+/* Dark: explicit choice (data-theme, set by the header toggle) or, without JS, the OS setting. */
+:root[data-theme='dark'] {{
+  color-scheme: dark;
+{_color_vars(web["dark"])}
+}}
+@media (prefers-color-scheme: dark) {{
+  :root:not([data-theme='light']) {{
+    color-scheme: dark;
+{_color_vars(web["dark"], indent="    ")}
+  }}
 }}
 """
     out = ROOT / "website" / "src" / "styles" / "theme.css"

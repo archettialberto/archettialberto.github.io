@@ -1,0 +1,18 @@
+---
+// Page section: gradient accent, title, optional right-aligned `aside` slot (metrics, links).
+// Without a title, the section has no header at all.
+interface Props { id?: string; title?: string; class?: string }
+const { id, title, class: cls = '' } = Astro.props;
+---
+<section id={id} class={`py-14 scroll-mt-24 ${cls}`}>
+  {title && (
+    <div class="mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-2">
+      <div>
+        <span class="accent-bar mb-3" aria-hidden="true"></span>
+        <h2 class="section-title">{title}</h2>
+      </div>
+      {Astro.slots.has('aside') && <div class="text-sm text-mist"><slot name="aside" /></div>}
+    </div>
+  )}
+  <slot />
+</section>

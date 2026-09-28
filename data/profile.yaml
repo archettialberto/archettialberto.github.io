@@ -1,21 +1,45 @@
 name: Alberto Archetti
 suffix: Ph.D.
-title: Postdoctoral Researcher in Artificial Intelligence
+# Any text field may be `{en: ..., it: ...}`: the CV uses `en`, the Italian site uses `it`.
+title:
+  en: Postdoctoral Researcher in Artificial Intelligence
+  it: Ricercatore postdoc in Intelligenza Artificiale
 
 # One-line tagline shown under the name on the website hero.
-tagline: Tabular foundation models · Federated learning · Survival analysis
+tagline:
+  en: Tabular foundation models · Federated learning · Survival analysis
+  it: Foundation models tabulari · Federated learning · Analisi di sopravvivenza
 
-summary: >
-  I am a postdoctoral researcher in artificial intelligence at AIRLab, Politecnico
-  di Milano. My work spans tabular foundation models, federated learning, and
-  survival analysis, with a focus on extracting reliable, privacy-preserving
-  insights from sensitive and distributed healthcare data.
+summary:
+  en: >
+    I am a postdoctoral researcher in artificial intelligence at AIRLab, Politecnico
+    di Milano. My work spans tabular foundation models, federated learning, and
+    survival analysis, with a focus on extracting reliable, privacy-preserving
+    insights from sensitive and distributed healthcare data.
+  it: >
+    Sono un ricercatore postdoc in intelligenza artificiale all'AIRLab del Politecnico
+    di Milano. Mi occupo di foundation models tabulari, federated learning e
+    analisi di sopravvivenza, con l'obiettivo di estrarre informazioni affidabili e
+    rispettose della privacy da dati sanitari sensibili e distribuiti.
 
 # Website bio (falls back to `summary` if empty); one paragraph per line, <strong> allowed.
-bio: |
-  I am fascinated by emerging phenomena — how simple rules give rise to complex behavior, whether in vitro or in silico — and I find the field of artificial intelligence the ideal playground to study them.
+bio:
+  en: |
+    I am fascinated by emergent phenomena: how simple rules give rise to complex behavior, in vitro as well as in silico. Today, artificial intelligence is the best playground to study them, and it raises the question I find most intriguing: is intelligence rooted in the physical world and in interacting with it, or can it emerge from understanding the causal relationships between symbols alone?
 
-  As a postdoctoral researcher at AIRLab, Politecnico di Milano, I work on <strong>tabular foundation models</strong>, <strong>federated learning</strong>, and <strong>survival analysis</strong>, building models that learn from sensitive, multimodal data — turning scattered information into reliable, trustworthy predictions. I also love teaching and mentoring, and I take part in educational initiatives to promote AI literacy at all levels.
+    At AIRLab, Politecnico di Milano, I explore this question and many others, with a particular focus on AI for medicine. I also love teaching and mentoring, and I take part in educational initiatives to promote AI literacy at all levels.
+  it: |
+    Ciò che più mi affascina sono i fenomeni emergenti: come regole semplici diano origine a comportamenti complessi, in vitro come in silico. Oggi l'intelligenza artificiale è l'ambito ideale per studiarli, e porta con sé una domanda fondamentale: l'intelligenza è radicata nel mondo fisico e nell'interazione con esso, o può emergere soltanto dalla comprensione delle relazioni causali tra simboli?
+
+    All'AIRLab del Politecnico di Milano esploro questa e molte altre domande, con particolare attenzione all'IA per la medicina. Partecipo attivamente a iniziative di divulgazione per promuovere la conoscenza e l'educazione all'utilizzo dell'IA a tutti i livelli.
+
+# Website epigraph at the top of "About" (kept to one line on desktop).
+quote:
+  text:
+    en: For now, what is important is not finding the answer, but looking for it.
+    it: Per ora, ciò che è importante non è trovare la risposta, ma iniziare a cercarla.
+  author: Douglas R. Hofstadter
+  source: "Gödel, Escher, Bach: An Eternal Golden Braid"
 
 # `cv` / `website` (default true) toggle visibility per target.
 contacts:
@@ -35,6 +59,10 @@ contacts:
     value: scholar.google.com/citations?user=--kj4bcAAAAJ
     url: https://scholar.google.com/citations?user=--kj4bcAAAAJ&hl=en
     icon: scholar
+  - label: Scopus
+    value: scopus.com/authid/detail.uri?authorId=57224666739
+    url: https://www.scopus.com/authid/detail.uri?authorId=57224666739
+    icon: scopus
   - label: Instagram
     value: instagram.com/aarchetto
     url: https://www.instagram.com/aarchetto/

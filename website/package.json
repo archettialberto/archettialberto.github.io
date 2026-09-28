@@ -9,7 +9,6 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@fontsource/cormorant-garamond": "^5.0.0",
     "@fontsource/manrope": "^5.0.0",
     "astro": "^4.16.0"
   },

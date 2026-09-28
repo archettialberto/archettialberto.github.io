@@ -5,7 +5,7 @@
   end: present
   details:
     - label: Research topic
-      text: Tabular foundation models for healthcare.
+      text: {en: "Tabular foundation models for healthcare.", it: "Foundation models tabulari per la sanità."}
 
 - role: National Ph.D. in Artificial Intelligence for Industry 4.0
   org: Politecnico di Torino
@@ -14,9 +14,9 @@
   end: 2025
   details:
     - label: Research topic
-      text: Federated Learning for Survival Analysis.
+      text: {en: "Federated Learning for Survival Analysis.", it: "Federated learning per l'analisi di sopravvivenza."}
     - label: Collaborations
-      text: Research visitor at the Human Technopole, Milan, Italy.
+      text: {en: "Research visitor at the Human Technopole, Milan, Italy.", it: "Ricercatore ospite presso Human Technopole, Milano."}
 
 - role: Research Internship
   org: Politecnico di Milano
@@ -25,5 +25,6 @@
   end: 2021
   details:
     - label: Activities
-      text: >
-        Data analysis for anomaly detection; automated knowledge graph extraction.
+      text:
+        en: Data analysis for anomaly detection; automated knowledge graph extraction.
+        it: Analisi dei dati per il rilevamento di anomalie; estrazione automatica di knowledge graph.

@@ -7,6 +7,11 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 
+def _period(start: int, end: int | str) -> str:
+    """"2021–2025", "2025–present", or a single year."""
+    return str(start) if str(start) == str(end) else f"{start}–{end}"
+
+
 class Contact(BaseModel):
     label: str
     value: str
@@ -14,6 +19,12 @@ class Contact(BaseModel):
     icon: str | None = None
     cv: bool = True        # show on the PDF CV
     website: bool = True   # show on the website
+
+
+class Quote(BaseModel):
+    text: str
+    author: str
+    source: str | None = None
 
 
 class Profile(BaseModel):
@@ -26,6 +37,7 @@ class Profile(BaseModel):
     affiliation: str | None = None
     scholar_id: str | None = None
     contacts: list[Contact] = Field(default_factory=list)
+    quote: Quote | None = None  # website epigraph
     gdpr_authorization: str | None = None
 
     @property
@@ -52,8 +64,7 @@ class Employment(BaseModel):
 
     @property
     def period(self) -> str:
-        end = "present" if self.end == "present" else str(self.end)
-        return f"{self.start}–{end}" if str(self.start) != end else str(self.start)
+        return _period(self.start, self.end)
 
 
 class Education(BaseModel):
@@ -67,7 +78,7 @@ class Education(BaseModel):
 
     @property
     def period(self) -> str:
-        return f"{self.start}–{self.end}" if self.start != self.end else str(self.start)
+        return _period(self.start, self.end)
 
 
 class Teaching(BaseModel):
@@ -77,7 +88,23 @@ class Teaching(BaseModel):
     course: str
     degree: str | None = None  # course level, e.g. "MSc" / "BSc"
     hours: int | None = None
-    note: str | None = None
+
+
+class Course(BaseModel):
+    """One course across all its editions, grouped from ``teaching``."""
+
+    course: str
+    org: str
+    role: str
+    degree: str | None = None
+    start: int
+    end: int
+    editions: int
+    hours: int = 0  # total over all editions
+
+    @property
+    def period(self) -> str:
+        return _period(self.start, self.end)
 
 
 class Award(BaseModel):
@@ -101,8 +128,7 @@ class Project(BaseModel):
 
     @property
     def period(self) -> str:
-        end = "present" if self.end == "present" else str(self.end)
-        return f"{self.start}–{end}" if str(self.start) != end else str(self.start)
+        return _period(self.start, self.end)
 
 
 class ResearchInterest(BaseModel):
@@ -160,6 +186,11 @@ class Publication(BaseModel):
         return None
 
 
+class News(BaseModel):
+    date: str  # "YYYY-MM" or "YYYY"
+    text: str  # inline HTML allowed (<a>, <strong>, <em>); website only
+
+
 class ScholarMetrics(BaseModel):
     h_index: int | None = None
     i10_index: int | None = None
@@ -175,9 +206,12 @@ class CVData(BaseModel):
     employment: list[Employment] = Field(default_factory=list)
     education: list[Education] = Field(default_factory=list)
     teaching: list[Teaching] = Field(default_factory=list)
+    courses: list[Course] = Field(default_factory=list)
     talks: list[Talk] = Field(default_factory=list)
     supervision: list[Supervision] = Field(default_factory=list)
     awards: list[Award] = Field(default_factory=list)
     projects: list[Project] = Field(default_factory=list)
     publications: list[Publication] = Field(default_factory=list)
     metrics: ScholarMetrics | None = None
+    news: list[News] = Field(default_factory=list)
+    i18n: dict[str, str] = Field(default_factory=dict)  # English -> Italian, website only

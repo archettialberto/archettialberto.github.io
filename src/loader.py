@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import re
 from pathlib import Path
+from typing import Any
 
 import bibtexparser
 import yaml
@@ -13,9 +14,11 @@ from bibtexparser.bwriter import BibTexWriter
 
 from .models import (
     Award,
+    Course,
     CVData,
     Education,
     Employment,
+    News,
     Profile,
     Project,
     Publication,
@@ -31,12 +34,25 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
 
 
-def _load_yaml(name: str) -> object:
+def _load_yaml(name: str, i18n: dict[str, str]) -> Any:
     path = DATA_DIR / name
     if not path.exists():
         return None
     with path.open(encoding="utf-8") as fh:
-        return yaml.safe_load(fh)
+        return _localize(yaml.safe_load(fh), i18n)
+
+
+def _localize(node: Any, i18n: dict[str, str]) -> Any:
+    """Resolve every ``{en: ..., it: ...}`` to its English text (what the CV and
+    models see), recording the Italian in ``i18n`` for the website."""
+    if isinstance(node, dict):
+        if set(node) == {"en", "it"}:
+            i18n[node["en"]] = node["it"]
+            return node["en"]
+        return {k: _localize(v, i18n) for k, v in node.items()}
+    if isinstance(node, list):
+        return [_localize(v, i18n) for v in node]
+    return node
 
 
 def _classify(entry_type: str, keywords: list[str], arxiv: str | None) -> str:
@@ -65,8 +81,9 @@ def _parse_publications() -> list[Publication]:
     writer.indent = "  "
 
     def _entry_bibtex(entry: dict) -> str:
+        # Build-control fields are noise in a copied citation.
         single = BibDatabase()
-        single.entries = [entry]
+        single.entries = [{k: v for k, v in entry.items() if k not in {"selected", "keywords"}}]
         return writer.write(single).strip()
 
     pubs: list[Publication] = []
@@ -97,6 +114,23 @@ def _parse_publications() -> list[Publication]:
     return pubs
 
 
+def _group_courses(teaching: list[Teaching]) -> list[Course]:
+    """One entry per (course, org), latest edition first."""
+    groups: dict[tuple[str, str], list[Teaching]] = {}
+    for t in teaching:
+        groups.setdefault((t.course, t.org), []).append(t)
+    courses = []
+    for eds in groups.values():
+        eds.sort(key=lambda t: t.year, reverse=True)
+        roles = list(dict.fromkeys(t.role for t in eds))
+        courses.append(Course(
+            course=eds[0].course, org=eds[0].org, role=" / ".join(roles), degree=eds[0].degree,
+            start=eds[-1].year, end=eds[0].year, editions=len(eds),
+            hours=sum(t.hours or 0 for t in eds),
+        ))
+    return sorted(courses, key=lambda c: (c.end, c.start), reverse=True)
+
+
 def _merge_scholar(pubs: list[Publication]) -> ScholarMetrics | None:
     cache = DATA_DIR / "scholar_cache.json"
     if not cache.exists():
@@ -116,18 +150,26 @@ def _merge_scholar(pubs: list[Publication]) -> ScholarMetrics | None:
 
 def load() -> CVData:
     """Load, validate, and return all career data."""
-    profile = Profile.model_validate(_load_yaml("profile.yaml") or {})
-    research = [ResearchInterest.model_validate(x) for x in (_load_yaml("research_interests.yaml") or [])]
-    skills = [SkillGroup.model_validate(x) for x in (_load_yaml("skills.yaml") or [])]
-    employment = [Employment.model_validate(x) for x in (_load_yaml("employment.yaml") or [])]
-    education = [Education.model_validate(x) for x in (_load_yaml("education.yaml") or [])]
-    teaching = [Teaching.model_validate(x) for x in (_load_yaml("teaching.yaml") or [])]
-    talks = [Talk.model_validate(x) for x in (_load_yaml("talks.yaml") or [])]
-    supervision = [Supervision.model_validate(x) for x in (_load_yaml("supervision.yaml") or [])]
-    awards = [Award.model_validate(x) for x in (_load_yaml("awards.yaml") or [])]
-    projects = [Project.model_validate(x) for x in (_load_yaml("projects.yaml") or [])]
+    i18n: dict[str, str] = {}
+
+    def items(name: str, model: type) -> list:
+        return [model.model_validate(x) for x in (_load_yaml(name, i18n) or [])]
+
+    profile = Profile.model_validate(_load_yaml("profile.yaml", i18n) or {})
+    research = items("research_interests.yaml", ResearchInterest)
+    skills = items("skills.yaml", SkillGroup)
+    employment = items("employment.yaml", Employment)
+    education = items("education.yaml", Education)
+    teaching = items("teaching.yaml", Teaching)
+    talks = items("talks.yaml", Talk)
+    supervision = items("supervision.yaml", Supervision)
+    awards = items("awards.yaml", Award)
+    projects = items("projects.yaml", Project)
+    news = sorted(items("news.yaml", News), key=lambda n: n.date, reverse=True)
     publications = _parse_publications()
     metrics = _merge_scholar(publications)
+    # Glossary for recurring terms; inline {en, it} pairs take precedence.
+    i18n = {**(_load_yaml("it.yaml", i18n) or {}), **i18n}
 
     return CVData(
         profile=profile,
@@ -136,10 +178,13 @@ def load() -> CVData:
         employment=employment,
         education=education,
         teaching=teaching,
+        courses=_group_courses(teaching),
         talks=talks,
         supervision=supervision,
         awards=awards,
         projects=projects,
         publications=publications,
         metrics=metrics,
+        news=news,
+        i18n=i18n,
     )

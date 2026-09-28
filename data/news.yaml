@@ -1,0 +1,44 @@
+# Website "News": sorted by date at build; only the four most recent show.
+# `date`: YYYY-MM or YYYY. Inline HTML allowed.
+
+- date: 2026-07
+  text:
+    en: >-
+      New preprint with Niccolò Maria Rizzi: <a href="https://arxiv.org/abs/2607.00127">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>.
+    it: >-
+      Nuovo preprint con Niccolò Maria Rizzi: <a href="https://arxiv.org/abs/2607.00127">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>.
+
+- date: 2026-06
+  text:
+    en: >-
+      Presented <em>SurvKAN</em> and <em>Deep Variational Contrastive Learning</em> at IJCNN 2026 in Maastricht. Both grew out of MSc theses I co-supervised.
+    it: >-
+      Presentati <em>SurvKAN</em> e <em>Deep Variational Contrastive Learning</em> a IJCNN 2026 a Maastricht. Entrambi sono nati da tesi magistrali di cui sono stato correlatore.
+
+- date: 2026-02
+  text:
+    en: >-
+      New preprint: <a href="https://arxiv.org/abs/2602.03686">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>.
+    it: >-
+      Nuovo preprint: <a href="https://arxiv.org/abs/2602.03686">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>.
+
+- date: 2025-12
+  text:
+    en: >-
+      <a href="https://doi.org/10.1109/TMBMC.2025.3609105">Emergent Molecular Communication</a> published in IEEE Transactions on Molecular, Biological, and Multi-Scale Communications.
+    it: >-
+      <a href="https://doi.org/10.1109/TMBMC.2025.3609105">Emergent Molecular Communication</a> pubblicato su IEEE Transactions on Molecular, Biological, and Multi-Scale Communications.
+
+- date: 2025-10
+  text:
+    en: >-
+      Presented <a href="https://doi.org/10.3233/FAIA251019">FPBoost</a> at ECAI 2025 in Bologna.
+    it: >-
+      Presentato <a href="https://doi.org/10.3233/FAIA251019">FPBoost</a> a ECAI 2025 a Bologna.
+
+- date: "2025"
+  text:
+    en: >-
+      Completed my Ph.D. at Politecnico di Torino and joined AIRLab, Politecnico di Milano, as a research fellow.
+    it: >-
+      Concluso il dottorato al Politecnico di Torino, sono entrato all'AIRLab del Politecnico di Milano come assegnista di ricerca.

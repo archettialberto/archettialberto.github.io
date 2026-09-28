@@ -1,5 +1,5 @@
 // Colors/fonts come from the CSS variables in the generated theme.css;
-// the -rgb form keeps opacity modifiers (e.g. text-charcoal/70) working.
+// the -rgb form keeps opacity modifiers (e.g. text-ink/70) working.
 const themeColor = (name) => `rgb(var(--${name}-rgb) / <alpha-value>)`;
 
 /** @type {import('tailwindcss').Config} */
@@ -8,12 +8,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        navy: themeColor('navy'),
-        gold: themeColor('gold'),
-        charcoal: themeColor('charcoal'),
-        warmgray: themeColor('warmgray'),
-        lightnavy: themeColor('lightnavy'),
-        paper: themeColor('paper'),
+        ink: themeColor('ink'),
+        mist: themeColor('mist'),
+        blue: themeColor('blue'),
+        pink: themeColor('pink'),
+        haze: themeColor('haze'),
+        page: themeColor('page'),
       },
       fontFamily: {
         display: 'var(--display)',
@@ -21,9 +21,6 @@ export default {
       },
       maxWidth: {
         content: 'var(--max-width)',
-      },
-      borderRadius: {
-        DEFAULT: 'var(--radius)',
       },
     },
   },

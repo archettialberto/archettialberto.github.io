@@ -19,7 +19,6 @@ from .theme import font_families, latex_color_defs, load_theme
 CV_DIR = ROOT / "cv"
 TEMPLATE_DIR = CV_DIR / "templates"
 FONTS_DIR = CV_DIR / "fonts"
-ASSETS_DIR = CV_DIR / "assets"
 BUILD_DIR = CV_DIR / "build"
 
 _TEX_REPLACEMENTS = {
@@ -81,27 +80,25 @@ def render(data: CVData, template: str = "cv") -> Path:
     # Make the build dir self-contained so a plain `xelatex cv` works.
     BUILD_DIR.mkdir(parents=True, exist_ok=True)
     _sync_dir(FONTS_DIR, BUILD_DIR / "fonts")
-    for asset in ASSETS_DIR.glob("*.pdf"):
-        shutil.copy2(asset, BUILD_DIR / asset.name)
 
     theme = load_theme()
     fams = font_families(theme)
-    disp = theme["fonts"]["display"].get("latex", {})
-    txt = theme["fonts"]["text"].get("latex", {})
+    disp = theme["fonts"]["display"]["latex"]
+    txt = theme["fonts"]["text"]["latex"]
     theme_ctx = {
         "color_defs": latex_color_defs(theme),
         "font_display": fams["display"],
         "font_text": fams["text"],
-        "face_display_upright": disp.get("upright", "Regular"),
-        "face_display_bold": disp.get("bold", "SemiBold"),
-        "face_display_title": disp.get("title", "SemiBold"),
-        "face_display_title_bold": disp.get("title_bold", "Bold"),
-        "face_text_upright": txt.get("upright", "Light"),
-        "face_text_bold": txt.get("bold", "Regular"),
-        "face_text_italic": txt.get("italic", "Light"),
-        "face_text_medium": txt.get("medium", "Medium"),
-        "face_text_medium_bold": txt.get("medium_bold", "SemiBold"),
-        "display_letterspace": theme["fonts"]["display"].get("letterspace", "0.0"),
+        "face_display_upright": disp["upright"],
+        "face_display_bold": disp["bold"],
+        "face_display_title": disp["title"],
+        "face_display_title_bold": disp["title_bold"],
+        "face_text_upright": txt["upright"],
+        "face_text_bold": txt["bold"],
+        "face_text_italic": txt["italic"],
+        "face_text_medium": txt["medium"],
+        "face_text_medium_bold": txt["medium_bold"],
+        "display_letterspace": theme["fonts"]["display"]["letterspace"],
         "fonts_path": "fonts",
     }
 
@@ -117,14 +114,13 @@ def render(data: CVData, template: str = "cv") -> Path:
         skills=data.skills,
         employment=data.employment,
         education=data.education,
-        teaching=data.teaching,
+        courses=data.courses,
         talks=data.talks,
         supervision=data.supervision,
         awards=data.awards,
         projects=data.projects,
         publications=data.publications,
         metrics=data.metrics,
-        logo="logo-gold",
         **theme_ctx,
     )
     return out

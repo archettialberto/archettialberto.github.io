@@ -1,11 +1,11 @@
 - title: "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks"
-  event: European Conference on Artificial Intelligence (ECAI)
+  event: International Joint Conference on Neural Networks (IJCNN)
   year: 2026
   location: Maastricht, Netherlands
   kind: Conference talk
 
 - title: "Deep Variational Contrastive Learning for Joint Risk Stratification and Time-to-Event Estimation"
-  event: European Conference on Artificial Intelligence (ECAI)
+  event: International Joint Conference on Neural Networks (IJCNN)
   year: 2026
   location: Maastricht, Netherlands
   kind: Conference talk
@@ -18,7 +18,7 @@
 
 - title: "Discriminative adversarial privacy: balancing accuracy and membership privacy in neural networks"
   event: British Machine Vision Conference (BMVC)
-  year: 2024
+  year: 2023
   location: Aberdeen, Scotland
   kind: Conference talk
 
@@ -41,7 +41,7 @@
   kind: Conference talk
 
 - title: "Federated and Privacy-Preserving Learning"
-  event: PhD Lecture, Politecnico di Milano
+  event: {en: "PhD Lecture, Politecnico di Milano", it: "Lezione di dottorato, Politecnico di Milano"}
   year: 2022
   location: Milan, Italy
   kind: Seminar

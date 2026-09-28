@@ -1,0 +1,16 @@
+---
+// Circular portrait with a gradient ring; initials until PHOTO is set in config.ts.
+import { PHOTO, base } from '../config';
+interface Props { name: string }
+const { name } = Astro.props;
+const initials = name.split(/\s+/).map((w) => w[0]).join('');
+---
+<div class="avatar shrink-0 self-start sm:self-center rounded-full bg-gradient-to-br from-blue to-pink p-[3px]">
+  {PHOTO
+    ? <img src={`${base}${PHOTO}`} alt={name} width="176" height="176"
+           class="h-32 w-32 sm:h-44 sm:w-44 rounded-full border-4 border-page object-cover" />
+    : <div class="grid h-32 w-32 sm:h-44 sm:w-44 place-items-center rounded-full border-4 border-page bg-page"
+           role="img" aria-label={name}>
+        <span class="gradient-text font-display text-4xl sm:text-5xl font-extrabold tracking-tight">{initials}</span>
+      </div>}
+</div>

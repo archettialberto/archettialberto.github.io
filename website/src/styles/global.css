@@ -4,24 +4,36 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Cross-fade between pages (the EN/IT switch); browsers without support just navigate. */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.35s; }
+
+:root {
+  --glass-edge: light-dark(rgb(255 255 255 / 0.65), rgb(255 255 255 / 0.07));
+  --glass-shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 12px 32px -16px light-dark(rgb(var(--ink-rgb) / 0.12), rgb(0 0 0 / 0.6));
+  --glass-shadow-hover: 0 1px 2px rgb(0 0 0 / 0.05), 0 18px 40px -18px light-dark(rgb(var(--blue-rgb) / 0.35), rgb(0 0 0 / 0.75));
+}
+
 @layer base {
   html {
     scroll-behavior: smooth;
     font-family: var(--text);
   }
   body {
-    @apply bg-paper text-charcoal antialiased;
-    font-weight: 300;
+    @apply bg-page text-ink antialiased;
+    font-weight: 400;
     line-height: 1.7;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
   h1, h2, h3, h4 {
     font-family: var(--display);
-    @apply text-navy;
-    font-weight: 600;
+    @apply text-ink;
+    font-weight: 700;
     line-height: 1.15;
+    letter-spacing: -0.01em;
   }
   a {
-    @apply text-gold;
+    @apply text-blue;
     text-decoration: none;
   }
   a:hover { text-decoration: underline; }
@@ -30,28 +42,153 @@
 @layer components {
   .section-title {
     font-family: var(--display);
-    @apply text-3xl text-navy tracking-wide;
+    @apply text-2xl sm:text-3xl font-bold text-ink tracking-tight;
+  }
+  /* Subheadings share the epigraph's gradient bar and type, so the page reads as one system. */
+  .subsection-title {
+    @apply relative mb-6 pl-5 font-display text-lg font-semibold leading-snug text-ink/85;
+  }
+  .subsection-title::before, .epigraph::before {
+    content: '';
+    @apply absolute bottom-0.5 left-0 top-0.5 w-[3px] rounded-full bg-gradient-to-b from-blue to-pink;
+  }
+  .accent-bar {
+    @apply block h-1 w-10 rounded-full bg-gradient-to-r from-blue to-pink;
+  }
+  .gradient-text {
+    @apply bg-gradient-to-r from-blue to-pink bg-clip-text text-transparent;
+  }
+  .chip {
+    @apply inline-block rounded-full bg-blue/10 px-2 py-0.5 text-xs font-medium text-blue;
   }
 
   /* Never split a name word across lines. */
   .hero-name > span { white-space: nowrap; }
 
-  .hero-bg {
-    background-color: var(--navy);
-    background-image:
-      linear-gradient(160deg, rgba(255, 255, 255, 0.06) 0%, transparent 45%),
-      linear-gradient(to bottom, transparent 55%, rgba(0, 0, 0, 0.16) 100%);
+  .btn {
+    @apply inline-flex items-center rounded-full px-6 py-2.5 text-sm font-semibold no-underline transition;
+  }
+  .btn:hover { text-decoration: none; transform: translateY(-1px); }
+  .btn-primary {
+    @apply bg-blue text-page shadow-lg shadow-blue/25 hover:opacity-90;
+  }
+  .btn.glass { @apply text-ink hover:bg-page/80; }
+
+  .nav-link {
+    @apply rounded-full px-3 py-1.5 text-sm font-medium text-ink/70 no-underline transition-colors;
+  }
+  .nav-link:hover, .nav-link.is-active {
+    @apply bg-page/70 text-ink no-underline;
+  }
+  .icon-btn {
+    @apply grid h-9 min-w-9 place-items-center rounded-full px-2 text-mist no-underline transition-colors;
+  }
+  .icon-btn:hover { @apply bg-page/70 text-ink no-underline; }
+
+  /* EN/IT switch: a thumb under the active language; it slides over on click. */
+  .lang-switch {
+    @apply relative grid grid-cols-2 items-center rounded-full border border-haze p-0.5 text-[0.68rem] font-bold tracking-wider no-underline transition-colors;
+  }
+  .lang-switch:hover { @apply no-underline; }
+  .lang-thumb {
+    @apply absolute bottom-0.5 left-0.5 top-0.5 rounded-full bg-gradient-to-r from-blue to-pink;
+    width: calc(50% - 0.125rem);
+    transition: transform 0.26s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .lang-opt {
+    @apply relative px-2 py-0.5 text-center text-mist;
+    transition: color 0.26s ease;
+  }
+  .lang-switch[data-active='it'] .lang-thumb { transform: translateX(100%); }
+  .lang-switch:hover .lang-opt { @apply text-ink; }
+  .lang-switch[data-active='en'] [data-opt='en'],
+  .lang-switch[data-active='it'] [data-opt='it'] { @apply text-page; }
+
+  /* Theme toggle shows the mode you'd switch to. */
+  .theme-sun { display: none; }
+  :root[data-theme='dark'] .theme-sun { display: block; }
+  :root[data-theme='dark'] .theme-moon { display: none; }
+  #theme-toggle { display: none; }
+  .js #theme-toggle { display: grid; }
+
+  /* Fixed ambient wash: one blue and one pink blob. */
+  .ambient {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(38rem 38rem at 82% -8%, rgb(var(--blue-rgb) / 0.16), transparent 65%),
+      radial-gradient(34rem 34rem at 4% 22%, rgb(var(--pink-rgb) / 0.14), transparent 65%),
+      radial-gradient(40rem 40rem at 60% 110%, rgb(var(--blue-rgb) / 0.08), transparent 70%);
   }
 
-  /* Gold rule + faint diamond motif beneath the hero. */
-  .hero-divider {
-    height: 56px;
-    background:
-      linear-gradient(to bottom, color-mix(in srgb, var(--navy) 4%, transparent), transparent 70%),
-      radial-gradient(circle at center, color-mix(in srgb, var(--gold) 10%, transparent) 1px, transparent 1.4px);
-    background-size: 100% 100%, 22px 22px;
-    border-top: 2px solid var(--gold);
+  /* Frosted-glass surface; tinted by the page color so it works in both themes. */
+  .glass {
+    background: rgb(var(--page-rgb) / 0.55);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    backdrop-filter: blur(18px) saturate(1.6);
+    border: 1px solid var(--glass-edge);
+    border-radius: var(--radius);
+    box-shadow: var(--glass-shadow);
   }
+
+  /* Hover: glass cards rise; list entries rise into a glass card of their own. */
+  .lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+  .hoverable {
+    @apply -mx-3 px-3 py-2.5;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+    transition: transform 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  .news-row { @apply -mx-5 px-5; transition: background-color 0.2s ease; }
+  @media (hover: hover) {
+    .lift:hover { transform: translateY(-2px); box-shadow: var(--glass-shadow-hover); }
+    .hoverable:hover {
+      transform: translateY(-2px);
+      background: rgb(var(--page-rgb) / 0.6);
+      border-color: var(--glass-edge);
+      box-shadow: var(--glass-shadow-hover);
+    }
+    .news-row:hover { background: rgb(var(--blue-rgb) / 0.05); }
+  }
+
+  .avatar { box-shadow: 0 18px 40px -18px rgb(var(--blue-rgb) / 0.55); }
+
+  /* Timeline: a hairline with a dot per step, colored by kind (work / education). */
+  .timeline { @apply relative space-y-7; }
+  .timeline::before {
+    content: '';
+    @apply absolute bottom-2 left-[5px] top-2 w-px bg-haze;
+  }
+  .dot { @apply inline-block h-[11px] w-[11px] rounded-full; }
+  .step { @apply relative pl-8; --step: var(--blue-rgb); }
+  .step-edu { --step: var(--pink-rgb); }
+  .step > .dot {
+    @apply absolute left-0 top-1.5;
+    background: rgb(var(--step));
+    transition: transform 0.25s ease;
+  }
+  .step-now > .dot { @apply bg-gradient-to-br from-blue to-pink; }
+  /* Hover: the dot grows and the entry leans in. */
+  .step > div { transition: transform 0.25s ease; }
+  @media (hover: hover) {
+    .step:hover > .dot { transform: scale(1.45); }
+    .step:hover > div { transform: translateX(4px); }
+  }
+
+  .epigraph { @apply relative pl-5; }
+  .epigraph cite { font-style: italic; }
+
+  .news-text a { @apply font-medium; }
+
+  /* Collapsible lists: fold `data-more` items only when JS can unfold them. */
+  .js .collapsible:not(.is-open) [data-more] { display: none; }
+  .collapse-toggle {
+    @apply mt-6 hidden items-center gap-1.5 rounded-full border border-haze px-4 py-1.5 text-sm font-medium text-blue transition-colors hover:bg-blue/10;
+  }
+  .js .collapse-toggle { display: inline-flex; }
+  .collapsible.is-open > .collapse-toggle svg { transform: rotate(180deg); }
 }
 
 /* Section reveal-on-scroll. */

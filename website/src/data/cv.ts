@@ -16,7 +16,11 @@ export type Education = {
 };
 export type Teaching = {
   role: string; org: string; year: number; course: string;
-  degree: string | null; hours: number | null; note: string | null;
+  degree: string | null; hours: number | null;
+};
+export type Course = {
+  course: string; org: string; role: string; degree: string | null;
+  start: number; end: number; editions: number; hours: number;
 };
 export type Award = { title: string; org: string | null; year: number | null; note: string | null };
 export type Publication = {
@@ -27,6 +31,7 @@ export type Publication = {
   selected: boolean;
 };
 
+export type News = { date: string; text: string };
 export type ResearchInterest = { title: string; description: string | null };
 export type SkillGroup = { category: string; skills: string[] };
 export type Talk = {
@@ -49,18 +54,22 @@ export const cv = data as unknown as {
     tagline: string | null; summary: string; bio: string | null;
     affiliation: string | null;
     contacts: Contact[]; gdpr_authorization: string | null;
+    quote: { text: string; author: string; source: string | null } | null;
   };
   research_interests: ResearchInterest[];
   skills: SkillGroup[];
   employment: Employment[];
   education: Education[];
   teaching: Teaching[];
+  courses: Course[]; // teaching grouped per course by the builder
   talks: Talk[];
   supervision: Supervision[];
   awards: Award[];
   projects: Project[];
   publications: Publication[];
-  metrics: { h_index: number | null; total_citations: number | null } | null;
+  metrics: { h_index: number | null; i10_index: number | null; total_citations: number | null } | null;
+  news: News[];
+  i18n: Record<string, string>; // English -> Italian
 };
 
 export const fullName = cv.profile.suffix
@@ -69,9 +78,6 @@ export const fullName = cv.profile.suffix
 
 // Surname-derived, matching how src/cli.py names the published PDF.
 export const cvPdfPath = `cv/${cv.profile.name.trim().split(/\s+/).pop()!.toLowerCase()}-cv.pdf`;
-
-export const period = (start: number, end: number | 'present') =>
-  end === 'present' ? `${start} – present` : start === end ? `${start}` : `${start} – ${end}`;
 
 export const pubUrl = (p: Publication): string | null =>
   p.doi ? `https://doi.org/${p.doi}` : p.arxiv ? `https://arxiv.org/abs/${p.arxiv}` : null;

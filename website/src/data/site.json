@@ -5,7 +5,7 @@
     "title": "Postdoctoral Researcher in Artificial Intelligence",
     "tagline": "Tabular foundation models · Federated learning · Survival analysis",
     "summary": "I am a postdoctoral researcher in artificial intelligence at AIRLab, Politecnico di Milano. My work spans tabular foundation models, federated learning, and survival analysis, with a focus on extracting reliable, privacy-preserving insights from sensitive and distributed healthcare data.\n",
-    "bio": "I am fascinated by emerging phenomena — how simple rules give rise to complex behavior, whether in vitro or in silico — and I find the field of artificial intelligence the ideal playground to study them.\n\nAs a postdoctoral researcher at AIRLab, Politecnico di Milano, I work on <strong>tabular foundation models</strong>, <strong>federated learning</strong>, and <strong>survival analysis</strong>, building models that learn from sensitive, multimodal data — turning scattered information into reliable, trustworthy predictions. I also love teaching and mentoring, and I take part in educational initiatives to promote AI literacy at all levels.\n",
+    "bio": "I am fascinated by emergent phenomena: how simple rules give rise to complex behavior, in vitro as well as in silico. Today, artificial intelligence is the best playground to study them, and it raises the question I find most intriguing: is intelligence rooted in the physical world and in interacting with it, or can it emerge from understanding the causal relationships between symbols alone?\n\nAt AIRLab, Politecnico di Milano, I explore this question and many others, with a particular focus on AI for medicine. I also love teaching and mentoring, and I take part in educational initiatives to promote AI literacy at all levels.\n",
     "affiliation": "AIRLab, Politecnico di Milano, Italy",
     "scholar_id": "--kj4bcAAAAJ",
     "contacts": [
@@ -42,6 +42,14 @@
         "website": true
       },
       {
+        "label": "Scopus",
+        "value": "scopus.com/authid/detail.uri?authorId=57224666739",
+        "url": "https://www.scopus.com/authid/detail.uri?authorId=57224666739",
+        "icon": "scopus",
+        "cv": true,
+        "website": true
+      },
+      {
         "label": "Instagram",
         "value": "instagram.com/aarchetto",
         "url": "https://www.instagram.com/aarchetto/",
@@ -50,24 +58,29 @@
         "website": true
       }
     ],
+    "quote": {
+      "text": "For now, what is important is not finding the answer, but looking for it.",
+      "author": "Douglas R. Hofstadter",
+      "source": "Gödel, Escher, Bach: An Eternal Golden Braid"
+    },
     "gdpr_authorization": "Autorizzo al trattamento dati ai sensi del GDPR 2016/679 del 27 aprile 2016 (Regolamento Europeo relativo alla protezione delle persone fisiche per quanto riguarda il trattamento dei dati personali). Autorizzo la pubblicazione del Curriculum Vitae sul sito istituzionale del Politecnico di Milano (sez. Amministrazione Trasparente) in ottemperanza al D. Lgs n. 33 del 14 marzo 2013 (e s.m.i.).\n"
   },
   "research_interests": [
     {
       "title": "Tabular Foundation Models",
-      "description": "Building general-purpose deep learning models for in-context learning on tabular data.\n"
+      "description": "One pretrained model for any table: predictions on a new dataset in a single forward pass, with no task-specific training."
     },
     {
       "title": "Survival Analysis",
-      "description": "Predicting time-to-event outcomes for clinical data and financial applications.\n"
+      "description": "Predicting not only whether an event happens but when, from patient outcomes to financial risk."
     },
     {
       "title": "Federated Learning",
-      "description": "Training models across distributed, siloed datasets while preserving privacy.\n"
+      "description": "Training models across hospitals without exposing patient data."
     },
     {
       "title": "Machine Learning for Healthcare",
-      "description": "Applying AI to multimodal healthcare data, with a focus on privacy, interpretability, and reliability.\n"
+      "description": "Models clinicians can rely on: private by design, interpretable, and robust to messy multimodal data."
     }
   ],
   "skills": [
@@ -150,7 +163,7 @@
       "details": [
         {
           "label": "Activities",
-          "text": "Data analysis for anomaly detection; automated knowledge graph extraction.\n"
+          "text": "Data analysis for anomaly detection; automated knowledge graph extraction."
         }
       ]
     }
@@ -200,8 +213,7 @@
       "year": 2026,
       "course": "AI Bootcamp",
       "degree": "TechCamp@PoliMI",
-      "hours": 15,
-      "note": null
+      "hours": 15
     },
     {
       "role": "Teaching Assistant",
@@ -209,8 +221,7 @@
       "year": 2026,
       "course": "Advanced Deep Learning",
       "degree": "MSc",
-      "hours": 10,
-      "note": null
+      "hours": 10
     },
     {
       "role": "Teaching Assistant",
@@ -218,8 +229,7 @@
       "year": 2025,
       "course": "AI Bootcamp",
       "degree": "TechCamp@PoliMI",
-      "hours": 15,
-      "note": null
+      "hours": 15
     },
     {
       "role": "Teaching Assistant",
@@ -227,8 +237,7 @@
       "year": 2025,
       "course": "AI Product Management Bootcamp",
       "degree": "Corporate Training",
-      "hours": 6,
-      "note": null
+      "hours": 6
     },
     {
       "role": "Teaching Assistant",
@@ -236,8 +245,7 @@
       "year": 2025,
       "course": "Artificial Neural Networks and Deep Learning",
       "degree": "MSc",
-      "hours": 20,
-      "note": null
+      "hours": 20
     },
     {
       "role": "Teaching Assistant",
@@ -245,8 +253,7 @@
       "year": 2024,
       "course": "Artificial Neural Networks and Deep Learning",
       "degree": "MSc",
-      "hours": 20,
-      "note": null
+      "hours": 20
     },
     {
       "role": "Teaching Assistant",
@@ -254,8 +261,7 @@
       "year": 2024,
       "course": "AI Bootcamp",
       "degree": "TechCamp@PoliMI",
-      "hours": 15,
-      "note": null
+      "hours": 15
     },
     {
       "role": "Teaching Assistant",
@@ -263,8 +269,7 @@
       "year": 2024,
       "course": "Coding Bootcamp",
       "degree": "TechCamp@PoliMI",
-      "hours": 15,
-      "note": null
+      "hours": 15
     },
     {
       "role": "Lab Tutor",
@@ -272,8 +277,7 @@
       "year": 2024,
       "course": "Software Engineering",
       "degree": "BSc",
-      "hours": 32,
-      "note": null
+      "hours": 32
     },
     {
       "role": "Teaching Assistant",
@@ -281,8 +285,7 @@
       "year": 2023,
       "course": "Coding Bootcamp",
       "degree": "TechCamp@PoliMI",
-      "hours": 15,
-      "note": null
+      "hours": 15
     },
     {
       "role": "Lab Tutor",
@@ -290,8 +293,7 @@
       "year": 2023,
       "course": "Software Engineering",
       "degree": "BSc",
-      "hours": 32,
-      "note": null
+      "hours": 32
     },
     {
       "role": "Teaching Assistant",
@@ -299,8 +301,7 @@
       "year": 2022,
       "course": "Coding Bootcamp",
       "degree": "TechCamp@PoliMI",
-      "hours": 30,
-      "note": null
+      "hours": 30
     },
     {
       "role": "Lab Tutor",
@@ -308,14 +309,75 @@
       "year": 2022,
       "course": "Software Engineering",
       "degree": "BSc",
-      "hours": 32,
-      "note": null
+      "hours": 32
+    }
+  ],
+  "courses": [
+    {
+      "course": "Advanced Deep Learning",
+      "org": "Politecnico di Milano",
+      "role": "Teaching Assistant",
+      "degree": "MSc",
+      "start": 2026,
+      "end": 2026,
+      "editions": 1,
+      "hours": 10
+    },
+    {
+      "course": "AI Bootcamp",
+      "org": "Politecnico di Milano",
+      "role": "Teaching Assistant",
+      "degree": "TechCamp@PoliMI",
+      "start": 2024,
+      "end": 2026,
+      "editions": 3,
+      "hours": 45
+    },
+    {
+      "course": "AI Product Management Bootcamp",
+      "org": "CEFRIEL",
+      "role": "Teaching Assistant",
+      "degree": "Corporate Training",
+      "start": 2025,
+      "end": 2025,
+      "editions": 1,
+      "hours": 6
+    },
+    {
+      "course": "Artificial Neural Networks and Deep Learning",
+      "org": "Politecnico di Milano",
+      "role": "Teaching Assistant",
+      "degree": "MSc",
+      "start": 2024,
+      "end": 2025,
+      "editions": 2,
+      "hours": 40
+    },
+    {
+      "course": "Coding Bootcamp",
+      "org": "Politecnico di Milano",
+      "role": "Teaching Assistant",
+      "degree": "TechCamp@PoliMI",
+      "start": 2022,
+      "end": 2024,
+      "editions": 3,
+      "hours": 60
+    },
+    {
+      "course": "Software Engineering",
+      "org": "Politecnico di Milano",
+      "role": "Lab Tutor",
+      "degree": "BSc",
+      "start": 2022,
+      "end": 2024,
+      "editions": 3,
+      "hours": 96
     }
   ],
   "talks": [
     {
       "title": "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks",
-      "event": "European Conference on Artificial Intelligence (ECAI)",
+      "event": "International Joint Conference on Neural Networks (IJCNN)",
       "year": 2026,
       "location": "Maastricht, Netherlands",
       "kind": "Conference talk",
@@ -323,7 +385,7 @@
     },
     {
       "title": "Deep Variational Contrastive Learning for Joint Risk Stratification and Time-to-Event Estimation",
-      "event": "European Conference on Artificial Intelligence (ECAI)",
+      "event": "International Joint Conference on Neural Networks (IJCNN)",
       "year": 2026,
       "location": "Maastricht, Netherlands",
       "kind": "Conference talk",
@@ -340,7 +402,7 @@
     {
       "title": "Discriminative adversarial privacy: balancing accuracy and membership privacy in neural networks",
       "event": "British Machine Vision Conference (BMVC)",
-      "year": 2024,
+      "year": 2023,
       "location": "Aberdeen, Scotland",
       "kind": "Conference talk",
       "url": null
@@ -454,7 +516,7 @@
   "awards": [
     {
       "title": "Special Mention for Best Paper",
-      "org": "LOD 2021 — 7th International Conference on Machine Learning, Optimization, and Data Science",
+      "org": "LOD 2021, 7th International Conference on Machine Learning, Optimization, and Data Science",
       "year": 2021,
       "note": null
     },
@@ -471,7 +533,7 @@
       "full_name": "Artificial Intelligence in Secure PRIvacy-preserving computing coNTinuum",
       "issuer": "European Commission · Horizon 2020 (GA 101016577)",
       "location": "Politecnico di Milano, Milan, Italy",
-      "role": "Federated Learning advisor",
+      "role": "AI scientific lead",
       "start": 2021,
       "end": 2023,
       "scope": null,
@@ -518,7 +580,7 @@
       "doi": null,
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@inproceedings{mastroleo2026survkan,\n  author = {Mastroleo, M. and Archetti, Alberto and Mastroleo, F. and Matteucci, M.},\n  booktitle = {2026 International Joint Conference on Neural Networks (IJCNN)},\n  selected = {true},\n  title = {SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks},\n  year = {2026}\n}",
+      "bibtex": "@inproceedings{mastroleo2026survkan,\n  author = {Mastroleo, M. and Archetti, Alberto and Mastroleo, F. and Matteucci, M.},\n  booktitle = {2026 International Joint Conference on Neural Networks (IJCNN)},\n  title = {SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks},\n  year = {2026}\n}",
       "citations": 0,
       "selected": true
     },
@@ -541,7 +603,7 @@
       "arxiv": "2602.03686",
       "keywords": [],
       "bibtex": "@misc{sabella2026quail,\n  archiveprefix = {arXiv},\n  author = {Sabella, M. and Archetti, Alberto and Pinoli, P. and Matteucci, M. and Cappiello, C.},\n  eprint = {2602.03686},\n  title = {QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption},\n  year = {2026}\n}",
-      "citations": 0,
+      "citations": 1,
       "selected": false
     },
     {
@@ -579,11 +641,11 @@
       "venue": "European Conference on Artificial Intelligence (ECAI)",
       "volume": null,
       "pages": null,
-      "doi": null,
+      "doi": "10.3233/FAIA251019",
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@inproceedings{archetti2025fpboost,\n  author = {Archetti, Alberto and Lomurno, E. and Piccinotti, D. and Matteucci, M.},\n  booktitle = {European Conference on Artificial Intelligence (ECAI)},\n  selected = {true},\n  title = {FPBoost: Fully Parametric Gradient Boosting for Survival Analysis},\n  year = {2025}\n}",
-      "citations": 8,
+      "bibtex": "@inproceedings{archetti2025fpboost,\n  author = {Archetti, Alberto and Lomurno, E. and Piccinotti, D. and Matteucci, M.},\n  booktitle = {European Conference on Artificial Intelligence (ECAI)},\n  doi = {10.3233/FAIA251019},\n  title = {FPBoost: Fully Parametric Gradient Boosting for Survival Analysis},\n  year = {2025}\n}",
+      "citations": 9,
       "selected": true
     },
     {
@@ -604,29 +666,11 @@
       "venue": "IEEE Transactions on Molecular, Biological, and Multi-Scale Communications",
       "volume": null,
       "pages": null,
-      "doi": null,
+      "doi": "10.1109/TMBMC.2025.3609105",
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@article{archetti2025emergent,\n  author = {Archetti, Alberto and Giusti, G. and Gorla, K. R. and Caputo, S. and Magarini, M. and Matteucci, M. and Mucchi, L. and Pierobon, M.},\n  journal = {IEEE Transactions on Molecular, Biological, and Multi-Scale Communications},\n  title = {Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels},\n  year = {2025}\n}",
-      "citations": 2,
-      "selected": false
-    },
-    {
-      "key": "archetti2025federated",
-      "kind": "conference",
-      "title": "Federated Survival Analysis: Ensemble and Neural Methods for Distributed Time-to-Event Data",
-      "authors": [
-        "Alberto Archetti"
-      ],
-      "year": 2025,
-      "venue": "",
-      "volume": null,
-      "pages": null,
-      "doi": null,
-      "arxiv": null,
-      "keywords": [],
-      "bibtex": "@inproceedings{archetti2025federated,\n  author = {Alberto Archetti},\n  booktitle = {},\n  title = {Federated Survival Analysis: Ensemble and Neural Methods for Distributed Time-to-Event Data},\n  year = {2025}\n}",
-      "citations": 0,
+      "bibtex": "@article{archetti2025emergent,\n  author = {Archetti, Alberto and Giusti, G. and Gorla, K. R. and Caputo, S. and Magarini, M. and Matteucci, M. and Mucchi, L. and Pierobon, M.},\n  doi = {10.1109/TMBMC.2025.3609105},\n  journal = {IEEE Transactions on Molecular, Biological, and Multi-Scale Communications},\n  title = {Emergent Molecular Communication: Preliminary Results With Graph Neural Networks and Diffusion Channels},\n  year = {2025}\n}",
+      "citations": 4,
       "selected": false
     },
     {
@@ -642,10 +686,10 @@
       "venue": "Progress in Artificial Intelligence",
       "volume": null,
       "pages": "1--16",
-      "doi": null,
+      "doi": "10.1007/s13748-024-00343-y",
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@article{archetti2024bridging,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  journal = {Progress in Artificial Intelligence},\n  pages = {1--16},\n  selected = {true},\n  title = {Bridging the gap: improve neural survival models with interpolation techniques},\n  year = {2024}\n}",
+      "bibtex": "@article{archetti2024bridging,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  doi = {10.1007/s13748-024-00343-y},\n  journal = {Progress in Artificial Intelligence},\n  pages = {1--16},\n  title = {Bridging the gap: improve neural survival models with interpolation techniques},\n  year = {2024}\n}",
       "citations": 6,
       "selected": true
     },
@@ -662,11 +706,11 @@
       "venue": "Artificial Life Conference Proceedings 36",
       "volume": "2024",
       "pages": null,
-      "doi": null,
+      "doi": "10.1162/isal_a_00772",
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@inproceedings{menta2024latent,\n  author = {Menta, A. and Archetti, Alberto and Matteucci, M.},\n  booktitle = {Artificial Life Conference Proceedings 36},\n  number = {1},\n  organization = {MIT Press One Rogers Street, Cambridge},\n  title = {Latent neural cellular automata for resource-efficient image restoration},\n  volume = {2024},\n  year = {2024}\n}",
-      "citations": 6,
+      "bibtex": "@inproceedings{menta2024latent,\n  author = {Menta, A. and Archetti, Alberto and Matteucci, M.},\n  booktitle = {Artificial Life Conference Proceedings 36},\n  doi = {10.1162/isal_a_00772},\n  number = {1},\n  organization = {MIT Press One Rogers Street, Cambridge},\n  title = {Latent neural cellular automata for resource-efficient image restoration},\n  volume = {2024},\n  year = {2024}\n}",
+      "citations": 8,
       "selected": false
     },
     {
@@ -685,8 +729,8 @@
       "doi": "10.1016/j.future.2023.07.036",
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@article{archetti2023scaling,\n  author = {Archetti, Alberto and Ieva, F. and Matteucci, M.},\n  doi = {10.1016/j.future.2023.07.036},\n  journal = {Future Generation Computer Systems},\n  pages = {343--358},\n  selected = {true},\n  title = {Scaling survival analysis in healthcare with federated survival forests: A comparative study on heart failure and breast cancer genomics},\n  volume = {149},\n  year = {2023}\n}",
-      "citations": 29,
+      "bibtex": "@article{archetti2023scaling,\n  author = {Archetti, Alberto and Ieva, F. and Matteucci, M.},\n  doi = {10.1016/j.future.2023.07.036},\n  journal = {Future Generation Computer Systems},\n  pages = {343--358},\n  title = {Scaling survival analysis in healthcare with federated survival forests: A comparative study on heart failure and breast cancer genomics},\n  volume = {149},\n  year = {2023}\n}",
+      "citations": 30,
       "selected": true
     },
     {
@@ -709,7 +753,7 @@
       "keywords": [
         "workshop"
       ],
-      "bibtex": "@inproceedings{archetti2023heterogeneous,\n  author = {Archetti, Alberto and Lomurno, E. and Lattari, F. and Martin, A. and Matteucci, M.},\n  booktitle = {Companion of the 2023 ACM/SPEC International Conference on Performance Engineering},\n  doi = {10.1145/3578245.3584935},\n  keywords = {workshop},\n  pages = {173--180},\n  title = {Heterogeneous Datasets for Federated Survival Analysis Simulation},\n  year = {2023}\n}",
+      "bibtex": "@inproceedings{archetti2023heterogeneous,\n  author = {Archetti, Alberto and Lomurno, E. and Lattari, F. and Martin, A. and Matteucci, M.},\n  booktitle = {Companion of the 2023 ACM/SPEC International Conference on Performance Engineering},\n  doi = {10.1145/3578245.3584935},\n  pages = {173--180},\n  title = {Heterogeneous Datasets for Federated Survival Analysis Simulation},\n  year = {2023}\n}",
       "citations": 20,
       "selected": false
     },
@@ -728,8 +772,8 @@
       "doi": "10.1109/IJCNN54540.2023.10190999",
       "arxiv": null,
       "keywords": [],
-      "bibtex": "@inproceedings{archetti2023federated,\n  author = {Archetti, Alberto and Matteucci, M.},\n  booktitle = {2023 International Joint Conference on Neural Networks (IJCNN)},\n  doi = {10.1109/IJCNN54540.2023.10190999},\n  pages = {1--9},\n  selected = {true},\n  title = {Federated Survival Forests},\n  year = {2023}\n}",
-      "citations": 32,
+      "bibtex": "@inproceedings{archetti2023federated,\n  author = {Archetti, Alberto and Matteucci, M.},\n  booktitle = {2023 International Joint Conference on Neural Networks (IJCNN)},\n  doi = {10.1109/IJCNN54540.2023.10190999},\n  pages = {1--9},\n  title = {Federated Survival Forests},\n  year = {2023}\n}",
+      "citations": 37,
       "selected": true
     },
     {
@@ -750,7 +794,7 @@
       "keywords": [
         "workshop"
       ],
-      "bibtex": "@inproceedings{archetti2023deepsurvival,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  booktitle = {CEUR Workshop Proceedings},\n  keywords = {workshop},\n  pages = {99--121},\n  title = {Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques},\n  volume = {3578},\n  year = {2023}\n}",
+      "bibtex": "@inproceedings{archetti2023deepsurvival,\n  author = {Archetti, Alberto and Stranieri, F. and Matteucci, M.},\n  booktitle = {CEUR Workshop Proceedings},\n  pages = {99--121},\n  title = {Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques},\n  volume = {3578},\n  year = {2023}\n}",
       "citations": 4,
       "selected": false
     },
@@ -795,7 +839,7 @@
       "arxiv": null,
       "keywords": [],
       "bibtex": "@inproceedings{lomurno2023sgde,\n  author = {Lomurno, E. and Archetti, Alberto and Cazzella, L. and Samele, S. and Di Perna, L. and Matteucci, M.},\n  booktitle = {Proceedings of the 2022 5th International Conference on Artificial Intelligence and Pattern Recognition},\n  doi = {10.1145/3573942.3573974},\n  pages = {205--214},\n  title = {SGDE: Secure Generative Data Exchange for Cross-Silo Federated Learning},\n  year = {2023}\n}",
-      "citations": 33,
+      "citations": 34,
       "selected": false
     },
     {
@@ -818,7 +862,7 @@
       "keywords": [
         "workshop"
       ],
-      "bibtex": "@inproceedings{stranieri2023drug,\n  author = {Stranieri, F. and Archetti, Alberto and Robbiano, E. and Kouki, C. and Stella, F.},\n  booktitle = {CEUR Workshop Proceedings},\n  keywords = {workshop},\n  title = {Drug Inventory Control: Human Decisions versus Deep Reinforcement Learning},\n  year = {2023}\n}",
+      "bibtex": "@inproceedings{stranieri2023drug,\n  author = {Stranieri, F. and Archetti, Alberto and Robbiano, E. and Kouki, C. and Stella, F.},\n  booktitle = {CEUR Workshop Proceedings},\n  title = {Drug Inventory Control: Human Decisions versus Deep Reinforcement Learning},\n  year = {2023}\n}",
       "citations": 0,
       "selected": false
     },
@@ -839,15 +883,98 @@
       "arxiv": null,
       "keywords": [],
       "bibtex": "@inproceedings{archetti2022neural,\n  author = {Archetti, Alberto and Cannici, M. and Matteucci, M.},\n  booktitle = {Machine Learning, Optimization, and Data Science (LOD 2021)},\n  doi = {10.1007/978-3-030-95467-3_43},\n  pages = {596--610},\n  title = {Neural Weighted A*: Learning Graph Costs and Heuristics with Differentiable Anytime A*},\n  year = {2022}\n}",
-      "citations": 17,
+      "citations": 18,
       "selected": false
     }
   ],
   "metrics": {
-    "h_index": 7,
+    "h_index": 8,
     "i10_index": 5,
-    "total_citations": 169,
+    "total_citations": 183,
     "scholar_id": "--kj4bcAAAAJ",
-    "fetched_at": "2026-08-04T20:52:24+00:00"
+    "fetched_at": "2026-09-28T14:36:54+00:00"
+  },
+  "news": [
+    {
+      "date": "2026-07",
+      "text": "New preprint with Niccolò Maria Rizzi: <a href=\"https://arxiv.org/abs/2607.00127\">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>."
+    },
+    {
+      "date": "2026-06",
+      "text": "Presented <em>SurvKAN</em> and <em>Deep Variational Contrastive Learning</em> at IJCNN 2026 in Maastricht. Both grew out of MSc theses I co-supervised."
+    },
+    {
+      "date": "2026-02",
+      "text": "New preprint: <a href=\"https://arxiv.org/abs/2602.03686\">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>."
+    },
+    {
+      "date": "2025-12",
+      "text": "<a href=\"https://doi.org/10.1109/TMBMC.2025.3609105\">Emergent Molecular Communication</a> published in IEEE Transactions on Molecular, Biological, and Multi-Scale Communications."
+    },
+    {
+      "date": "2025-10",
+      "text": "Presented <a href=\"https://doi.org/10.3233/FAIA251019\">FPBoost</a> at ECAI 2025 in Bologna."
+    },
+    {
+      "date": "2025",
+      "text": "Completed my Ph.D. at Politecnico di Torino and joined AIRLab, Politecnico di Milano, as a research fellow."
+    }
+  ],
+  "i18n": {
+    "Research Fellow": "Assegnista di ricerca",
+    "National Ph.D. in Artificial Intelligence for Industry 4.0": "Dottorato Nazionale in Intelligenza Artificiale per l'Industria 4.0",
+    "Research Internship": "Tirocinio di ricerca",
+    "Master of Science in Computer Science and Engineering": "Laurea Magistrale in Ingegneria Informatica",
+    "Bachelor's Degree in Computer Science and Engineering": "Laurea Triennale in Ingegneria Informatica",
+    "110/110 cum Laude": "110/110 e lode",
+    "Research topic": "Tema di ricerca",
+    "Collaborations": "Collaborazioni",
+    "Activities": "Attività",
+    "Teaching Assistant": "Esercitatore",
+    "Lab Tutor": "Tutor di laboratorio",
+    "Corporate Training": "Formazione aziendale",
+    "MSc": "Laurea Magistrale",
+    "BSc": "Laurea Triennale",
+    "Software Engineering": "Ingegneria del Software",
+    "MSc thesis": "Tesi magistrale",
+    "Co-advisor": "Correlatore",
+    "Conference talk": "Presentazione a conferenza",
+    "Seminar": "Seminario",
+    "Italy": "Italia",
+    "AIRLab, Politecnico di Milano, Italy": "AIRLab, Politecnico di Milano, Italia",
+    "Milan, Italy": "Milano, Italia",
+    "Turin, Italy": "Torino, Italia",
+    "Rome, Italy": "Roma, Italia",
+    "Bologna, Italy": "Bologna, Italia",
+    "Udine, Italy": "Udine, Italia",
+    "Maastricht, Netherlands": "Maastricht, Paesi Bassi",
+    "Aberdeen, Scotland": "Aberdeen, Scozia",
+    "Grasmere, England": "Grasmere, Inghilterra",
+    "Postdoctoral Researcher in Artificial Intelligence": "Ricercatore postdoc in Intelligenza Artificiale",
+    "Tabular foundation models · Federated learning · Survival analysis": "Foundation models tabulari · Federated learning · Analisi di sopravvivenza",
+    "I am a postdoctoral researcher in artificial intelligence at AIRLab, Politecnico di Milano. My work spans tabular foundation models, federated learning, and survival analysis, with a focus on extracting reliable, privacy-preserving insights from sensitive and distributed healthcare data.\n": "Sono un ricercatore postdoc in intelligenza artificiale all'AIRLab del Politecnico di Milano. Mi occupo di foundation models tabulari, federated learning e analisi di sopravvivenza, con l'obiettivo di estrarre informazioni affidabili e rispettose della privacy da dati sanitari sensibili e distribuiti.\n",
+    "I am fascinated by emergent phenomena: how simple rules give rise to complex behavior, in vitro as well as in silico. Today, artificial intelligence is the best playground to study them, and it raises the question I find most intriguing: is intelligence rooted in the physical world and in interacting with it, or can it emerge from understanding the causal relationships between symbols alone?\n\nAt AIRLab, Politecnico di Milano, I explore this question and many others, with a particular focus on AI for medicine. I also love teaching and mentoring, and I take part in educational initiatives to promote AI literacy at all levels.\n": "Ciò che più mi affascina sono i fenomeni emergenti: come regole semplici diano origine a comportamenti complessi, in vitro come in silico. Oggi l'intelligenza artificiale è l'ambito ideale per studiarli, e porta con sé una domanda fondamentale: l'intelligenza è radicata nel mondo fisico e nell'interazione con esso, o può emergere soltanto dalla comprensione delle relazioni causali tra simboli?\n\nAll'AIRLab del Politecnico di Milano esploro questa e molte altre domande, con particolare attenzione all'IA per la medicina. Partecipo attivamente a iniziative di divulgazione per promuovere la conoscenza e l'educazione all'utilizzo dell'IA a tutti i livelli.\n",
+    "For now, what is important is not finding the answer, but looking for it.": "Per ora, ciò che è importante non è trovare la risposta, ma iniziare a cercarla.",
+    "Tabular Foundation Models": "Foundation models tabulari",
+    "One pretrained model for any table: predictions on a new dataset in a single forward pass, with no task-specific training.": "Un unico modello preaddestrato per qualsiasi tabella, capace di fare predizioni su un nuovo dataset senza alcun addestramento.",
+    "Survival Analysis": "Analisi di sopravvivenza",
+    "Predicting not only whether an event happens but when, from patient outcomes to financial risk.": "Prevedere non solo se un evento accadrà ma quando, dagli esiti clinici al rischio finanziario.",
+    "Federated Learning": "Federated Learning",
+    "Training models across hospitals without exposing patient data.": "Addestrare modelli tra più ospedali senza che i dati vengano esposti.",
+    "Machine Learning for Healthcare": "Machine learning per la sanità",
+    "Models clinicians can rely on: private by design, interpretable, and robust to messy multimodal data.": "Modelli clinici affidabili: rispettosi della privacy, interpretabili e robusti a dati multimodali eterogenei.",
+    "Tabular foundation models for healthcare.": "Foundation models tabulari per la sanità.",
+    "Federated Learning for Survival Analysis.": "Federated learning per l'analisi di sopravvivenza.",
+    "Research visitor at the Human Technopole, Milan, Italy.": "Collaboratore di ricerca presso Human Technopole, Milano.",
+    "Data analysis for anomaly detection; automated knowledge graph extraction.": "Analisi dei dati per il rilevamento di anomalie; estrazione automatica di knowledge graph.",
+    "PhD Lecture, Politecnico di Milano": "Lezione di dottorato, Politecnico di Milano",
+    "Special Mention for Best Paper": "Menzione speciale come miglior articolo",
+    "AI scientific lead": "Responsabile scientifico IA",
+    "New preprint with Niccolò Maria Rizzi: <a href=\"https://arxiv.org/abs/2607.00127\">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>.": "Nuovo preprint con Niccolò Maria Rizzi: <a href=\"https://arxiv.org/abs/2607.00127\">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>.",
+    "Presented <em>SurvKAN</em> and <em>Deep Variational Contrastive Learning</em> at IJCNN 2026 in Maastricht. Both grew out of MSc theses I co-supervised.": "Presentati <em>SurvKAN</em> e <em>Deep Variational Contrastive Learning</em> a IJCNN 2026 a Maastricht. Entrambi sono nati da tesi magistrali di cui sono stato correlatore.",
+    "New preprint: <a href=\"https://arxiv.org/abs/2602.03686\">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>.": "Nuovo preprint: <a href=\"https://arxiv.org/abs/2602.03686\">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>.",
+    "<a href=\"https://doi.org/10.1109/TMBMC.2025.3609105\">Emergent Molecular Communication</a> published in IEEE Transactions on Molecular, Biological, and Multi-Scale Communications.": "<a href=\"https://doi.org/10.1109/TMBMC.2025.3609105\">Emergent Molecular Communication</a> pubblicato su IEEE Transactions on Molecular, Biological, and Multi-Scale Communications.",
+    "Presented <a href=\"https://doi.org/10.3233/FAIA251019\">FPBoost</a> at ECAI 2025 in Bologna.": "Presentato <a href=\"https://doi.org/10.3233/FAIA251019\">FPBoost</a> a ECAI 2025 a Bologna.",
+    "Completed my Ph.D. at Politecnico di Torino and joined AIRLab, Politecnico di Milano, as a research fellow.": "Concluso il dottorato al Politecnico di Torino, sono entrato all'AIRLab del Politecnico di Milano come assegnista di ricerca."
   }
 }

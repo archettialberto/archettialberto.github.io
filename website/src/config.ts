@@ -1,20 +1,9 @@
-import { fullName, cv } from './data/cv';
-
 // BASE_URL may or may not end in '/'; normalize so `${base}foo` works.
 const rawBase = import.meta.env.BASE_URL;
-const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
+export const base = rawBase.endsWith('/') ? rawBase : `${rawBase}/`;
 
-export const SITE = {
-  name: fullName,
-  title: `${fullName} — ${cv.profile.title}`,
-  description: cv.profile.summary.trim(),
-  base,
-};
+// Profile photo under public/ (square, ≥ 600px); null shows an initials placeholder.
+export const PHOTO: string | null = 'img/profile.webp';
 
-export const NAV: { label: string; href: string }[] = [
-  { label: 'About', href: '#about' },
-  { label: 'Publications', href: '#publications' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Teaching', href: '#teaching' },
-];
+// Section ids in the header nav; labels live in i18n.ts.
+export const NAV = ['about', 'news', 'publications', 'experience', 'teaching'] as const;
