@@ -1,0 +1,40 @@
+# Italian glossary for recurring website terms (roles, places, labels), English -> Italian.
+# One-off prose is translated inline as `field: {en: ..., it: ...}` instead.
+# Anything without a translation shows in English on the Italian site.
+
+# Positions and degrees
+Research Fellow: Assegnista di ricerca
+National Ph.D. in Artificial Intelligence for Industry 4.0: Dottorato Nazionale in Intelligenza Artificiale per l'Industria 4.0
+Research Internship: Tirocinio di ricerca
+Master of Science in Computer Science and Engineering: Laurea Magistrale in Ingegneria Informatica
+Bachelor's Degree in Computer Science and Engineering: Laurea Triennale in Ingegneria Informatica
+110/110 cum Laude: 110/110 e lode
+Research topic: Tema di ricerca
+Collaborations: Collaborazioni
+Activities: Attività
+
+# Teaching and supervision
+Teaching Assistant: Esercitatore
+Lab Tutor: Tutor di laboratorio
+Corporate Training: Formazione aziendale
+MSc: Laurea Magistrale
+BSc: Laurea Triennale
+Software Engineering: Ingegneria del Software
+MSc thesis: Tesi magistrale
+Co-advisor: Correlatore
+
+# Talks
+Conference talk: Presentazione a conferenza
+Seminar: Seminario
+
+# Places
+Italy: Italia
+AIRLab, Politecnico di Milano, Italy: AIRLab, Politecnico di Milano, Italia
+Milan, Italy: Milano, Italia
+Turin, Italy: Torino, Italia
+Rome, Italy: Roma, Italia
+Bologna, Italy: Bologna, Italia
+Udine, Italy: Udine, Italia
+Maastricht, Netherlands: Maastricht, Paesi Bassi
+Aberdeen, Scotland: Aberdeen, Scozia
+Grasmere, England: Grasmere, Inghilterra

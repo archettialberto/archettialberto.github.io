@@ -1,0 +1,361 @@
+---
+// The whole one-page site; rendered once per language (pages/index, pages/it/index).
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Section from './Section.astro';
+import Collapsible from './Collapsible.astro';
+import Entry from './Entry.astro';
+import Avatar from './Avatar.astro';
+import SocialIcon from './SocialIcon.astro';
+import { base } from '../config';
+import { cv, cvPdfPath, pubUrl, type Detail } from '../data/cv';
+import { useTranslations, type Lang } from '../i18n';
+
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { ui, tr, period, date } = useTranslations(lang);
+const { profile, research_interests, employment, education, courses, talks,
+        supervision, awards, projects, publications, metrics, news } = cv;
+
+const socials = profile.contacts.filter((c) => c.website && c.url);
+const email = socials.find((c) => c.icon === 'email');
+// Citation profiles, linked next to the Publications heading.
+const citationProfiles = profile.contacts.filter((c) => c.url && (c.icon === 'scholar' || c.icon === 'scopus'));
+const bioParas = tr(profile.bio ?? profile.summary).trim().split(/\n\s*\n/);
+
+// How many items each list shows before "Show all". Courses and theses sit
+// side by side, so their limits keep the two columns about the same height.
+const SHOW = 4;
+const SHOW_COURSES = 6;
+const SHOW_THESES = 4;
+// `data-more` marks an item as folded; undefined drops the attribute.
+const more = (folded: boolean) => (folded ? '' : undefined);
+
+// Publications: selected ones up front, everything (newest first) when expanded.
+const anySelected = publications.some((p) => p.selected);
+const isFeatured = (p: (typeof publications)[number], i: number) => (anySelected ? p.selected : i < 6);
+const featuredCount = publications.filter(isFeatured).length;
+
+// One timeline for positions and degrees, newest first. A position that is
+// also a degree (the Ph.D.) appears once, carrying the position's details.
+type Step = {
+  kind: 'work' | 'edu'; title: string; start: number; end: number | 'present';
+  meta: (string | null)[]; details: Detail[]; thesis: string | null;
+};
+const degrees = new Set(education.map((e) => e.degree));
+const timeline: Step[] = [
+  ...employment.filter((e) => !degrees.has(e.role)).map((e): Step => ({
+    kind: 'work', title: e.role, start: e.start, end: e.end,
+    meta: [e.org, tr(e.location)], details: e.details, thesis: null,
+  })),
+  ...education.map((e): Step => ({
+    kind: 'edu', title: e.degree, start: e.start, end: e.end,
+    meta: [e.org, tr(e.grade)], thesis: e.thesis,
+    details: employment.find((j) => j.role === e.degree)?.details ?? [],
+  })),
+].sort((a, b) => {
+  const end = (s: Step) => (s.end === 'present' ? Infinity : s.end);
+  return end(b) - end(a) || b.start - a.start;
+});
+
+const teachingHours = courses.reduce((sum, c) => sum + c.hours, 0);
+const talkCountries = new Set(talks.map((t) => t.location?.split(',').pop()?.trim()).filter(Boolean)).size;
+
+const kindClass = {
+  journal: 'bg-blue/10 text-blue',
+  conference: 'bg-pink/15 text-ink/75',
+  workshop: 'bg-haze text-mist',
+  preprint: 'border border-haze text-mist',
+};
+---
+<Base lang={lang}>
+  <div class="ambient" aria-hidden="true"></div>
+  <Header lang={lang} />
+
+  <!-- Hero -->
+  <section id="hero" class="mx-auto max-w-content px-6 pt-20 pb-6 sm:pt-28 sm:pb-8">
+    <div class="flex flex-col gap-8 sm:flex-row sm:items-center sm:gap-12">
+      <Avatar name={profile.name} />
+      <div>
+        {profile.affiliation && <p class="mb-3 text-sm font-medium text-mist">{tr(profile.affiliation)}</p>}
+        <h1 class="hero-name font-display font-extrabold tracking-tight leading-none text-ink mb-4"
+            style="font-size: clamp(2.2rem, 6.5vw, 4rem);">
+          {profile.name.split(' ').map((w) => <span>{w} </span>)}
+          {profile.suffix && <span class="text-mist/70 font-bold" style="font-size: 0.45em;">{profile.suffix}</span>}
+        </h1>
+        <p class="text-lg sm:text-xl text-ink/75 mb-2">{tr(profile.title)}</p>
+        {profile.tagline && <p class="gradient-text text-base sm:text-lg font-semibold">{tr(profile.tagline)}</p>}
+        <div class="flex flex-wrap gap-3 mt-8">
+          <a href={`${base}${cvPdfPath}`} target="_blank" rel="noopener" class="btn btn-primary">{ui.downloadCv}</a>
+          {email?.url && <a href={email.url} class="btn glass">{ui.contact}</a>}
+          <div class="flex items-center gap-2">
+            {socials.filter((c) => c !== email).map((c) => (
+              <a href={c.url!} target={c.icon === 'email' ? undefined : '_blank'} rel="noopener" aria-label={c.label} title={c.label}
+                 class="glass lift flex h-10 w-10 items-center justify-center !rounded-full text-mist hover:text-blue">
+                <SocialIcon name={c.icon} />
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="mx-auto max-w-content px-6">
+
+    <!-- About -->
+    <Section id="about">
+      {profile.quote && (
+        <figure class="epigraph mb-8">
+          <blockquote class="font-display text-base lg:text-lg font-semibold leading-snug text-ink/85 md:whitespace-nowrap">“{tr(profile.quote.text)}”</blockquote>
+          <figcaption class="mt-1.5 text-sm text-mist">{profile.quote.author}{profile.quote.source && <>, <cite>{profile.quote.source}</cite></>}</figcaption>
+        </figure>
+      )}
+      <div class="max-w-3xl space-y-4">
+        {bioParas.map((p) => <p class="text-ink/80" set:html={p} />)}
+      </div>
+      {research_interests.length > 0 && (
+        <h3 class="subsection-title mt-12">{ui.interests}</h3>
+      )}
+      {research_interests.length > 0 && (
+        <div class="grid gap-4 sm:grid-cols-2">
+          {research_interests.map((r, i) => (
+            <div class="glass lift px-5 py-4">
+              <span class="gradient-text font-display text-sm font-extrabold">{String(i + 1).padStart(2, '0')}</span>
+              <h3 class="mt-1 text-base font-semibold text-ink leading-snug">{tr(r.title)}</h3>
+              {r.description && <p class="mt-1 text-sm text-mist">{tr(r.description)}</p>}
+            </div>
+          ))}
+        </div>
+      )}
+    </Section>
+
+    <!-- News -->
+    {news.length > 0 && (
+      <Section id="news" title={ui.news}>
+        <ol class="glass divide-y divide-haze px-5">
+          {news.slice(0, SHOW).map((n) => (
+            <li class="news-row flex flex-col gap-1 py-4 sm:flex-row sm:gap-6">
+              <span class="w-20 shrink-0 pt-0.5 text-xs font-semibold uppercase tracking-wider text-blue">{date(n.date)}</span>
+              <p class="news-text text-sm text-ink/80" set:html={tr(n.text)} />
+            </li>
+          ))}
+        </ol>
+      </Section>
+    )}
+
+    <!-- Publications -->
+    {publications.length > 0 && (
+      <Section id="publications" title={ui.publications}>
+        <Fragment slot="aside">
+          {metrics?.total_citations != null && <span>{ui.citations(metrics.total_citations)}</span>}
+          {metrics?.h_index != null && <span> · h-index {metrics.h_index}</span>}
+          {citationProfiles.map((c) => (
+            <> · <a href={c.url!} target="_blank" rel="noopener" class="font-medium">{c.icon === 'scholar' ? 'Google Scholar' : c.label} ↗</a></>
+          ))}
+        </Fragment>
+        <Collapsible total={publications.length} hidden={publications.length - featuredCount}
+                     showAll={ui.showAll} showFewer={ui.showFewer}>
+          <ol class="space-y-3">
+            {publications.map((p, i) => (
+              <li data-more={more(!isFeatured(p, i))} class="hoverable">
+                <div class="mb-1.5 flex flex-wrap items-center gap-2 text-xs">
+                  <span class="chip">{p.year}</span>
+                  <span class={`rounded-full px-2 py-0.5 font-medium ${kindClass[p.kind]}`}>{ui.kind[p.kind]}</span>
+                </div>
+                <p class="font-semibold leading-snug">
+                  {pubUrl(p)
+                    ? <a href={pubUrl(p)!} target="_blank" rel="noopener" class="text-ink hover:text-blue">{p.title}</a>
+                    : <span class="text-ink">{p.title}</span>}
+                </p>
+                <p class="mt-1 text-sm text-mist leading-snug">
+                  {p.authors.map((a, j) => (
+                    <><span class={a.includes('Archetti') ? 'font-semibold text-ink/85' : ''}>{a}</span>{j < p.authors.length - 1 ? ', ' : ''}</>
+                  ))}
+                </p>
+                {p.venue && <p class="mt-0.5 text-sm italic text-mist">{p.venue}</p>}
+                <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-xs font-medium">
+                  {p.doi && <a href={`https://doi.org/${p.doi}`} target="_blank" rel="noopener">DOI ↗</a>}
+                  {p.arxiv && <a href={`https://arxiv.org/abs/${p.arxiv}`} target="_blank" rel="noopener">arXiv ↗</a>}
+                  {p.bibtex && (
+                    <button type="button" class="copy-bib text-blue hover:underline" data-bibtex={p.bibtex}
+                            data-label={ui.cite} data-done={ui.copied}>{ui.cite}</button>
+                  )}
+                  {!!p.citations && <span class="text-mist">{ui.citations(p.citations)}</span>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Collapsible>
+      </Section>
+    )}
+
+    <!-- Experience & Education -->
+    <Section id="experience" title={ui.experience}>
+      <Fragment slot="aside">
+        <span class="inline-flex items-center gap-1.5"><span class="dot bg-blue"></span>{ui.work}</span>
+        <span class="ml-4 inline-flex items-center gap-1.5"><span class="dot bg-pink"></span>{ui.education}</span>
+      </Fragment>
+      <Collapsible total={timeline.length} hidden={timeline.length - SHOW} showAll={ui.showAll} showFewer={ui.showFewer}>
+        <ol class="timeline">
+          {timeline.map((s, i) => (
+            <li data-more={more(i >= SHOW)} class:list={['step', s.kind === 'work' ? 'step-work' : 'step-edu', s.end === 'present' && 'step-now']}>
+              <span class="dot" aria-hidden="true"></span>
+              <Entry title={tr(s.title)} year={period(s.start, s.end)} meta={s.meta}>
+                {s.details.map((d) => (
+                  <p class="mt-1 text-sm text-ink/70"><span class="text-mist">{tr(d.label)}:</span> {tr(d.text)}</p>
+                ))}
+                {s.thesis && <p class="mt-1 text-sm text-ink/70"><span class="text-mist">{ui.thesis}:</span> <em>{s.thesis}</em></p>}
+              </Entry>
+            </li>
+          ))}
+        </ol>
+      </Collapsible>
+
+      {projects.length > 0 && (
+        <>
+          <h3 class="subsection-title mt-12">{ui.projects}</h3>
+          <div class="grid gap-4 md:grid-cols-2">
+            {projects.map((p) => (
+              <div class="glass lift px-5 py-4">
+                <h4 class="text-base font-semibold leading-snug">
+                  {p.url
+                    ? <a href={p.url} target="_blank" rel="noopener" class="text-ink hover:text-blue">{p.name}</a>
+                    : p.name}
+                </h4>
+                {p.full_name && <p class="text-xs text-mist">{p.full_name}</p>}
+                <div class="mt-2 flex flex-wrap items-center gap-2 text-xs">
+                  <span class="chip">{period(p.start, p.end)}</span>
+                  <span class="text-mist">{[p.issuer, p.scope ? `${p.scope} ${ui.project}` : null].filter(Boolean).join(' · ')}</span>
+                </div>
+                <p class="mt-2 text-sm text-ink/70">{tr(p.role)}</p>
+                {p.description && <p class="mt-1 text-sm text-mist">{tr(p.description)}</p>}
+              </div>
+            ))}
+          </div>
+        </>
+      )}
+    </Section>
+
+    <!-- Teaching & Mentoring -->
+    {(courses.length > 0 || supervision.length > 0) && (
+      <Section id="teaching" title={ui.teaching}>
+        <div class="grid gap-12 md:grid-cols-2">
+          {courses.length > 0 && (
+            <div>
+              <h3 class="subsection-title">{ui.courses} <span class="chip ml-2 align-middle">{ui.coursesMeta(courses.length, teachingHours)}</span></h3>
+              <Collapsible total={courses.length} hidden={courses.length - SHOW_COURSES} showAll={ui.showAll} showFewer={ui.showFewer}>
+                <div class="space-y-2">
+                  {courses.map((c, i) => (
+                    <Entry class="hoverable" data-more={more(i >= SHOW_COURSES)} title={tr(c.course)} year={period(c.start, c.end)}
+                           meta={[tr(c.degree), c.org]}>
+                      <p class="mt-1 text-sm text-ink/70">
+                        {tr(c.role)}{c.editions > 1 && <span class="text-mist"> · {ui.editions(c.editions)}</span>}
+                      </p>
+                    </Entry>
+                  ))}
+                </div>
+              </Collapsible>
+            </div>
+          )}
+          {supervision.length > 0 && (
+            <div>
+              <h3 class="subsection-title">{ui.supervision} <span class="chip ml-2 align-middle">{ui.supervisionMeta(supervision.length)}</span></h3>
+              <Collapsible total={supervision.length} hidden={supervision.length - SHOW_THESES} showAll={ui.showAll} showFewer={ui.showFewer}>
+                <div class="space-y-2">
+                  {supervision.map((s, i) => (
+                    <Entry class="hoverable" data-more={more(i >= SHOW_THESES)} title={s.student} year={s.year} meta={[tr(s.degree), tr(s.role)]}>
+                      <p class="mt-1 text-sm italic text-mist">{s.title}</p>
+                    </Entry>
+                  ))}
+                </div>
+              </Collapsible>
+            </div>
+          )}
+        </div>
+      </Section>
+    )}
+
+    <!-- Talks & Awards -->
+    {(talks.length > 0 || awards.length > 0) && (
+      <Section id="talks" title={ui.talksAwards}>
+        <div class="grid gap-12 md:grid-cols-2">
+          {talks.length > 0 && (
+            <div>
+              <h3 class="subsection-title">{ui.talks} <span class="chip ml-2 align-middle">{ui.talksMeta(talks.length, talkCountries)}</span></h3>
+              <Collapsible total={talks.length} hidden={talks.length - SHOW} showAll={ui.showAll} showFewer={ui.showFewer}>
+                <div class="space-y-2">
+                  {talks.map((t, i) => (
+                    <Entry class="hoverable" data-more={more(i >= SHOW)} title={t.title} year={t.year} meta={[tr(t.kind), tr(t.location)]}>
+                      <p class="mt-1 text-xs italic text-mist">{tr(t.event)}</p>
+                    </Entry>
+                  ))}
+                </div>
+              </Collapsible>
+            </div>
+          )}
+          {awards.length > 0 && (
+            <div>
+              <h3 class="subsection-title">{ui.awards}</h3>
+              <div class="space-y-4">
+                {awards.map((a) => (
+                  <div class="glass lift flex gap-4 px-5 py-4">
+                    <svg class="mt-0.5 h-5 w-5 shrink-0 text-pink" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>
+                    <Entry title={tr(a.title)} year={a.year} meta={[a.org, tr(a.note)]} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      </Section>
+    )}
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-8 border-t border-haze">
+    <div class="mx-auto max-w-content px-6 py-12">
+      <div class="flex flex-col sm:flex-row justify-between gap-6">
+        <div>
+          <p class="font-display text-lg font-bold text-ink mb-1">{profile.name}</p>
+          {profile.affiliation && <p class="text-sm text-mist">{tr(profile.affiliation)}</p>}
+        </div>
+        <div class="flex gap-3">
+          {socials.map((c) => (
+            <a href={c.url!} target={c.icon === 'email' ? undefined : '_blank'} rel="noopener"
+               aria-label={c.label}
+               class="glass lift flex h-9 w-9 items-center justify-center !rounded-full text-mist hover:text-blue">
+              <SocialIcon name={c.icon} />
+            </a>
+          ))}
+        </div>
+      </div>
+      <p class="mt-8 pt-6 border-t border-haze text-xs text-mist/80">
+        © {new Date().getFullYear()} {profile.name}
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    // Section reveal on scroll.
+    const sections = document.querySelectorAll('main section');
+    sections.forEach((el) => el.classList.add('reveal'));
+    const reveal = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) { e.target.classList.add('in'); reveal.unobserve(e.target); }
+      }
+    }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+    sections.forEach((el) => reveal.observe(el));
+
+    // Copy a publication's BibTeX.
+    document.querySelectorAll<HTMLButtonElement>('.copy-bib').forEach((btn) =>
+      btn.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(btn.dataset.bibtex!);
+          btn.textContent = `${btn.dataset.done} ✓`;
+          setTimeout(() => { btn.textContent = btn.dataset.label!; }, 1600);
+        } catch { /* clipboard blocked: nothing to do */ }
+      }));
+  </script>
+</Base>

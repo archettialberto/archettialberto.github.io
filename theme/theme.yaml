@@ -1,25 +1,25 @@
 # Visual identity for both the CV (`cv build-cv`) and the website (`cv build-site`).
 
 # Colors (hex, no leading #), referenced by name in both renderers.
+# Glass palette: white page, ink text, light-blue + pink accents.
 colors:
-  navy:      "1A3A52"   # primary: sidebar, headings
-  gold:      "B8860B"   # accent: rules, links, logo
-  charcoal:  "2D2D2D"   # body text
-  warmgray:  "8C8273"   # dates, captions
-  lightnavy: "DCE1E6"   # hairlines, borders
-  paper:     "FBFAF7"   # page / site background
-  sidebartext: "FFFFFF"
+  ink:   "1D1D1F"   # body text, headings
+  mist:  "6E6E76"   # dates, captions, secondary text
+  blue:  "2D8CDB"   # primary accent: links, buttons, rules
+  pink:  "F48FB8"   # secondary accent: gradients, highlights
+  haze:  "E4EDF5"   # hairlines, borders, light washes
+  page:  "FFFFFF"   # page / site background
 
 # Fonts: `family` matches the cv/fonts/ filenames (LaTeX); web_* map to Fontsource.
 fonts:
   display:   # headings, name
-    family: CormorantGaramond
-    web_family: Cormorant Garamond
-    web_package: cormorant-garamond
-    weights: [400, 600, 700]
-    fallback: Georgia, serif
-    letterspace: "2.0"
-    latex: { upright: Regular, bold: SemiBold, title: SemiBold, title_bold: Bold }
+    family: Manrope
+    web_family: Manrope
+    web_package: manrope
+    weights: [600, 700, 800]
+    fallback: system-ui, sans-serif
+    letterspace: "-0.5"
+    latex: { upright: SemiBold, bold: Bold, title: Bold, title_bold: ExtraBold }
   text:      # body
     family: Manrope
     web_family: Manrope
@@ -31,4 +31,12 @@ fonts:
 # Web-only tuning (ignored by LaTeX).
 web:
   max_width: 920px
-  radius: 2px
+  radius: 18px
+  # Dark mode: same names as `colors`, deep blue-black page.
+  dark:
+    ink:   "E8ECF2"
+    mist:  "98A2B3"
+    blue:  "5AB0F2"
+    pink:  "F59BC3"
+    haze:  "222A36"
+    page:  "0B0F17"

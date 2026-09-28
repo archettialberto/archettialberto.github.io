@@ -1,20 +1,39 @@
 ---
 import '../styles/global.css';
-import { SITE } from '../config';
-interface Props { title?: string; description?: string }
-const { title = SITE.title, description = SITE.description } = Astro.props;
+import { base } from '../config';
+import { cv, fullName } from '../data/cv';
+import { LANGS, langPath, useTranslations, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { tr } = useTranslations(lang);
+const title = `${fullName} | ${tr(cv.profile.title)}`;
+const description = tr(cv.profile.summary).trim();
 ---
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <title>{title}</title>
-    <link rel="icon" href={`${SITE.base}logo-gold.svg`} type="image/svg+xml" />
+    <link rel="icon" href={`${base}favicon.svg`} type="image/svg+xml" />
+    {LANGS.map((l) => <link rel="alternate" hreflang={l} href={new URL(langPath(l), Astro.site)} />)}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <script is:inline>
+      // Before first paint: flag JS (enables collapsing) and apply the theme: the visitor's
+      // saved choice (header toggle) if any, otherwise the OS setting, followed live.
+      (() => {
+        const d = document.documentElement;
+        d.classList.add('js');
+        const os = matchMedia('(prefers-color-scheme: dark)');
+        const chosen = () => { try { return localStorage.getItem('theme'); } catch { return null; } };
+        const apply = () => { d.dataset.theme = chosen() || (os.matches ? 'dark' : 'light'); };
+        apply();
+        os.addEventListener('change', apply);
+      })();
+    </script>
   </head>
   <body>
     <slot />

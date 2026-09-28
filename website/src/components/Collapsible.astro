@@ -1,0 +1,29 @@
+---
+// Hides descendants marked `data-more` behind a "Show all (n)" toggle.
+// Without JS nothing is hidden and the toggle stays out of the way.
+interface Props { total: number; hidden: number; showAll: string; showFewer: string; class?: string }
+const { total, hidden, showAll, showFewer, class: cls = '' } = Astro.props;
+const more = `${showAll} (${total})`;
+---
+<div class={`collapsible ${cls}`}>
+  <slot />
+  {hidden > 0 && (
+    <button type="button" class="collapse-toggle" aria-expanded="false" data-show={more} data-hide={showFewer}>
+      <span>{more}</span>
+      <svg class="h-3.5 w-3.5 transition-transform" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+  )}
+</div>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.collapse-toggle').forEach((btn) => {
+    const box = btn.parentElement!;
+    btn.addEventListener('click', () => {
+      const open = box.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(open));
+      btn.querySelector('span')!.textContent = open ? btn.dataset.hide! : btn.dataset.show!;
+      // After collapsing a long list, don't leave the reader stranded below it.
+      if (!open && box.getBoundingClientRect().top < 0) box.scrollIntoView({ block: 'start' });
+    });
+  });
+</script>

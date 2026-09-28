@@ -1,19 +1,22 @@
 ---
-// Uniform list entry: title, year badge, dot-separated meta line.
+// Uniform list entry: title, year chip, dot-separated meta line.
+// Extra attributes (class, data-*) land on the wrapper.
 interface Props {
   title: string;
   year?: number | string | null;
   meta?: (string | number | null | undefined)[];
+  class?: string;
+  [attr: `data-${string}`]: string | undefined;
 }
-const { title, year, meta = [] } = Astro.props;
+const { title, year, meta = [], class: cls, ...attrs } = Astro.props;
 const metaLine = meta.filter(Boolean).join(' · ');
 ---
-<div>
-  <h3 class="font-sans font-medium text-navy leading-snug">{title}</h3>
+<div class={cls} {...attrs}>
+  <h3 class="font-sans text-base font-semibold text-ink leading-snug">{title}</h3>
   {(year || metaLine) && (
     <div class="mt-1 flex flex-wrap items-center gap-2 text-xs">
-      {year && <span class="rounded bg-lightnavy/50 px-1.5 py-0.5 font-medium text-navy">{year}</span>}
-      {metaLine && <span class="text-warmgray">{metaLine}</span>}
+      {year && <span class="chip">{year}</span>}
+      {metaLine && <span class="text-mist">{metaLine}</span>}
     </div>
   )}
   <slot />

@@ -1,15 +1,19 @@
-- title: Tabular Foundation Models
-  description: >
-    Building general-purpose deep learning models for in-context learning on tabular data.
+- title: {en: Tabular Foundation Models, it: Foundation models tabulari}
+  description:
+    en: "One pretrained model for any table: predictions on a new dataset in a single forward pass, with no task-specific training."
+    it: "Un unico modello per qualsiasi tabella, capace di fare predizioni su un nuovo dataset senza alcun addestramento."
 
-- title: Survival Analysis
-  description: >
-    Predicting time-to-event outcomes for clinical data and financial applications.
+- title: {en: Survival Analysis, it: Analisi di sopravvivenza}
+  description:
+    en: Predicting not only whether an event happens but when, from patient outcomes to financial risk.
+    it: Prevedere non solo se un evento accadrà ma quando, dagli esiti clinici al rischio finanziario.
 
-- title: Federated Learning
-  description: >
-    Training models across distributed, siloed datasets while preserving privacy.
+- title: {en: Federated Learning, it: Federated Learning}
+  description:
+    en: Training models across hospitals without exposing patient data.
+    it: Addestrare modelli tra più ospedali senza che i dati vengano esposti.
 
-- title: Machine Learning for Healthcare
-  description: >
-    Applying AI to multimodal healthcare data, with a focus on privacy, interpretability, and reliability.
+- title: {en: Machine Learning for Healthcare, it: Machine learning per la sanità}
+  description:
+    en: "Models clinicians can rely on: private by design, interpretable, and robust to messy multimodal data."
+    it: "Modelli clinici affidabili: rispettosi della privacy, interpretabili e robusti a dati multimodali eterogenei."

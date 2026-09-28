@@ -1,68 +1,101 @@
 ---
-import { SITE, NAV } from '../config';
-import { cv, fullName } from '../data/cv';
-import SocialIcon from './SocialIcon.astro';
-const base = SITE.base;
-const logo = `${base}logo-gold.svg`;
-const socials = cv.profile.contacts.filter((c) => c.website && c.url);
+import { NAV } from '../config';
+import { cv } from '../data/cv';
+import { LANGS, langPath, useTranslations, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { ui } = useTranslations(lang);
+const other: Lang = lang === 'en' ? 'it' : 'en';
 ---
 
-<header class="sticky top-0 z-50 border-b border-lightnavy bg-paper/90 backdrop-blur-sm">
-  <div class="mx-auto max-w-content px-6">
-    <div class="flex h-16 items-center justify-between">
+<header class="sticky top-4 z-50 px-4">
+  <div class="glass mx-auto max-w-content px-5">
+    <div class="flex h-14 items-center justify-between gap-3">
 
       <!-- Brand -->
-      <a href={base} class="flex items-center gap-3 group">
-        <img src={logo} alt="" class="h-8 w-8" />
-        <span class="font-display text-xl font-semibold text-navy tracking-wide">
-          {fullName.replace(/, Ph\.D\.$/, '')}
-        </span>
+      <a href={langPath(lang)} class="whitespace-nowrap font-display text-base font-bold text-ink no-underline hover:no-underline">
+        {cv.profile.name}
       </a>
 
       <!-- Desktop nav -->
       <nav class="hidden md:flex items-center gap-1">
-        {NAV.map((item) => (
-          <a href={item.href}
-             class="px-3 py-2 text-sm font-medium text-charcoal/80 rounded hover:text-navy hover:bg-lightnavy/40 transition-colors no-underline">
-            {item.label}
-          </a>
-        ))}
-        <span class="mx-2 h-5 w-px bg-lightnavy"></span>
-        {socials.map((c) => (
-          <a href={c.url!} target={c.icon === 'email' ? undefined : '_blank'} rel="noopener"
-             aria-label={c.label} class="p-2 text-warmgray hover:text-gold transition-colors">
-            <SocialIcon name={c.icon} />
-          </a>
-        ))}
+        {NAV.map((id) => <a href={`#${id}`} class="nav-link">{ui.nav[id]}</a>)}
       </nav>
 
-      <!-- Mobile toggle -->
-      <button id="nav-toggle" class="md:hidden p-2 text-charcoal" aria-label="Menu" aria-expanded="false">
-        <svg id="nav-open" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        <svg id="nav-close" class="h-5 w-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
+      <!-- Always visible: language, theme, mobile menu -->
+      <div class="flex items-center gap-1">
+        <a id="lang-switch" href={langPath(other)} hreflang={other} title={ui.otherLang} aria-label={ui.otherLang}
+           class="lang-switch" data-lang={lang} data-active={lang}>
+          <span class="lang-thumb" aria-hidden="true"></span>
+          {LANGS.map((l) => <span class="lang-opt" data-opt={l}>{l.toUpperCase()}</span>)}
+        </a>
+        <button id="theme-toggle" type="button" class="icon-btn" aria-label={ui.theme} title={ui.theme}>
+          <svg class="theme-moon h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+          <svg class="theme-sun h-4 w-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        </button>
+        <button id="nav-toggle" class="icon-btn md:hidden" aria-label={ui.menu} aria-expanded="false">
+          <svg id="nav-open" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          <svg id="nav-close" class="h-5 w-5 hidden" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
     </div>
-  </div>
 
-  <!-- Mobile menu -->
-  <div id="nav-menu" class="md:hidden hidden border-t border-lightnavy bg-paper px-6 py-3">
-    {NAV.map((item) => (
-      <a href={item.href} class="block py-2 text-sm font-medium text-charcoal/80 hover:text-navy no-underline">{item.label}</a>
-    ))}
+    <!-- Mobile menu -->
+    <div id="nav-menu" class="md:hidden hidden border-t border-haze py-3">
+      {NAV.map((id) => (
+        <a href={`#${id}`} class="block py-2 text-sm font-medium text-ink/70 hover:text-ink no-underline">{ui.nav[id]}</a>
+      ))}
+    </div>
   </div>
 </header>
 
 <script>
+  const root = document.documentElement;
+
+  document.getElementById('theme-toggle')?.addEventListener('click', () => {
+    const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+    root.dataset.theme = next;
+    try { localStorage.setItem('theme', next); } catch {}
+  });
+
+  // Language switch: slide the thumb across, then go (keeping the reader's place);
+  // the page itself cross-fades via the CSS view transition.
+  const langSwitch = document.getElementById('lang-switch') as HTMLAnchorElement | null;
+  langSwitch?.addEventListener('click', (e) => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+    e.preventDefault();
+    const to = langSwitch.href.split('#')[0] + location.hash;
+    langSwitch.dataset.active = langSwitch.hreflang;
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setTimeout(() => location.assign(to), still ? 0 : 260);
+  });
+  // Coming back via the back button restores the page as it was left: reset the thumb.
+  addEventListener('pageshow', () => { if (langSwitch) langSwitch.dataset.active = langSwitch.dataset.lang; });
+
+  // Mobile menu.
   const btn = document.getElementById('nav-toggle');
   const menu = document.getElementById('nav-menu');
-  const open = document.getElementById('nav-open');
-  const close = document.getElementById('nav-close');
-  btn?.addEventListener('click', () => {
-    const hidden = menu?.classList.toggle('hidden');
-    open?.classList.toggle('hidden', !hidden);
-    close?.classList.toggle('hidden', hidden);
-    btn.setAttribute('aria-expanded', String(!hidden));
+  const setOpen = (open: boolean) => {
+    menu?.classList.toggle('hidden', !open);
+    document.getElementById('nav-open')?.classList.toggle('hidden', open);
+    document.getElementById('nav-close')?.classList.toggle('hidden', !open);
+    btn?.setAttribute('aria-expanded', String(open));
+  };
+  btn?.addEventListener('click', () => setOpen(menu?.classList.contains('hidden') ?? false));
+  menu?.querySelectorAll('a[href^="#"]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+
+  // Scroll-spy: highlight the nav link of the section in view.
+  const links = new Map(
+    Array.from(document.querySelectorAll<HTMLAnchorElement>('.nav-link')).map((a) => [a.hash.slice(1), a]),
+  );
+  const spy = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      links.forEach((a, id) => a.classList.toggle('is-active', id === e.target.id));
+    }
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  links.forEach((_, id) => {
+    const sec = document.getElementById(id);
+    if (sec) spy.observe(sec);
   });
-  menu?.querySelectorAll('a').forEach((a) =>
-    a.addEventListener('click', () => menu.classList.add('hidden')));
 </script>
