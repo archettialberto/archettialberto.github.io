@@ -44,11 +44,13 @@
     font-family: var(--display);
     @apply text-2xl sm:text-3xl font-bold text-ink tracking-tight;
   }
-  /* Subheadings share the epigraph's gradient bar and type, so the page reads as one system. */
   .subsection-title {
-    @apply relative mb-6 pl-5 font-display text-lg font-semibold leading-snug text-ink/85;
+    @apply mb-6 font-display text-lg font-semibold leading-snug text-ink/85;
   }
-  .subsection-title::before, .epigraph::before {
+  /* Vertical gradient bar on the left: only the About block (quote, research interests),
+     which has no section title above it. */
+  .bar { @apply relative pl-5; }
+  .bar::before {
     content: '';
     @apply absolute bottom-0.5 left-0 top-0.5 w-[3px] rounded-full bg-gradient-to-b from-blue to-pink;
   }
@@ -177,7 +179,6 @@
     .step:hover > div { transform: translateX(4px); }
   }
 
-  .epigraph { @apply relative pl-5; }
   .epigraph cite { font-style: italic; }
 
   .news-text a { @apply font-medium; }

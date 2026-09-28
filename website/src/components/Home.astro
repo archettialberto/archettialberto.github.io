@@ -106,7 +106,7 @@ const kindClass = {
     <!-- About -->
     <Section id="about">
       {profile.quote && (
-        <figure class="epigraph mb-8">
+        <figure class="epigraph bar mb-8">
           <blockquote class="font-display text-base lg:text-lg font-semibold leading-snug text-ink/85 md:whitespace-nowrap">“{tr(profile.quote.text)}”</blockquote>
           <figcaption class="mt-1.5 text-sm text-mist">{profile.quote.author}{profile.quote.source && <>, <cite>{profile.quote.source}</cite></>}</figcaption>
         </figure>
@@ -115,7 +115,7 @@ const kindClass = {
         {bioParas.map((p) => <p class="text-ink/80" set:html={p} />)}
       </div>
       {research_interests.length > 0 && (
-        <h3 class="subsection-title mt-12">{ui.interests}</h3>
+        <h3 class="subsection-title bar mt-12">{ui.interests}</h3>
       )}
       {research_interests.length > 0 && (
         <div class="grid gap-4 sm:grid-cols-2">
