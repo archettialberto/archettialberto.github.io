@@ -1,6 +1,13 @@
 # Website "News": sorted by date at build; only the four most recent show.
 # `date`: YYYY-MM or YYYY. Inline HTML allowed.
 
+- date: 2026-09
+  text:
+    en: >-
+      New preprint: <a href="https://doi.org/10.2139/ssrn.7531718">Tabular Foundation Models: A Systematic Survey</a>.
+    it: >-
+      Nuovo preprint: <a href="https://doi.org/10.2139/ssrn.7531718">Tabular Foundation Models: A Systematic Survey</a>.
+
 - date: 2026-07
   text:
     en: >-

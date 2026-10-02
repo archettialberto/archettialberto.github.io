@@ -4,7 +4,7 @@
     "i10_index": 5,
     "total_citations": 183,
     "scholar_id": "--kj4bcAAAAJ",
-    "fetched_at": "2026-09-28T14:36:54+00:00"
+    "fetched_at": "2026-10-02T13:35:32+00:00"
   },
   "citations_by_title": {
     "Federated Survival Forests": 37,
@@ -20,6 +20,7 @@
     "Harnessing the computing continuum across personalized healthcare, maintenance and inspection, and farming 4.0": 4,
     "Deep Survival Analysis for Healthcare: An Empirical Study on Post-Processing Techniques": 4,
     "QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption": 1,
+    "Tabular Foundation Models: A Systematic Survey": 0,
     "A Filtered Mixture-of-Generators for Fully Synthetic Survival Training": 0,
     "SurvKAN: A Fully Parametric Survival Model Based on Kolmogorov-Arnold Networks": 0,
     "Deep Variational Contrastive Learning for Joint Risk Stratification and Time-to-Event Estimation": 0,

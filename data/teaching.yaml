@@ -1,3 +1,24 @@
+- role: Professor
+  org: Politecnico di Milano
+  year: 2026
+  course: Computer Grafica per il Game Design
+  degree: BSc
+  hours: 50
+
+- role: Professor
+  org: Albert School
+  year: 2026
+  course: Artificial Intelligence for Business
+  degree: MSc
+  hours: 24
+
+- role: Teaching Assistant
+  org: Politecnico di Milano
+  year: 2026
+  course: Artificial Neural Networks and Deep Learning
+  degree: MSc
+  hours: 20
+
 - role: Teaching Assistant
   org: Politecnico di Milano
   year: 2026

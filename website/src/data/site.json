@@ -208,6 +208,30 @@
   ],
   "teaching": [
     {
+      "role": "Professor",
+      "org": "Politecnico di Milano",
+      "year": 2026,
+      "course": "Computer Grafica per il Game Design",
+      "degree": "BSc",
+      "hours": 50
+    },
+    {
+      "role": "Professor",
+      "org": "Albert School",
+      "year": 2026,
+      "course": "Artificial Intelligence for Business",
+      "degree": "MSc",
+      "hours": 24
+    },
+    {
+      "role": "Teaching Assistant",
+      "org": "Politecnico di Milano",
+      "year": 2026,
+      "course": "Artificial Neural Networks and Deep Learning",
+      "degree": "MSc",
+      "hours": 20
+    },
+    {
       "role": "Teaching Assistant",
       "org": "Politecnico di Milano",
       "year": 2026,
@@ -314,6 +338,26 @@
   ],
   "courses": [
     {
+      "course": "Computer Grafica per il Game Design",
+      "org": "Politecnico di Milano",
+      "role": "Professor",
+      "degree": "BSc",
+      "start": 2026,
+      "end": 2026,
+      "editions": 1,
+      "hours": 50
+    },
+    {
+      "course": "Artificial Intelligence for Business",
+      "org": "Albert School",
+      "role": "Professor",
+      "degree": "MSc",
+      "start": 2026,
+      "end": 2026,
+      "editions": 1,
+      "hours": 24
+    },
+    {
       "course": "Advanced Deep Learning",
       "org": "Politecnico di Milano",
       "role": "Teaching Assistant",
@@ -322,6 +366,16 @@
       "end": 2026,
       "editions": 1,
       "hours": 10
+    },
+    {
+      "course": "Artificial Neural Networks and Deep Learning",
+      "org": "Politecnico di Milano",
+      "role": "Teaching Assistant",
+      "degree": "MSc",
+      "start": 2024,
+      "end": 2026,
+      "editions": 3,
+      "hours": 60
     },
     {
       "course": "AI Bootcamp",
@@ -342,16 +396,6 @@
       "end": 2025,
       "editions": 1,
       "hours": 6
-    },
-    {
-      "course": "Artificial Neural Networks and Deep Learning",
-      "org": "Politecnico di Milano",
-      "role": "Teaching Assistant",
-      "degree": "MSc",
-      "start": 2024,
-      "end": 2025,
-      "editions": 2,
-      "hours": 40
     },
     {
       "course": "Coding Bootcamp",
@@ -628,6 +672,28 @@
       "selected": false
     },
     {
+      "key": "archetti2026tabular",
+      "kind": "preprint",
+      "title": "Tabular Foundation Models: A Systematic Survey",
+      "authors": [
+        "Archetti, Alberto",
+        "Mastroleo, M.",
+        "Sabella, M.",
+        "Cappiello, C.",
+        "Matteucci, M."
+      ],
+      "year": 2026,
+      "venue": "SSRN Preprint",
+      "volume": null,
+      "pages": null,
+      "doi": "10.2139/ssrn.7531718",
+      "arxiv": null,
+      "keywords": [],
+      "bibtex": "@misc{archetti2026tabular,\n  author = {Archetti, Alberto and Mastroleo, M. and Sabella, M. and Cappiello, C. and Matteucci, M.},\n  doi = {10.2139/ssrn.7531718},\n  howpublished = {SSRN Preprint},\n  title = {Tabular Foundation Models: A Systematic Survey},\n  year = {2026}\n}",
+      "citations": 0,
+      "selected": true
+    },
+    {
       "key": "archetti2025fpboost",
       "kind": "conference",
       "title": "FPBoost: Fully Parametric Gradient Boosting for Survival Analysis",
@@ -892,9 +958,13 @@
     "i10_index": 5,
     "total_citations": 183,
     "scholar_id": "--kj4bcAAAAJ",
-    "fetched_at": "2026-09-28T14:36:54+00:00"
+    "fetched_at": "2026-10-02T13:35:32+00:00"
   },
   "news": [
+    {
+      "date": "2026-09",
+      "text": "New preprint: <a href=\"https://doi.org/10.2139/ssrn.7531718\">Tabular Foundation Models: A Systematic Survey</a>."
+    },
     {
       "date": "2026-07",
       "text": "New preprint with Niccolò Maria Rizzi: <a href=\"https://arxiv.org/abs/2607.00127\">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>."
@@ -930,6 +1000,7 @@
     "Research topic": "Tema di ricerca",
     "Collaborations": "Collaborazioni",
     "Activities": "Attività",
+    "Professor": "Docente",
     "Teaching Assistant": "Esercitatore",
     "Lab Tutor": "Tutor di laboratorio",
     "Corporate Training": "Formazione aziendale",
@@ -970,6 +1041,7 @@
     "PhD Lecture, Politecnico di Milano": "Lezione di dottorato, Politecnico di Milano",
     "Special Mention for Best Paper": "Menzione speciale come miglior articolo",
     "AI scientific lead": "Responsabile scientifico IA",
+    "New preprint: <a href=\"https://doi.org/10.2139/ssrn.7531718\">Tabular Foundation Models: A Systematic Survey</a>.": "Nuovo preprint: <a href=\"https://doi.org/10.2139/ssrn.7531718\">Tabular Foundation Models: A Systematic Survey</a>.",
     "New preprint with Niccolò Maria Rizzi: <a href=\"https://arxiv.org/abs/2607.00127\">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>.": "Nuovo preprint con Niccolò Maria Rizzi: <a href=\"https://arxiv.org/abs/2607.00127\">A Filtered Mixture-of-Generators for Fully Synthetic Survival Training</a>.",
     "Presented <em>SurvKAN</em> and <em>Deep Variational Contrastive Learning</em> at IJCNN 2026 in Maastricht. Both grew out of MSc theses I co-supervised.": "Presentati <em>SurvKAN</em> e <em>Deep Variational Contrastive Learning</em> a IJCNN 2026 a Maastricht. Entrambi sono nati da tesi magistrali di cui sono stato correlatore.",
     "New preprint: <a href=\"https://arxiv.org/abs/2602.03686\">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>.": "Nuovo preprint: <a href=\"https://arxiv.org/abs/2602.03686\">QuAIL: Quality-Aware Inertial Learning for Robust Training under Data Corruption</a>.",

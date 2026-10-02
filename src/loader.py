@@ -92,7 +92,7 @@ def _parse_publications() -> list[Publication]:
         if "ignore" in keywords:
             continue
         arxiv = e.get("eprint") if e.get("archiveprefix", "").lower() == "arxiv" else None
-        venue = e.get("journal") or e.get("booktitle")
+        venue = e.get("journal") or e.get("booktitle") or e.get("howpublished")
         pubs.append(
             Publication(
                 key=e["ID"],
