@@ -8,8 +8,8 @@
 - role: Professor
   org: Albert School
   year: 2026
-  course: Artificial Intelligence for Business
-  degree: MSc
+  course: Introduction to Statistics
+  degree: Master
   hours: 24
 
 - role: Teaching Assistant
