@@ -11,22 +11,24 @@
   color-scheme: light;
   --ink: #1D1D1F;
   --ink-rgb: 29 29 31;
-  --mist: #6E6E76;
-  --mist-rgb: 110 110 118;
-  --blue: #2D8CDB;
-  --blue-rgb: 45 140 219;
+  --mist: #5C6066;
+  --mist-rgb: 92 96 102;
+  --blue: #1765AC;
+  --blue-rgb: 23 101 172;
   --pink: #F48FB8;
   --pink-rgb: 244 143 184;
-  --haze: #E4EDF5;
-  --haze-rgb: 228 237 245;
+  --haze: #F1F3F5;
+  --haze-rgb: 241 243 245;
   --page: #FFFFFF;
   --page-rgb: 255 255 255;
+  --research: #EEF4F8;
+  --research-rgb: 238 244 248;
 
   --display: 'Manrope', system-ui, sans-serif;
   --text: 'Manrope', system-ui, sans-serif;
 
-  --max-width: 920px;
-  --radius: 18px;
+  --max-width: 1020px;
+  --radius: 0px;
 }
 
 /* Dark: explicit choice (data-theme, set by the header toggle) or, without JS, the OS setting. */
@@ -44,6 +46,8 @@
   --haze-rgb: 34 42 54;
   --page: #0B0F17;
   --page-rgb: 11 15 23;
+  --research: #121E2B;
+  --research-rgb: 18 30 43;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
@@ -60,5 +64,7 @@
     --haze-rgb: 34 42 54;
     --page: #0B0F17;
     --page-rgb: 11 15 23;
+    --research: #121E2B;
+    --research-rgb: 18 30 43;
   }
 }

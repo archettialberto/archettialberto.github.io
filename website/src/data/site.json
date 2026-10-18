@@ -219,8 +219,8 @@
       "role": "Professor",
       "org": "Albert School",
       "year": 2026,
-      "course": "Artificial Intelligence for Business",
-      "degree": "MSc",
+      "course": "Introduction to Statistics",
+      "degree": "Master",
       "hours": 24
     },
     {
@@ -348,10 +348,10 @@
       "hours": 50
     },
     {
-      "course": "Artificial Intelligence for Business",
+      "course": "Introduction to Statistics",
       "org": "Albert School",
       "role": "Professor",
-      "degree": "MSc",
+      "degree": "Master",
       "start": 2026,
       "end": 2026,
       "editions": 1,

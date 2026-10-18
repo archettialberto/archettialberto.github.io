@@ -30,8 +30,15 @@ fonts:
 
 # Web-only tuning (ignored by LaTeX).
 web:
-  max_width: 920px
-  radius: 18px
+  max_width: 1020px
+  radius: 0px
+  # Website-only overrides: accessible link contrast and quiet editorial surfaces.
+  # The CV continues to use the shared `colors` above.
+  colors:
+    blue: "1765AC"
+    mist: "5C6066"
+    haze: "F1F3F5"
+    research: "EEF4F8"
   # Dark mode: same names as `colors`, deep blue-black page.
   dark:
     ink:   "E8ECF2"
@@ -40,3 +47,4 @@ web:
     pink:  "F59BC3"
     haze:  "222A36"
     page:  "0B0F17"
+    research: "121E2B"

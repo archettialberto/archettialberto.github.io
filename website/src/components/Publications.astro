@@ -1,0 +1,149 @@
+---
+import Section from './Section.astro';
+import { cv, pubUrl } from '../data/cv';
+import { useTranslations, type Lang } from '../i18n';
+interface Props { lang: Lang }
+const { lang } = Astro.props;
+const { ui } = useTranslations(lang);
+const { publications, metrics, profile } = cv;
+const hasSelected = publications.some((publication) => publication.selected);
+const featured = (publication: (typeof publications)[number], index: number) => hasSelected ? publication.selected : index < 6;
+const years = [...new Set(publications.map((publication) => publication.year))].sort((a, b) => b - a);
+const kinds = [...new Set(publications.map((publication) => publication.kind))];
+const profiles = profile.contacts.filter((contact) => contact.website && contact.url && ['scholar', 'scopus'].includes(contact.icon ?? ''));
+---
+<Section id="publications" title={ui.publications}>
+  <Fragment slot="aside">
+    <div class="publication-metrics">
+      {metrics?.total_citations != null && <p>{ui.citations(metrics.total_citations)}</p>}
+      {metrics?.h_index != null && <p>h-index {metrics.h_index}</p>}
+    </div>
+    <div class="citation-profiles">
+      {profiles.map((contact) => <a href={contact.url!} target="_blank" rel="noopener">{contact.icon === 'scholar' ? 'Google Scholar' : contact.label}</a>)}
+    </div>
+  </Fragment>
+  <div class="publication-archive" data-results-template={ui.results('{count}', publications.length)}>
+    <form class="publication-filters" role="search" aria-label={ui.searchPapers} hidden>
+      <div class="publication-views" role="group" aria-label={ui.publications}>
+        <button type="button" data-view="selected" aria-pressed="true">{ui.selected}</button>
+        <button type="button" data-view="all" aria-pressed="false">{ui.allPapers}</button>
+      </div>
+      <label class="search-label" for="paper-search">{ui.searchPapers}</label>
+      <input id="paper-search" type="search" name="q" placeholder={ui.searchPlaceholder} autocomplete="off" />
+      <div class="filter-row">
+        <label for="paper-year">{ui.year}
+          <select id="paper-year" name="year"><option value="">{ui.allYears}</option>{years.map((year) => <option value={year}>{year}</option>)}</select>
+        </label>
+        <label for="paper-kind">{ui.type}
+          <select id="paper-kind" name="kind"><option value="">{ui.allTypes}</option>{kinds.map((kind) => <option value={kind}>{ui.kind[kind]}</option>)}</select>
+        </label>
+      </div>
+      <div class="filter-summary">
+        <output aria-live="polite" aria-atomic="true">{ui.results(publications.length, publications.length)}</output>
+        <button type="reset" class="text-button" hidden>{ui.resetFilters}</button>
+      </div>
+    </form>
+    <p class="no-results" hidden>{ui.noResults}</p>
+    <div class="publication-groups">
+      {years.map((year) => (
+        <section class="publication-group" data-year-group={year} aria-labelledby={`publications-${year}`}>
+          <h3 id={`publications-${year}`} class="publication-year">{year}</h3>
+          <ol class="publication-list">
+            {publications.map((publication, index) => publication.year === year && (
+              <li data-publication data-featured={String(featured(publication, index))} data-year={publication.year} data-kind={publication.kind}
+                  data-search={[publication.title, ...publication.authors, publication.venue, ...publication.keywords, publication.doi, publication.arxiv].filter(Boolean).join(' ')}>
+                <div class="paper-meta"><span>{ui.kind[publication.kind]}</span>{!!publication.citations && <span>{ui.citations(publication.citations)}</span>}</div>
+                <h4>{pubUrl(publication) ? <a href={pubUrl(publication)!} target="_blank" rel="noopener">{publication.title}</a> : publication.title}</h4>
+                <p class="paper-authors">{publication.authors.map((author, i) => <><span class={author.includes('Archetti') ? 'paper-author-self' : undefined}>{author}</span>{i < publication.authors.length - 1 ? ', ' : ''}</>)}</p>
+                {publication.venue && <p class="paper-venue">{publication.venue}</p>}
+                <div class="paper-actions">
+                  {publication.doi && <a href={`https://doi.org/${publication.doi}`} target="_blank" rel="noopener">DOI</a>}
+                  {publication.arxiv && <a href={`https://arxiv.org/abs/${publication.arxiv}`} target="_blank" rel="noopener">arXiv</a>}
+                  {publication.bibtex && <>
+                    <button type="button" class="copy-bib text-button" data-bibtex={publication.bibtex} data-label={ui.cite} data-done={ui.copied} hidden>{ui.cite}</button>
+                    <noscript><details><summary>{ui.cite}</summary><pre>{publication.bibtex}</pre></details></noscript>
+                  </>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+    </div>
+  </div>
+  <dialog id="citation-dialog" aria-labelledby="citation-title" aria-describedby="citation-instructions">
+    <h2 id="citation-title">{ui.citation}</h2>
+    <p id="citation-instructions">{ui.copyManually}</p>
+    <label for="citation-text" class="sr-only">BibTeX</label>
+    <textarea id="citation-text" readonly spellcheck="false" rows="12"></textarea>
+    <form method="dialog"><button class="button button-primary">{ui.close}</button></form>
+  </dialog>
+</Section>
+<script>
+  const archive = document.querySelector<HTMLElement>('.publication-archive');
+  if (archive) {
+    const form = archive.querySelector<HTMLFormElement>('form')!;
+    const search = form.querySelector<HTMLInputElement>('[name="q"]')!;
+    const year = form.querySelector<HTMLSelectElement>('[name="year"]')!;
+    const kind = form.querySelector<HTMLSelectElement>('[name="kind"]')!;
+    const views = [...form.querySelectorAll<HTMLButtonElement>('[data-view]')];
+    const rows = [...archive.querySelectorAll<HTMLElement>('[data-publication]')];
+    const groups = [...archive.querySelectorAll<HTMLElement>('[data-year-group]')];
+    const output = form.querySelector('output')!;
+    const reset = form.querySelector<HTMLButtonElement>('[type="reset"]')!;
+    const empty = archive.querySelector<HTMLElement>('.no-results')!;
+    const normalize = (text: string) => text.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase();
+    const index = rows.map((row) => ({ row, search: normalize(row.dataset.search ?? '') }));
+    let view = 'selected';
+    const update = () => {
+      const words = normalize(search.value.trim()).split(/\s+/).filter(Boolean);
+      let count = 0;
+      index.forEach(({ row, search: text }) => {
+        const matches = (view === 'all' || row.dataset.featured === 'true')
+          && (!year.value || row.dataset.year === year.value)
+          && (!kind.value || row.dataset.kind === kind.value)
+          && words.every((word) => text.includes(word));
+        row.hidden = !matches;
+        if (matches) count++;
+      });
+      groups.forEach((group) => {
+        group.hidden = !group.querySelector('[data-publication]:not([hidden])');
+      });
+      views.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.view === view)));
+      output.textContent = archive.dataset.resultsTemplate!.replace('{count}', String(count));
+      empty.hidden = count > 0;
+      reset.hidden = !search.value && !year.value && !kind.value;
+    };
+    views.forEach((button) => button.addEventListener('click', () => { view = button.dataset.view!; update(); }));
+    const filter = () => { view = 'all'; update(); };
+    search.addEventListener('input', filter);
+    year.addEventListener('change', filter);
+    kind.addEventListener('change', filter);
+    form.addEventListener('submit', (event) => event.preventDefault());
+    form.addEventListener('reset', () => { view = 'all'; setTimeout(update, 0); });
+    // No-JS visitors get the complete bibliography, without inert search controls.
+    update();
+    form.hidden = false;
+  }
+  const dialog = document.querySelector<HTMLDialogElement>('#citation-dialog');
+  const citation = dialog?.querySelector<HTMLTextAreaElement>('textarea');
+  document.querySelectorAll<HTMLButtonElement>('.copy-bib').forEach((button) => {
+    let timer: ReturnType<typeof setTimeout>;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.bibtex!);
+        clearTimeout(timer);
+        button.textContent = button.dataset.done!;
+        timer = setTimeout(() => { button.textContent = button.dataset.label!; }, 1800);
+      } catch {
+        if (dialog && citation) {
+          citation.value = button.dataset.bibtex!;
+          dialog.showModal();
+          citation.focus();
+          citation.select();
+        }
+      }
+    });
+    button.hidden = false;
+  });
+</script>

@@ -29,6 +29,16 @@ This repo builds my CV (LaTeX → PDF) and website (Astro) from a single source 
 | Profile photo (website only) | `website/public/img/`, path set in `website/src/config.ts` |
 | Colors & fonts (CV **and** website), dark palette | `theme/theme.yaml` |
 
+The theme's `web.colors` overrides colors for the website only; the shared
+`colors` and font settings still define the CV. Website layout and interactions
+live in `website/src/`. Publication search and year/type filters use the generated
+BibTeX data; without JavaScript, the complete publication list remains readable.
+
+The introduction has a faint, single-color Game of Life canvas with a gradient
+mask and scroll fade. It has no controls, stays still for reduced-motion users,
+and stops updating when off-screen or in a hidden tab. Its rules and seed live in
+`website/src/scripts/life.js` (`npm --prefix website test` checks the rules).
+
 ### Setup (once)
 
 Needs conda, Node, and TeX Live (`xelatex`):

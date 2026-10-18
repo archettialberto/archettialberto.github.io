@@ -1,0 +1,75 @@
+---
+// Decorative only: transparent, non-interactive, and independent of the content.
+---
+<canvas class="life-background" aria-hidden="true"></canvas>
+<script>
+  import { seedLife, stepLife } from '../scripts/life.js';
+
+  const canvas = document.querySelector<HTMLCanvasElement>('.life-background');
+  const context = canvas?.getContext('2d');
+  if (canvas && context) {
+    const intro = canvas.parentElement!;
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+    const cellSize = 9;
+    const opacity = Number(getComputedStyle(canvas).getPropertyValue('--life-opacity'));
+    let columns = 0;
+    let rows = 0;
+    let cells: Uint8Array = new Uint8Array();
+    let width = 0;
+    let height = 0;
+    let visible = true;
+    let timer: ReturnType<typeof setInterval> | undefined;
+
+    const draw = () => {
+      context.clearRect(0, 0, width, height);
+      context.fillStyle = getComputedStyle(document.documentElement).getPropertyValue('--blue').trim();
+      for (let y = 0; y < rows; y++) {
+        for (let x = 0; x < columns; x++) {
+          if (cells[y * columns + x]) context.fillRect(x * cellSize, y * cellSize, cellSize - 2, cellSize - 2);
+        }
+      }
+    };
+    const fade = () => {
+      const bounds = intro.getBoundingClientRect();
+      const progress = Math.max(0, -bounds.top / Math.max(1, bounds.height * 0.8));
+      canvas.style.opacity = String(opacity * Math.max(0, 1 - progress));
+    };
+    const updatePlayback = () => {
+      clearInterval(timer);
+      timer = undefined;
+      if (!visible || document.hidden || reduced.matches) return;
+      timer = setInterval(() => {
+        cells = stepLife(cells, columns, rows);
+        draw();
+      }, 180);
+    };
+    const resize = () => {
+      width = canvas.clientWidth;
+      height = canvas.clientHeight;
+      const scale = Math.min(devicePixelRatio || 1, 2);
+      canvas.width = Math.round(width * scale);
+      canvas.height = Math.round(height * scale);
+      context.setTransform(scale, 0, 0, scale, 0, 0);
+      columns = Math.max(3, Math.ceil(width / cellSize));
+      rows = Math.max(3, Math.ceil(height / cellSize));
+      cells = seedLife(columns, rows);
+      // Begin with formed patterns rather than the initial random field.
+      for (let i = 0; i < 8; i++) cells = stepLife(cells, columns, rows);
+      draw();
+      fade();
+    };
+    resize();
+    new ResizeObserver(resize).observe(intro);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      updatePlayback();
+    }).observe(intro);
+    reduced.addEventListener('change', updatePlayback);
+    document.addEventListener('visibilitychange', updatePlayback);
+    addEventListener('scroll', fade, { passive: true });
+    addEventListener('pagehide', () => clearInterval(timer));
+    addEventListener('pageshow', updatePlayback);
+    updatePlayback();
+  }
+</script>

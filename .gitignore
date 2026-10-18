@@ -19,3 +19,6 @@ node_modules/
 website/dist/
 website/.astro/
 *.log
+
+# Local design directions, browser reports, and screenshots.
+.taste-skill/

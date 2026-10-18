@@ -45,9 +45,9 @@ def _color_vars(colors: dict, indent: str = "  ") -> str:
 
 def write_web_css(theme: dict | None = None) -> Path:
     theme = theme or load_theme()
-    colors = theme["colors"]
     fonts = theme["fonts"]
     web = theme["web"]
+    colors = {**theme["colors"], **web.get("colors", {})}
 
     imports = []
     for spec in fonts.values():
